@@ -1,0 +1,11 @@
+﻿@model SinExWebApp20265462.ViewModels.ServicePackageFeesIndexViewModel
+
+@{
+    ViewBag.Title = "Service/Package Fees";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.Partial("_CurrenciesListPartial", Model.Currency)
+<hr />
+@Html.Partial("_ServicePackageFeesListPartial", Model.ServicePackageFees)

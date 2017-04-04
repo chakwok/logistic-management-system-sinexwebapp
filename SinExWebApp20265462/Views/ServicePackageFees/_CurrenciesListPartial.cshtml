@@ -1,0 +1,13 @@
+﻿@model SinExWebApp20265462.ViewModels.ServicePackageFeesCurrenciesListViewModel
+
+@using (Html.BeginForm("GenerateServicePackageFeesReport", "ServicePackageFees", "FormMethod.Get"))
+{
+    <div class="form-horizontal">   
+        <div class="form-group">
+            <label for="DisplayCurrency" class="col-sm-2 control-label">Display currency in </label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(a => a.CurrencyCode, Model.CurrencyCodes, new { @class = "form-control", style = "width: 150px;", onchange = "this.form.submit()" })
+            </div>
+        </div>
+    </div>
+}

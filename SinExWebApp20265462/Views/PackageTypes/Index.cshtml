@@ -1,0 +1,46 @@
+﻿@model IEnumerable<SinExWebApp20265462.Models.PackageType>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Package Types</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+            @foreach (var packageTypeSize in item.PackageTypeSizes)
+            {
+                <p>
+                    (Size:&nbsp
+                    @Html.DisplayFor(modelItem => packageTypeSize.Size);
+                    Weight limit:
+                    @if (packageTypeSize.WeightLimit == 0)
+                    {   <span> Not Applicable)</span>}
+                    else if (packageTypeSize.WeightLimit == -1)
+                    { <span> No Weight Limit)</span>}
+                    else
+                    { @Html.DisplayFor(modelItem => packageTypeSize.WeightLimit)
+                        <span>kg)</span> }
+                </p>
+            }
+        </td>
+    </tr>
+}
+
+</table>

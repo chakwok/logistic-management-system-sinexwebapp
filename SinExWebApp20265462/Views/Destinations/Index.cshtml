@@ -1,0 +1,36 @@
+﻿@model IEnumerable<SinExWebApp20265462.Models.Destination>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Destinations</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProvinceCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Currency.CurrencyCode)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProvinceCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Currency.CurrencyCode)
+        </td>
+    </tr>
+}
+
+</table>

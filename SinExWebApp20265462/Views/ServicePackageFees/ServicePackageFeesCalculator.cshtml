@@ -1,0 +1,59 @@
+﻿@model SinExWebApp20265462.ViewModels.ServicePackageFeesCalculatorViewModel
+
+@{
+    ViewBag.Title = "Package Cost Calculator";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("ServicePackageFeesCalculator", "ServicePackageFees", "FormMethod.Get"))
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Origin, "Origin", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(a => a.Origin, Model.Destinations, new { @class = "form-control", style = "width: 150px;" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Destination, "Destination", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(a => a.Destination, Model.Destinations, new { @class = "form-control", style = "width: 150px;" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ServiceTypeID, "Service Type", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(a => a.ServiceTypeID, Model.ServiceTypes, new { @class = "form-control", style = "width: 150px;" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PackageTypeSizeID, "Package Type", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(a => a.PackageTypeSizeID, Model.PackageTypeSizes, new { @class = "form-control", style = "width: 150px;" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Weight, "Weight", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(a => a.Weight, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>
+    <input type="submit" value="Submit" />
+    <hr />
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label for="DisplayCurrency" class="col-sm-2 control-label">Display currency in </label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(a => a.CurrencyCode, Model.CurrencyCodes, new { @class = "form-control", style = "width: 150px;", onchange = "this.form.submit()" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PackageCost, "Package Cost: ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.PackageCost)
+            </div>
+        </div>
+    </div>
+}
