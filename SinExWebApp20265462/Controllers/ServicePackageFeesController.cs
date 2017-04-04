@@ -57,29 +57,30 @@ namespace SinExWebApp20265462.Controllers
         // GET: ServicePackageFees/GenerateServicePackageFeesReport
         public ActionResult GenerateServicePackageFeesReport(string CurrencyCode)
         {
-            var servicePackageFee = new ServicePackageFeesIndexViewModel();
-            servicePackageFee.Currency = new ServicePackageFeesCurrenciesListViewModel();
+            var servicePackageFeeIndex = new ServicePackageFeesIndexViewModel();
+            servicePackageFeeIndex.Currency = new ServicePackageFeesCurrenciesListViewModel();
 
-            servicePackageFee.Currency.CurrencyCodes = PopulateCurrenciesDropDownList().ToList();
+            servicePackageFeeIndex.Currency.CurrencyCodes = PopulateCurrenciesDropDownList().ToList();
 
             var servicePackageFeeQuery = from s in db.ServicePackageFees
                                          select new ServicePackageFeesListViewModel
                                          {
                                              ServiceType = s.ServiceType,
                                              PackageType = s.PackageType,
-                                             Fee = s.Fee,
-                                             MinimumFee = s.MinimumFee
                                          };
 
-            servicePackageFee.ServicePackageFees = servicePackageFeeQuery.ToList();
+            servicePackageFeeIndex.ServicePackageFees = servicePackageFeeQuery.ToList();
 
-            foreach(var item in servicePackageFee.ServicePackageFees)
+            foreach(var item in servicePackageFeeIndex.ServicePackageFees.Select(s => s.ServiceType).Distinct())
             {
-                item.Fee = ConvertCurrency(CurrencyCode, item.Fee);
-                item.MinimumFee = ConvertCurrency(CurrencyCode, item.MinimumFee);
+                foreach(var servicePackageFee in item.ServicePackageFees)
+                {
+                    servicePackageFee.Fee = ConvertCurrency(CurrencyCode, servicePackageFee.Fee);
+                    servicePackageFee.MinimumFee = ConvertCurrency(CurrencyCode, servicePackageFee.MinimumFee);
+                }
             }
 
-            return View(servicePackageFee);
+            return View(servicePackageFeeIndex);
         }
 
 

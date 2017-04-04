@@ -10,8 +10,5 @@ namespace SinExWebApp20265462.ViewModels
     {
         public virtual ServiceType ServiceType { get; set; }
         public virtual PackageType PackageType { get; set; }
-        public virtual decimal Fee { get; set; }
-        public virtual decimal MinimumFee { get; set; }        
-        
     }
 }

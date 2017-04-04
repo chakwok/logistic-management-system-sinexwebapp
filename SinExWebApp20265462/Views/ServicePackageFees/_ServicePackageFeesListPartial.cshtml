@@ -2,37 +2,37 @@
 
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.PackageType.Type)
+        <th rowspan="2">
+            Service Type
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ServiceType.Type)
+        <th colspan=@Model.Select(x => x.PackageType).Count()>
+            Package Type
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fee)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MinimumFee)
-        </th>
-        <th></th>
+    </tr>
+    <tr>
+        @foreach (var item in Model.Select(x => x.PackageType).Distinct())
+        {
+            <th>
+                @Html.DisplayFor(modelItem => item.Type)
+            </th>
+        }
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.Select(x => x.ServiceType).Distinct())
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.PackageType.Type)
+                @Html.DisplayFor(modelItem => item.Type)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ServiceType.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fee)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MinimumFee)
-            </td>
+            @foreach (var servicePackageFee in item.ServicePackageFees)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => servicePackageFee.Fee)
+                    <font size="2">(@Html.DisplayFor(modelItem => servicePackageFee.MinimumFee) min.)</font>
+                </td>
+            }
         </tr>
     }
 
 </table>
+
