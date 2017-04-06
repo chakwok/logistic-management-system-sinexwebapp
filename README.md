@@ -55,3 +55,7 @@ Here is a basic workflow for the project. I try to standardise everything so tha
         install-package entityframework
       
    Build the project again and see if it works.
+
+## Running the Tests ##
+
+Explain how to run the automated tests for this system
