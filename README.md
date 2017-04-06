@@ -46,7 +46,7 @@ Here is a basic workflow for the project. I try to standardise everything so tha
 
 ## Q&A ##
 
-* If you encounter problems on building (especially on Lab's computer), try to do the following in Package Console Manager.
+* If you encounter problems on building the project (especially on Lab's computer), try to do the following in Package Console Manager.
 
         uninstall-package entityframework -force
    Next, you should close your Visual Studio windows and restart your project again. Then type in your package console:
