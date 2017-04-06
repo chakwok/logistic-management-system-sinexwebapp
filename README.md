@@ -2,16 +2,11 @@
 
 Read me before you start doing the programming project.
 
-### What is this repository for? ###
-
-* Quick summary
-* Version
-
 ### How do I get set up? ###
 
-* Summary of set up
+* Git workflow for this project:
 
-    Git workflow for this project:
+    Here I am going to walk you through a basic workflow for the project. I try to standardise everything so that you don't need to read a lot of stuffs to get this working.
 
 	1. Clone the repository to your local workstation.
 
@@ -22,15 +17,15 @@ Read me before you start doing the programming project.
 	2. Pick a feature to work on. Create a branch and switch to it.
 	   
 		```
-		git check-out -b [branch-name]
+		git check-out -b [new-branch-name] [existing-branch-name]
 		```
 
 	3. Make lots of commits until you have something ready to send to the repo.
 
-         ```
-        git add [file-name] # Stage a file
-        git commit # Record what has been staged so far
-        ```
+		```
+		git add [file-name] # Stage a file
+		git commit # Record what has been staged so far
+		```
 
 	4. To update your local repository to the newest commit.
 
@@ -46,7 +41,7 @@ Read me before you start doing the programming project.
 
 
 
-* Configuration
+* Possible Problems and Solutions
 
 	1. If you encounter problems on building (especially on Lab's computer), try to do the following in Package Console Manager.
 
