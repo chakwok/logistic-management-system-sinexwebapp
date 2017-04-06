@@ -48,15 +48,17 @@ Here is a basic workflow for the project. I try to standardise everything so tha
 
 * If you encounter problems on building (especially on Lab's computer), try to do the following in Package Console Manager.
 
-        uninstall-package entityframework -force
+   ```
+   uninstall-package entityframework -force
+   ```
 
    Next, you should close your Visual Studio windows and restart your project again. Then type in your package console:
 
-        install-package entityframework
-      
-   Build the project again and see if it works.
+   ```
+   install-package entityframework
+   ```
 
-* Haha
+   Build the project again and see if it works.
 
 ## Running the Tests ##
 
