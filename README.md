@@ -46,7 +46,7 @@ Here is a basic workflow for the project. I try to standardise everything so tha
 
 ## Possible Problems and Solutions ##
 
-1. If you encounter problems on building (especially on Lab's computer), try to do the following in Package Console Manager.
+* If you encounter problems on building (especially on Lab's computer), try to do the following in Package Console Manager.
 
         uninstall-package entityframework -force
 
