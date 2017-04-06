@@ -2,9 +2,7 @@
 
 Read me before you start doing the programming project.
 
-* Branch 
-
-## Git Related ##
+## Getting Started ##
 
 ### Git workflow for this project: ###
 
@@ -37,6 +35,8 @@ Here is a basic workflow for the project. I try to standardise everything so tha
         git pull origin [your-branch-name] # Merge the central repository’s copy of your upstream branch
         git push # Push back the updated master to origin.
 
+7. Update the README.md History
+
 ### Useful Git Resources ###
 
 * [Git Cheat Sheet](https://services.github.com/on-demand/downloads/github-git-cheat-sheet.pdf)
@@ -44,22 +44,27 @@ Here is a basic workflow for the project. I try to standardise everything so tha
 * [Git Workflows and Tutorials | Atlassian Git Tutorial](https://www.atlassian.com/git/tutorials/comparing-workflows)
 
 
-## Possible Problems and Solutions ##
+### Possible Problems and Solutions ###
 
 * If you encounter problems on building (especially on Lab's computer), try to do the following in Package Console Manager.
 
-   ```
-   uninstall-package entityframework -force
-   ```
-
+        uninstall-package entityframework -force
    Next, you should close your Visual Studio windows and restart your project again. Then type in your package console:
-
-   ```
-   install-package entityframework
-   ```
-
+   
+        install-package entityframework
    Build the project again and see if it works.
 
-## Running the Tests ##
+## History ##
 
-Explain how to run the automated tests for this system
+*README.md Revision History*
+
+   | Time               | Author           | Comment           |
+   | ------------------ |:----------------:| -----------------:|
+   | 2017/04/06 19:22   | Cheung Wing Kei  | Initial Commit.   |  
+
+
+*Repository Master Branch Revision History*
+
+   | Time               | Author           | Comment                      |
+   | ------------------ |:----------------:| ----------------------------:|
+   | 2017/04/04 23:54   | Cheung Wing Kei  | Packages Merge Successful.   |
