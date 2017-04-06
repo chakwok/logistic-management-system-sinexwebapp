@@ -44,7 +44,7 @@ Here is a basic workflow for the project. I try to standardise everything so tha
 * [Git Workflows and Tutorials | Atlassian Git Tutorial](https://www.atlassian.com/git/tutorials/comparing-workflows)
 
 
-### Possible Problems and Solutions ###
+## Q&A ##
 
 * If you encounter problems on building (especially on Lab's computer), try to do the following in Package Console Manager.
 
