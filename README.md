@@ -31,8 +31,8 @@ Here is a basic workflow for the project. I try to standardise everything so tha
 6. After the others review the branch and accept the pull request, someone merges the feature into the master branch.
 
         git checkout master # Switch to master branch
-        git pull # Incorporate upstream changes into local repo
-        git pull origin [your-branch-name] # Merge the central repository’s copy of your upstream branch
+        git pull # Incorporate upstream changes into current local branch
+        git pull origin [your-branch-name] # Merge the central repository’s copy of your upstream branch into current local branch
         git push # Push back the updated master to origin.
 
 7. Update the README.md History
@@ -60,7 +60,7 @@ Here is a basic workflow for the project. I try to standardise everything so tha
 
    | Time               | Author           | Comment           |
    | ------------------ |:----------------:| -----------------:|
-   | 2017/04/06 19:22   | Cheung Wing Kei  | Initial Commit.   |  
+   | 2017/04/06 22:00   | Cheung Wing Kei  | Initial Commit.   |  
 
 
 *Repository Master Branch Revision History*
