@@ -2,73 +2,56 @@
 
 Read me before you start doing the programming project.
 
-### How do I get set up? ###
+* Branch 
 
-* Git workflow for this project:
+## Git Related ##
 
-    Here I am going to walk you through a basic workflow for the project. I try to standardise everything so that you don't need to read a lot of stuffs to get this working.
+### Git workflow for this project: ###
 
-	1. Clone the repository to your local workstation.
+Here is a basic workflow for the project. I try to standardise everything so that you don't need to read a lot of stuffs to get this working.
 
-		```
-		git clone https://wingkeicheung@bitbucket.org/wingkeicheung/sinexwebapp.git
-		```
+1. Clone the repository to your local workstation.
 
-	2. Pick a feature to work on. Create a branch and switch to it.
-	   
-		```
-		git check-out -b [new-branch-name] [existing-branch-name]
-		```
+        git clone https://wingkeicheung@bitbucket.org/wingkeicheung/sinexwebapp.git
 
-	3. Make lots of commits until you have something ready to send to the repo.
-
-		```
-		git add [file-name] # Stage a file
-		git commit # Record what has been staged so far
-		```
-
-	4. To update your local repository to the newest commit.
-
-		```
-		git pull --rebase origin master
-		```
-
-	5. After synchronising with the central repo, 
-	 
-		```
-		git push origin master # Publish changes to the central repository
-		```
+2. Pick a feature to work on. Create a branch and switch to it.
+      
+        git check-out -b [new-branch-name] [existing-branch-name]
 
 
+3. Edit, stage, and commit changes, building up the feature with as many commits as necessary.
 
-* Possible Problems and Solutions
+        git add [file-name] # Stage a file
+        git commit # Commit the staged files
 
-	1. If you encounter problems on building (especially on Lab's computer), try to do the following in Package Console Manager.
+4. Push the feature branch up to the central repo so that others can see the new branch.
 
-		```
-		uninstall-package entityframework -force
-		```
+        git push origin [your-branch-name]
 
-		Then you should close your Visual Studio windows and restart your project again. Type in your package console:
+5. Submit a pull request on the Bitbucket repo webpage.
 
-		```
-		install-package entityframework
-		```
-		
-		Build the project again and see if it works.
+6. After the others review the branch and accept the pull request, someone merges the feature into the master branch.
 
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+        git checkout master # Switch to master branch
+        git pull # Incorporate upstream changes into local repo
+        git pull origin [your-branch-name] # Merge the central repository’s copy of your upstream branch
+        git push # Push back the updated master to origin.
 
-### Contribution guidelines ###
+### Useful Git Resources ###
 
-* Writing tests
-* Code review
-* Other guidelines
+* [Git Cheat Sheet](https://services.github.com/on-demand/downloads/github-git-cheat-sheet.pdf)
 
-### Who do I talk to? ###
+* [Git Workflows and Tutorials | Atlassian Git Tutorial](https://www.atlassian.com/git/tutorials/comparing-workflows)
 
-* Repo owner or admin
-* Other community or team contact
+
+## Possible Problems and Solutions ##
+
+1. If you encounter problems on building (especially on Lab's computer), try to do the following in Package Console Manager.
+
+        uninstall-package entityframework -force
+
+   Next, you should close your Visual Studio windows and restart your project again. Then type in your package console:
+
+        install-package entityframework
+      
+   Build the project again and see if it works.
