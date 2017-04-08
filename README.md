@@ -14,12 +14,12 @@ Here is a basic workflow for the project. I try to standardise everything so tha
 
 2. Pick a feature to work on. Create a branch and switch to it.
       
-        git check-out -b [new-branch-name] [existing-branch-name]
+        git checkout -b [new-branch-name] [existing-branch-name]
 
 
 3. Edit, stage, and commit changes, building up the feature with as many commits as necessary.
 
-        git add [file-name] # Stage a file
+        git add # Stage new files
         git commit # Commit the staged files
 
 4. Push the feature branch up to the central repo so that others can see the new branch.
