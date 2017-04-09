@@ -11,7 +11,7 @@ namespace SinExWebApp20265462.Models
     public abstract class ShippingAccount
     {
         [Key]
-        public virtual long ShippingAccountId { get; set; }
+        public virtual int ShippingAccountId { get; set; }
         [StringLength(10)]
         public virtual string UserName { get; set; }
         public virtual string AccountType { get; set; }
