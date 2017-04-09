@@ -19,7 +19,7 @@ Here is a basic workflow for the project. I try to standardise everything so tha
 
 3. Edit, stage, and commit changes, building up the feature with as many commits as necessary.
 
-        git add # Stage new files
+        git add . # Stage new files
         git commit # Commit the staged files
 
 4. Push the feature branch up to the central repo so that others can see the new branch.
@@ -54,6 +54,13 @@ Here is a basic workflow for the project. I try to standardise everything so tha
         install-package entityframework
    Build the project again and see if it works.
 
+* If you want to roll back migrations and initialise the database, you may use the following commands.
+
+        update-database -targetmigration:0 -configurationtypename AspIdentityConfiguration -force
+        update-database -targetmigration:0 -configurationtypename SinExConfiguration -force
+        update-database -configurationtypename AspIdentityConfiguration
+        update-database -configurationtypename SinExConfiguration
+
 ## History ##
 
 *README.md Revision History*
@@ -61,6 +68,7 @@ Here is a basic workflow for the project. I try to standardise everything so tha
    | Time               | Author           | Comment           |
    | ------------------ |:----------------:| -----------------:|
    | 2017/04/06 22:00   | Cheung Wing Kei  | Initial Commit.   |  
+   | 2017/04/10 02:18   | Cheung Wing Kei  | Updated Q&A.      |  
 
 
 *Repository Master Branch Revision History*
