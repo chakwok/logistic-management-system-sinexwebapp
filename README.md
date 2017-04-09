@@ -73,6 +73,8 @@ Here is a basic workflow for the project. I try to standardise everything so tha
 
 *Repository Master Branch Revision History*
 
-   | Time               | Author           | Comment                      |
-   | ------------------ |:----------------:| ----------------------------:|
-   | 2017/04/04 23:54   | Cheung Wing Kei  | Packages Merge Successful.   |
+   | Time               | Author           | Comment                                          |
+   | ------------------ |:----------------:| ------------------------------------------------:|
+   | 2017/04/04 23:54   | Cheung Wing Kei  | Packages Merge Successful.                       |
+   | 2017/04/10 02:30   | Cheung Wing Kei  | ShippingAccountId successfully changed to int.   |
+   | 2017/04/04 03:30   | Cheung Wing Kei  | Edit account successful.                         |
