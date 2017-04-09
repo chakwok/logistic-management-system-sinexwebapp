@@ -362,6 +362,8 @@
     <Content Include="Views\ServicePackageFees\GenerateServicePackageFeesReport.cshtml" />
     <Content Include="Views\ServicePackageFees\_ServicePackageFeesListPartial.cshtml" />
     <Content Include="Views\ServicePackageFees\ServicePackageFeesCalculator.cshtml" />
+    <Content Include="Views\Manage\EditPersonalProfile.cshtml" />
+    <Content Include="Views\Manage\EditBusinessProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1709,3 +1709,4 @@ C:\Users\WingKei\Documents\SinExWebApp\SinExWebApp20265462\SinExWebApp20265462\b
 C:\Users\WingKei\Documents\SinExWebApp\SinExWebApp20265462\SinExWebApp20265462\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\WingKei\Documents\SinExWebApp\SinExWebApp20265462\SinExWebApp20265462\obj\Debug\SinExWebApp20265462.dll
 C:\Users\WingKei\Documents\SinExWebApp\SinExWebApp20265462\SinExWebApp20265462\obj\Debug\SinExWebApp20265462.pdb
+C:\Users\WingKei\Documents\SinExWebApp\SinExWebApp20265462\SinExWebApp20265462\obj\Debug\SinExWebApp20265462.csprojResolveAssemblyReference.cache

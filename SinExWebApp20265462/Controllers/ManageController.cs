@@ -7,6 +7,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SinExWebApp20265462.Models;
+using System.Net;
+using System.Data.Entity;
 
 namespace SinExWebApp20265462.Controllers
 {
@@ -57,6 +59,7 @@ namespace SinExWebApp20265462.Controllers
         {
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+                : message == ManageMessageId.EditProfileSuccess ? "Your account has been edited."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
                 : message == ManageMessageId.Error ? "An error has occurred."
@@ -245,6 +248,117 @@ namespace SinExWebApp20265462.Controllers
             return View(model);
         }
 
+
+        //
+        // GET: /Manage/EditProfile
+        public async Task<ActionResult> EditProfile()
+        {
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            int? currentUserId = (int)db.ShippingAccounts.First(s => s.UserName == user.UserName).ShippingAccountId;
+
+            if (currentUserId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            string currentUserType = db.ShippingAccounts.Find(currentUserId).AccountType;
+            EditProfileViewModel model = new EditProfileViewModel();
+
+            if (currentUserType == "Personal")
+            {
+                model.PersonalInformation = (PersonalShippingAccount)db.ShippingAccounts.Find(currentUserId);
+                model.BusinessInformation = null;
+                return RedirectToAction("EditPersonalProfile", new { id = currentUserId });
+            }
+            else if (currentUserType == "Business")
+            {
+                model.BusinessInformation = (BusinessShippingAccount)db.ShippingAccounts.Find(currentUserId);
+                model.PersonalInformation = null;
+                return RedirectToAction("EditBusinessProfile", new { id = currentUserId });
+            }
+
+            return View();
+
+        }
+
+        public ActionResult EditPersonalProfile(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PersonalShippingAccount model = (PersonalShippingAccount)db.ShippingAccounts.Find(id);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditPersonalProfile([Bind(Include = "ShippingAccountId,AccountType,UserName,PhoneNumber,Email,Building,Street,City,Province,PostalCode,CreditCardType,CreditCardNumber,CreditCardSecurityNumber,CardholderName,CreditCardExpiryMonth,CreditCardExpiryYear,FirstName,LastName")] PersonalShippingAccount model)
+        {
+            if (!ModelState.IsValid) return View();
+
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            int? id = model.ShippingAccountId;
+
+            user.PhoneNumber = model.PhoneNumber;
+            user.Email = model.Email;
+
+            var result = await UserManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                AddErrors(result);
+            }
+
+            db.Entry(model).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("Index", new { Message = ManageMessageId.EditProfileSuccess });
+        }
+
+        public ActionResult EditBusinessProfile(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BusinessShippingAccount model = (BusinessShippingAccount)db.ShippingAccounts.Find(id);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditBusinessProfile([Bind(Include = "ShippingAccountId,AccountType,UserName,PhoneNumber,Email,Building,Street,City,Province,PostalCode,CreditCardType,CreditCardNumber,CreditCardSecurityNumber,CardholderName,CreditCardExpiryMonth,CreditCardExpiryYear,ContactPersonName,CompanyName,DepartmentName")] BusinessShippingAccount model)
+        {
+            if (!ModelState.IsValid) return View();
+
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            int? id = model.ShippingAccountId;
+
+            user.PhoneNumber = model.PhoneNumber;
+            user.Email = model.Email;
+
+            var result = await UserManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                AddErrors(result);
+            }
+
+            db.Entry(model).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("Index", new { Message = ManageMessageId.EditProfileSuccess });
+        }
+
         //
         // GET: /Manage/SetPassword
         public ActionResult SetPassword()
@@ -275,18 +389,6 @@ namespace SinExWebApp20265462.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
-        }
-
-        public ActionResult EditInfoRedirect()
-        {
-            if (!ModelState.IsValid) return View();
-
-            string currentUserName = User.Identity.GetUserName();
-            string currentType = db.ShippingAccounts.First(s => s.UserName == currentUserName).AccountType;
-            int currentUserId = (int) db.ShippingAccounts.First(s => s.UserName == currentUserName).ShippingAccountId;
-            if (currentType == "Personal") return RedirectToAction("Edit", "PersonalShippingAccounts", new {id = (int?) currentUserId });
-            else if (currentType == "Business") return RedirectToAction("Edit", "BusinessShippingAccounts", new { id = (int?)currentUserId });
-            return View();
         }
 
         //
@@ -390,6 +492,7 @@ namespace SinExWebApp20265462.Controllers
         {
             AddPhoneSuccess,
             ChangePasswordSuccess,
+            EditProfileSuccess,
             SetTwoFactorSuccess,
             SetPasswordSuccess,
             RemoveLoginSuccess,

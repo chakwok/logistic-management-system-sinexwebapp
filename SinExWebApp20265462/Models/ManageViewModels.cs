@@ -58,6 +58,12 @@ namespace SinExWebApp20265462.Models
         public string ConfirmPassword { get; set; }
     }
 
+    public class EditProfileViewModel
+    {
+        public PersonalShippingAccount PersonalInformation { get; set; }
+        public BusinessShippingAccount BusinessInformation { get; set; }
+    }
+
     public class AddPhoneNumberViewModel
     {
         [Required]
