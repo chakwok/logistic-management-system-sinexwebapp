@@ -50,13 +50,14 @@ namespace SinExWebApp20265462.Controllers
             ViewBag.CurrentSort = sortOrder;
             int pageSize = 5;
             int pageNumber = (page ?? 1);
-
+            
             var name = User.Identity.GetUserName();
             int? ShippingAccountId = db.ShippingAccounts.First(s => s.UserName == name).ShippingAccountId;
 
             // Retain search condition for sorting
             if (User.IsInRole("Customer"))
             {
+
                 if (ShippingAccountId == null)
                 {
                     ShippingAccountId = CurrentShippingAccountId;
@@ -66,7 +67,9 @@ namespace SinExWebApp20265462.Controllers
                     page = 1;
                 }
                 ViewBag.CurrentShippingAccountId = ShippingAccountId;
+                shipmentSearch.Shipment.ShippingAccountId = ShippingAccountId.GetValueOrDefault();
             }
+            else shipmentSearch.Shipment.AccountType = "Employee";
 
 
             if (StartShippedDate == null && EndShippedDate == null)
