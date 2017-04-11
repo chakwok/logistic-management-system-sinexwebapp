@@ -1,9 +1,18 @@
 ﻿@model SinExWebApp20265462.ViewModels.ShipmentsSearchViewModel
 
+@if (User.IsInRole("Customer"))
+{
+    <text> Shipping Account : </text>
+    @Html.DisplayFor(a => a.ShippingAccountId)
+}
+
+
+<text> Account Type : </text>
+@Html.LabelFor(a => a.AccountType, "")
+
+
 @using (Html.BeginForm("GenerateHistoryReport", "Shipments", "FormMethod.Get"))
 {
-    //@Html.LabelFor(a => a.ShippingAccountId, "Shipping Account: ")
-    
     //@Html.DropDownListFor(a => a.ShippingAccountId, Model.ShippingAccounts, "Please select")
     //<p></p>
     <p>
@@ -14,4 +23,5 @@
     </p>
     <p></p>
     <input type="submit" value="Search" />
+    <p></p>
 }
