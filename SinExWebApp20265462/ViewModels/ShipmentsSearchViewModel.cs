@@ -10,6 +10,7 @@ namespace SinExWebApp20265462.ViewModels
     public class ShipmentsSearchViewModel
     {
         public virtual int ShippingAccountId { get; set; }
+        public virtual string AccountType { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public virtual DateTime StartShippedDate { get; set; }
