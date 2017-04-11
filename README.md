@@ -28,7 +28,9 @@ Here is a basic workflow for the project. I try to standardise everything so tha
 
 5. Submit a pull request on the Bitbucket repo webpage.
 
-6. After the others review the branch and accept the pull request, someone merges the feature into the master branch.
+6. ============= Do not proceed to this step until your pull request has been approved. =============
+
+    After the others review the branch and accept the pull request, someone merges the feature into the master branch.
 
         git checkout master # Switch to master branch
         git pull # Incorporate upstream changes into current local branch
@@ -65,10 +67,11 @@ Here is a basic workflow for the project. I try to standardise everything so tha
 
 *README.md Revision History*
 
-   | Time               | Author           | Comment           |
-   | ------------------ |:----------------:| -----------------:|
-   | 2017/04/06 22:00   | Cheung Wing Kei  | Initial Commit.   |  
-   | 2017/04/10 02:18   | Cheung Wing Kei  | Updated Q&A.      |  
+   | Time               | Author           | Comment                        |
+   | ------------------ |:----------------:| ------------------------------:|
+   | 2017/04/06 22:00   | Cheung Wing Kei  | Initial Commit.                |  
+   | 2017/04/10 02:18   | Cheung Wing Kei  | Updated Q&A.                   |  
+   | 2017/04/11 17:30   | Cheung Wing Kei  | Updated Git workflow Step 6.   |  
 
 
 *Repository Master Branch Revision History*
