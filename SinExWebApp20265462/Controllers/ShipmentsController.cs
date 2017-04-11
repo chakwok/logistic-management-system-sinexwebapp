@@ -9,13 +9,13 @@ using System.Web.Mvc;
 using SinExWebApp20265462.Models;
 using SinExWebApp20265462.ViewModels;
 using X.PagedList;
+using Microsoft.AspNet.Identity;
 
 namespace SinExWebApp20265462.Controllers
 {
     public class ShipmentsController : Controller
     {
         private SinExDatabaseContext db = new SinExDatabaseContext();
-
         // GET: Shipments
         public ActionResult Index()
         {
@@ -38,7 +38,7 @@ namespace SinExWebApp20265462.Controllers
         }
 
         // GET: Shipments/GenerateHistoryReport
-        public ActionResult GenerateHistoryReport(int? ShippingAccountId, int? CurrentShippingAccountId,
+        public ActionResult GenerateHistoryReport(int? CurrentShippingAccountId,
             DateTime? StartShippedDate, DateTime? EndShippedDate,
             string sortOrder, int? page)
         {
@@ -51,16 +51,23 @@ namespace SinExWebApp20265462.Controllers
             int pageSize = 5;
             int pageNumber = (page ?? 1);
 
+            var name = User.Identity.GetUserName();
+            int? ShippingAccountId = db.ShippingAccounts.First(s => s.UserName == name).ShippingAccountId;
+
             // Retain search condition for sorting
-            if (ShippingAccountId == null)
+            if (User.IsInRole("Customer"))
             {
-                ShippingAccountId = CurrentShippingAccountId;
+                if (ShippingAccountId == null)
+                {
+                    ShippingAccountId = CurrentShippingAccountId;
+                }
+                else
+                {
+                    page = 1;
+                }
+                ViewBag.CurrentShippingAccountId = ShippingAccountId;
             }
-            else
-            {
-                page = 1;
-            }
-            ViewBag.CurrentShippingAccountId = ShippingAccountId;
+
 
             if (StartShippedDate == null && EndShippedDate == null)
             {
@@ -139,22 +146,24 @@ namespace SinExWebApp20265462.Controllers
                     break;
             }
 
-            // Add the condition to select a spefic shipping account if shipping account id is not null.
-            if (ShippingAccountId != null)
+            if (User.IsInRole("Customer"))
             {
-                shipmentQuery = shipmentQuery.Where(s => s.ShippingAccountId == ShippingAccountId);
-                //shipmentSearch.Shipments = shipmentQuery.ToList();
+                // Add the condition to select a spefic shipping account if shipping account id is not null.
+                if (ShippingAccountId != null)
+                {
+                    shipmentQuery = shipmentQuery.Where(s => s.ShippingAccountId == ShippingAccountId);
+                    //shipmentSearch.Shipments = shipmentQuery.ToList();
 
-                shipmentQuery = shipmentQuery.Where(s => (s.ShippedDate >= StartShippedDate && s.ShippedDate <= EndShippedDate));
+                    shipmentQuery = shipmentQuery.Where(s => (s.ShippedDate >= StartShippedDate && s.ShippedDate <= EndShippedDate));
 
+                }
+                else
+                {
+                    // Return an empty result if no shipping account id has been selected.
+                    //shipmentSearch.Shipments = new ShipmentsListViewModel[0];
+                    shipmentQuery = shipmentQuery.Where(s => s.ShippingAccountId == 0); ;
+                }
             }
-            else
-            {
-                // Return an empty result if no shipping account id has been selected.
-                //shipmentSearch.Shipments = new ShipmentsListViewModel[0];
-                shipmentQuery = shipmentQuery.Where(s => s.ShippingAccountId == 0); ;
-            }
-
             shipmentSearch.Shipments = shipmentQuery.ToPagedList(pageNumber, pageSize);
             return View(shipmentSearch);
         }
