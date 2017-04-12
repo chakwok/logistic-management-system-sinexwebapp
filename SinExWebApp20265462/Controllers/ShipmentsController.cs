@@ -57,7 +57,7 @@ namespace SinExWebApp20265462.Controllers
             // Retain search condition for sorting
             if (User.IsInRole("Customer"))
             {
-
+                /*
                 if (ShippingAccountId == null)
                 {
                     ShippingAccountId = CurrentShippingAccountId;
@@ -66,11 +66,18 @@ namespace SinExWebApp20265462.Controllers
                 {
                     page = 1;
                 }
+                */
+
                 ViewBag.CurrentShippingAccountId = ShippingAccountId;
                 shipmentSearch.Shipment.ShippingAccountId = ShippingAccountId.GetValueOrDefault();
                 shipmentSearch.Shipment.AccountType = db.ShippingAccounts.First(s => s.UserName == name).AccountType;
             }
-            else shipmentSearch.Shipment.AccountType = "Employee";
+            else
+            {
+                shipmentSearch.Shipment.AccountType = "Employee";
+                ShippingAccountId = null;
+            }
+                
 
 
             if (StartShippedDate == null && EndShippedDate == null)
@@ -81,9 +88,10 @@ namespace SinExWebApp20265462.Controllers
             ViewBag.CurrentStartShippedDate = StartShippedDate;
             ViewBag.CurrentEndShippedDate = EndShippedDate;
 
+            /*
             // Populate the ShippingAccountId dropdown list.
             shipmentSearch.Shipment.ShippingAccounts = PopulateShippingAccountsDropdownList().ToList();
-            if (CurrentShippingAccountId != null) shipmentSearch.Shipment.ShippingAccountId = (int) CurrentShippingAccountId;
+            if (CurrentShippingAccountId != null) shipmentSearch.Shipment.ShippingAccountId = (int) CurrentShippingAccountId;*/
 
             // Initialize the query to retrieve shipments using the ShipmentsListViewModel.
             var shipmentQuery = from s in db.Shipments
@@ -150,34 +158,35 @@ namespace SinExWebApp20265462.Controllers
                     break;
             }
 
-            if (User.IsInRole("Customer"))
-            {
+            //if (User.IsInRole("Customer"))
+            //{
                 // Add the condition to select a spefic shipping account if shipping account id is not null.
-                if (ShippingAccountId != null)
-                {
-                    shipmentQuery = shipmentQuery.Where(s => s.ShippingAccountId == ShippingAccountId);
-                    //shipmentSearch.Shipments = shipmentQuery.ToList();
+            if (ShippingAccountId != null)
+            {
+                shipmentQuery = shipmentQuery.Where(s => s.ShippingAccountId == ShippingAccountId);
+                //shipmentSearch.Shipments = shipmentQuery.ToList();
 
-                    shipmentQuery = shipmentQuery.Where(s => (s.ShippedDate >= StartShippedDate && s.ShippedDate <= EndShippedDate));
+                shipmentQuery = shipmentQuery.Where(s => (s.ShippedDate >= StartShippedDate && s.ShippedDate <= EndShippedDate));
 
-                }
-                else
-                {
-                    // Return an empty result if no shipping account id has been selected.
-                    //shipmentSearch.Shipments = new ShipmentsListViewModel[0];
-                    shipmentQuery = shipmentQuery.Where(s => s.ShippingAccountId == 0); ;
-                }
             }
+            /*else
+            {
+                // Return an empty result if no shipping account id has been selected.
+                //shipmentSearch.Shipments = new ShipmentsListViewModel[0];
+                shipmentQuery = shipmentQuery.Where(s => s.ShippingAccountId == 0); ;
+            }*/
+            //}
             shipmentSearch.Shipments = shipmentQuery.ToPagedList(pageNumber, pageSize);
             return View(shipmentSearch);
         }
-
+        /*
         private SelectList PopulateShippingAccountsDropdownList()
         {
             // TODO: Construct the LINQ query to retrieve the unique list of shipping account ids.
             var shippingAccountQuery = db.Shipments.Select(s => s.ShippingAccountId).Distinct().OrderBy(c => c);
             return new SelectList(shippingAccountQuery);
         }
+        */
 
         // GET: Shipments/Create
         public ActionResult Create()
