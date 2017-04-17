@@ -13,7 +13,7 @@ using Microsoft.AspNet.Identity;
 
 namespace SinExWebApp20265462.Controllers
 {
-    public class ShipmentsController : Controller
+    public class ShipmentsController : BaseController
     {
         private SinExDatabaseContext db = new SinExDatabaseContext();
         // GET: Shipments
@@ -71,6 +71,7 @@ namespace SinExWebApp20265462.Controllers
                 ViewBag.CurrentShippingAccountId = ShippingAccountId;
                 shipmentSearch.Shipment.ShippingAccountId = ShippingAccountId.GetValueOrDefault();
                 shipmentSearch.Shipment.AccountType = db.ShippingAccounts.First(s => s.UserName == name).AccountType;
+                shipmentSearch.Shipment.DisplayedShippingAccountId = ShowShippingAccountId(ShippingAccountId.GetValueOrDefault());
             }
             else
             {
