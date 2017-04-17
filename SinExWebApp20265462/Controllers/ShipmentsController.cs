@@ -71,7 +71,7 @@ namespace SinExWebApp20265462.Controllers
                 ViewBag.CurrentShippingAccountId = ShippingAccountId;
                 shipmentSearch.Shipment.ShippingAccountId = ShippingAccountId.GetValueOrDefault();
                 shipmentSearch.Shipment.AccountType = db.ShippingAccounts.First(s => s.UserName == name).AccountType;
-                shipmentSearch.Shipment.DisplayedShippingAccountId = ShowShippingAccountId(ShippingAccountId.GetValueOrDefault());
+                ViewBag.DisplayedShippingAccountId = ShowShippingAccountId(ShippingAccountId.GetValueOrDefault());
             }
             else
             {
