@@ -31,7 +31,7 @@
                             <li>@Html.ActionLink("Package Types", "Index", "PackageTypes")</li>
                             <li>@Html.ActionLink("Service Types", "Index", "ServiceTypes")</li>
                             <li>@Html.ActionLink("Fees", "GenerateServicePackageFeesReport", "ServicePackageFees")</li>
-                            <li>@Html.ActionLink("Package Cost Calculator", "ServicePackageFeesCalculator", "ServicePackageFees")</li>
+                            <li>@Html.ActionLink("Shipment Cost Calculator", "ShipmentCostCalculator", "ServicePackageFees")</li>
                         </ul>
                     </li>
                     @if (User.IsInRole("Customer")|| User.IsInRole("Employee"))
