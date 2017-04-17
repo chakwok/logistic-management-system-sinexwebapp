@@ -59,7 +59,7 @@ Here is a basic workflow for the project. I try to standardise everything so tha
     Email: comp3111_team119@cse.ust.hk
 
 
-## Q&A ##
+## Possible Problems & Solutions ##
 
 * If you encounter problems on building the project (especially on Lab's computer), try to do the following in Package Console Manager.
 
