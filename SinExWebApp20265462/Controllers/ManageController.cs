@@ -250,6 +250,24 @@ namespace SinExWebApp20265462.Controllers
 
 
         //
+        public async Task<ActionResult> EditAddress()
+        {
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());         
+
+            if (user == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+
+            Address model = (Address)db.Addresses.Find(user);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
+
+        }
         // GET: /Manage/EditProfile
         public async Task<ActionResult> EditProfile()
         {
