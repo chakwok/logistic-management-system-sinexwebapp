@@ -56,6 +56,8 @@ Here is a basic workflow for the project. I try to standardise everything so tha
 
     Password: team119#
 
+    Email: comp3111_team119@cse.ust.hk
+
 
 ## Q&A ##
 
