@@ -20,7 +20,7 @@ Here is a basic workflow for the project. I try to standardise everything so tha
 3. Edit, stage, and commit changes, building up the feature with as many commits as necessary.
 
         git add . # Stage new files
-        git commit -m "[descriptive message]" # Commit the staged files
+        git commit -m "[descriptive-message]" # Commit the staged files
 
 4. Push the feature branch up to the central repo so that others can see the new branch.
 
