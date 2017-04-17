@@ -20,7 +20,7 @@ Here is a basic workflow for the project. I try to standardise everything so tha
 3. Edit, stage, and commit changes, building up the feature with as many commits as necessary.
 
         git add . # Stage new files
-        git commit # Commit the staged files
+        git commit -m "[descriptive message]" # Commit the staged files
 
 4. Push the feature branch up to the central repo so that others can see the new branch.
 
@@ -71,7 +71,8 @@ Here is a basic workflow for the project. I try to standardise everything so tha
    | ------------------ |:----------------:| ------------------------------:|
    | 2017/04/06 22:00   | Cheung Wing Kei  | Initial Commit.                |  
    | 2017/04/10 02:18   | Cheung Wing Kei  | Updated Q&A.                   |  
-   | 2017/04/11 17:30   | Cheung Wing Kei  | Updated Git workflow Step 6.   |  
+   | 2017/04/11 17:30   | Cheung Wing Kei  | Updated Git workflow Step 6.   | 
+   | 2017/04/17 16:33   | Cheung Wing Kei  | Updated Git workflow Step 4.   |  
 
 
 *Repository Master Branch Revision History*
