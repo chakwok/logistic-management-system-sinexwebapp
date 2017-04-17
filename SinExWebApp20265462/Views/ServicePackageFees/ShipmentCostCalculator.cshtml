@@ -1,0 +1,79 @@
+﻿@model SinExWebApp20265462.ViewModels.CalculatorShipmentViewModel
+    @Model.Packages
+
+
+@{
+    ViewBag.Title = "Shipment Cost Calculator";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("ShipmentCostCalculator", "ServicePackageFees", "FormMethod.Get"))
+{
+    var packageCounter = 0;
+
+    <script>
+        function addPackage() {
+            var newPackage = document.getElementById("package").innerHTML;
+            document.getElementById("extraPackages").insertAdjacentHTML('beforeend', newPackage);
+            Model.NumberOfPackages++;
+        }
+    </script>
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Origin, "Origin", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(a => a.Origin, Model.Destinations, new { @class = "form-control", style = "width: 150px;" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Destination, "Destination", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(a => a.Destination, Model.Destinations, new { @class = "form-control", style = "width: 150px;" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ServiceTypeID, "Service Type", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(a => a.ServiceTypeID, Model.ServiceTypes, new { @class = "form-control", style = "width: 150px;" })
+            </div>
+        </div>
+    </div>
+    @for (; packageCounter < Model.NumberOfPackages && packageCounter < 10; packageCounter++)
+    {
+        <div id="package" class="form-horizontal">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Packages[packageCounter].PackageTypeSizeID, "Package Type", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(a => a.Packages[packageCounter].PackageTypeSizeID, Model.Packages[packageCounter].PackageTypeSizes, new { @class = "form-control", style = "width: 150px;" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Packages[packageCounter].Weight, "Weight", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(a => a.Packages[packageCounter].Weight, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+        </div>
+    }
+    <div id="extraPackages" class="form-horizontal">
+    </div>
+    <button type="button" onclick="addPackage()">+</button>
+    <input type="submit" value="Submit" />
+    <hr />
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label for="DisplayCurrency" class="col-sm-2 control-label">Display currency in </label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(a => a.CurrencyCode, Model.CurrencyCodes, new { @class = "form-control", style = "width: 150px;", onchange = "this.form.submit()" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ShipmentCost, "Shipment Cost: ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.ShipmentCost)
+            </div>
+        </div>
+    </div>
+}

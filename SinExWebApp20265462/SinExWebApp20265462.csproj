@@ -238,12 +238,13 @@
     <Compile Include="Models\SinExDatabaseContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\CalculatorPackageViewModel.cs" />
+    <Compile Include="ViewModels\CalculatorShipmentViewModel.cs" />
     <Compile Include="ViewModels\ServicePackageFeesCalculatorViewModel.cs" />
     <Compile Include="ViewModels\ServicePackageFeesCurrenciesListViewModel.cs" />
     <Compile Include="ViewModels\RegisterCustomerViewModel.cs" />
     <Compile Include="ViewModels\ServicePackageFeesListViewModel.cs" />
     <Compile Include="ViewModels\ServicePackageFeesIndexViewModel.cs" />
-    <Compile Include="ViewModels\ShipmentCostCalculatorViewModel.cs" />
     <Compile Include="ViewModels\ShipmentsListViewModel.cs" />
     <Compile Include="ViewModels\ShipmentsReportViewModel.cs" />
     <Compile Include="ViewModels\ShipmentsSearchViewModel.cs" />
@@ -364,6 +365,7 @@
     <Content Include="Views\ServicePackageFees\ServicePackageFeesCalculator.cshtml" />
     <Content Include="Views\Manage\EditPersonalProfile.cshtml" />
     <Content Include="Views\Manage\EditBusinessProfile.cshtml" />
+    <Content Include="Views\ServicePackageFees\ShipmentCostCalculator.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

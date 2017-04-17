@@ -153,6 +153,15 @@ namespace SinExWebApp20265462.Migrations
                 );
 
             /*
+            // Add shipping accounts
+            context.ShippingAccounts.AddOrUpdate(
+                p => p.ShippingAccountId,
+                new PersonalShippingAccount { ShippingAccountId = 1, UserName = "Personal", AccountType = "Personal", PhoneNumber = "61234567", Email = "comp3111_team119@cse.ust.hk", Building = "NULL", Street = "Test Street", City = "Hong Kong", Province = "HK", PostalCode = "NULL", CreditCardType = "American Express", CreditCardNumber = "1234567812345678", CreditCardSecurityNumber = "987", CardholderName = "Test Personal", CreditCardExpiryMonth = 1, CreditCardExpiryYear = 18, FirstName = "TestPersonal", LastName = "TestPersonal"},
+                new BusinessShippingAccount { ShippingAccountId = 2, UserName = "Business", AccountType = "Business", PhoneNumber = "61234567", Email = "comp3111_team119@cse.ust.hk", Building = "NULL", Street = "Test Street", City = "Hong Kong", Province = "HK", PostalCode = "NULL", CreditCardType = "American Express", CreditCardNumber = "9876543219876543", CreditCardSecurityNumber = "123", CardholderName = "Test Business", CreditCardExpiryMonth = 12, CreditCardExpiryYear = 18, ContactPersonName = "Test Contact", CompanyName = "Test Company", DepartmentName = "NULL"}
+            );
+            */
+
+            /*
             // Add shipment data.
             context.Shipments.AddOrUpdate(
                 p => p.WaybillId,
