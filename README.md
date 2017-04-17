@@ -46,6 +46,17 @@ Here is a basic workflow for the project. I try to standardise everything so tha
 * [Git Workflows and Tutorials | Atlassian Git Tutorial](https://www.atlassian.com/git/tutorials/comparing-workflows)
 
 
+## Important Project Information ##
+
+* Email for testing
+
+    https://imail.cse.ust.hk/sqmail/
+
+    User name: comp3111_team119
+
+    Password: team119#
+
+
 ## Q&A ##
 
 * If you encounter problems on building the project (especially on Lab's computer), try to do the following in Package Console Manager.
