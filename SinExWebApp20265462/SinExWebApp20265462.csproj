@@ -250,6 +250,14 @@
     <Compile Include="ViewModels\ShipmentsSearchViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-SinExWebApp20265462-20170301080023.mdf" />
+    <Content Include="App_Data\aspnet-SinExWebApp20265462-20170301080023_log.ldf">
+      <DependentUpon>aspnet-SinExWebApp20265462-20170301080023.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\SinExDatabaseContext-20170301200643.mdf" />
+    <Content Include="App_Data\SinExDatabaseContext-20170301200643_log.ldf">
+      <DependentUpon>SinExDatabaseContext-20170301200643.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\PagedList.css" />
@@ -368,7 +376,6 @@
     <Content Include="Views\ServicePackageFees\ShipmentCostCalculator.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
