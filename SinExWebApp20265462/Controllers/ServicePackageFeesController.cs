@@ -47,20 +47,26 @@ namespace SinExWebApp20265462.Controllers
         }
 
         [HttpPost]
-        public ActionResult ShipmentCostCalculator(CalculatorShipmentViewModel shipment)
+        public ActionResult ShipmentCostCalculator(CalculatorShipmentViewModel shipment, int? numberOfPackages)
         {
             shipment.Destinations = PopulateDestinationsDropDownList().ToList();
             shipment.ServiceTypes = PopulateServiceTypesDropDownList().ToList();
             shipment.CurrencyCodes = PopulateCurrenciesDropDownList().ToList();
 
             shipment.ShipmentCost = 0;
-
-            //shipment.Packages = packages;
+            if (numberOfPackages != null) shipment.NumberOfPackages = (int) numberOfPackages;
             foreach(CalculatorPackageViewModel package in shipment.Packages)
             {
                 package.PackageTypeSizes = PopulatePackageTypeSizesDropDownList().ToList();
 
-                if (package == null || package.Weight == 0) continue;
+                if (package == null || package.Weight == 0)
+                {
+                    continue;
+                }
+                else
+                {
+                    //shipment.NumberOfPackages++;
+                }
                 PackageTypeSize packageTypeSize = db.PackageTypeSizes.Find(package.PackageTypeSizeID);
                 ServicePackageFee servicePackageFee = db.ServicePackageFees.First(s => (s.ServiceTypeID == shipment.ServiceTypeID) && (s.PackageTypeID == packageTypeSize.PackageTypeID));
 
