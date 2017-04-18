@@ -1,22 +1,37 @@
 ﻿@model SinExWebApp20265462.ViewModels.CalculatorShipmentViewModel
-    @Model.Packages
 
 
 @{
     ViewBag.Title = "Shipment Cost Calculator";
+    ViewBag.packageCounter = 1;
+    int packageCounter = ViewBag.packageCounter;
 }
 
 <h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm("ShipmentCostCalculator", "ServicePackageFees", "FormMethod.Get"))
 {
-    var packageCounter = 0;
+    <div hidden id="initPackage" class="form-horizontal">
+        @{ ViewBag.packageCounter++;  packageCounter = ViewBag.packageCounter;}
+        <div class="form-group">
+            @Html.LabelFor(model => model.Packages[#].PackageTypeSizeID, "Package Type", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(a => a.Packages[#].PackageTypeSizeID, Model.Packages[#].PackageTypeSizes, new { @class = "form-control", style = "width: 150px;" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Packages[#].Weight, "Weight", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(a => a.Packages[#].Weight, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>
 
     <script>
         function addPackage() {
-            var newPackage = document.getElementById("package").innerHTML;
+            var index = 1;
+            var newPackage = document.getElementById("initPackage").innerHTML;
             document.getElementById("extraPackages").insertAdjacentHTML('beforeend', newPackage);
-            Model.NumberOfPackages++;
         }
     </script>
 
@@ -40,26 +55,27 @@
             </div>
         </div>
     </div>
-    @for (; packageCounter < Model.NumberOfPackages && packageCounter < 10; packageCounter++)
+   
+    for (int i = 0; i < Model.NumberOfPackages; i++)
     {
-        <div id="package" class="form-horizontal">
+        <div class="form-horizontal">
             <div class="form-group">
-                @Html.LabelFor(model => model.Packages[packageCounter].PackageTypeSizeID, "Package Type", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.Packages[i].PackageTypeSizeID, "Package Type", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownListFor(a => a.Packages[packageCounter].PackageTypeSizeID, Model.Packages[packageCounter].PackageTypeSizes, new { @class = "form-control", style = "width: 150px;" })
+                    @Html.DropDownListFor(a => a.Packages[i].PackageTypeSizeID, Model.Packages[i].PackageTypeSizes, new { @class = "form-control", style = "width: 150px;" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.Packages[packageCounter].Weight, "Weight", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.Packages[i].Weight, "Weight", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(a => a.Packages[packageCounter].Weight, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(a => a.Packages[i].Weight, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
         </div>
     }
     <div id="extraPackages" class="form-horizontal">
     </div>
-    <button type="button" onclick="addPackage()">+</button>
+    <button type="button" onclick="addPackage()" formmethod="put">+</button>
     <input type="submit" value="Submit" />
     <hr />
     <div class="form-horizontal">
@@ -76,4 +92,4 @@
             </div>
         </div>
     </div>
-}
+    }
