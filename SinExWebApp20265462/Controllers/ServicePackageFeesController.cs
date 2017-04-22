@@ -47,14 +47,14 @@ namespace SinExWebApp20265462.Controllers
         }
 
         [HttpPost]
-        public ActionResult ShipmentCostCalculator(CalculatorShipmentViewModel shipment, int? numberOfPackages)
+        public ActionResult ShipmentCostCalculator(CalculatorShipmentViewModel shipment, int? NumberOfPackages, bool addPackage=false)
         {
+
             shipment.Destinations = PopulateDestinationsDropDownList().ToList();
             shipment.ServiceTypes = PopulateServiceTypesDropDownList().ToList();
             shipment.CurrencyCodes = PopulateCurrenciesDropDownList().ToList();
 
             shipment.ShipmentCost = 0;
-            if (numberOfPackages != null) shipment.NumberOfPackages = (int) numberOfPackages;
             foreach(CalculatorPackageViewModel package in shipment.Packages)
             {
                 package.PackageTypeSizes = PopulatePackageTypeSizesDropDownList().ToList();
@@ -85,7 +85,13 @@ namespace SinExWebApp20265462.Controllers
                 shipment.ShipmentCost += packageCost;
             }
 
-            
+            if (addPackage == true)
+            {
+                shipment.NumberOfPackages++;
+                return View(shipment);
+            }
+
+
             return View(shipment);
         }
 
