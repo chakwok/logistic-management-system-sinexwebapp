@@ -33,6 +33,7 @@ namespace SinExWebApp20265462.Controllers
             shipmentCostCalculator.ServiceTypes = PopulateServiceTypesDropDownList().ToList();
             shipmentCostCalculator.CurrencyCodes = PopulateCurrenciesDropDownList().ToList();
 
+            ViewBag.NumberOfPackages = 1;
             shipmentCostCalculator.NumberOfPackages = 1;
             shipmentCostCalculator.ShipmentCost = 0;
 
@@ -46,16 +47,30 @@ namespace SinExWebApp20265462.Controllers
             return View(shipmentCostCalculator);
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult ShipmentCostCalculator(CalculatorShipmentViewModel shipment, int? NumberOfPackages, bool addPackage=false)
+        public ActionResult ShipmentCostCalculator(CalculatorShipmentViewModel shipment, int? NumberOfPackages, bool addPackage=false, bool delPackage=false)
         {
-
             shipment.Destinations = PopulateDestinationsDropDownList().ToList();
             shipment.ServiceTypes = PopulateServiceTypesDropDownList().ToList();
             shipment.CurrencyCodes = PopulateCurrenciesDropDownList().ToList();
 
             shipment.ShipmentCost = 0;
-            foreach(CalculatorPackageViewModel package in shipment.Packages)
+
+            if (NumberOfPackages != null) shipment.NumberOfPackages = (int) NumberOfPackages;
+            if (addPackage == true)
+            {
+                shipment.NumberOfPackages++;
+            }
+            else if (delPackage == true)
+            {                
+                shipment.NumberOfPackages--;
+                shipment.Packages[shipment.NumberOfPackages].Weight = 0;
+            }
+            NumberOfPackages = shipment.NumberOfPackages;
+            ViewBag.NumberOfPackages = NumberOfPackages;
+
+            foreach (CalculatorPackageViewModel package in shipment.Packages)
             {
                 package.PackageTypeSizes = PopulatePackageTypeSizesDropDownList().ToList();
 
@@ -82,13 +97,8 @@ namespace SinExWebApp20265462.Controllers
 
                 packageCost = (packageCost < servicePackageFee.MinimumFee) ? servicePackageFee.MinimumFee : packageCost;
                 packageCost = ConvertCurrency(shipment.CurrencyCode, packageCost);
+                package.PackageCost = packageCost;
                 shipment.ShipmentCost += packageCost;
-            }
-
-            if (addPackage == true)
-            {
-                shipment.NumberOfPackages++;
-                return View(shipment);
             }
 
 
