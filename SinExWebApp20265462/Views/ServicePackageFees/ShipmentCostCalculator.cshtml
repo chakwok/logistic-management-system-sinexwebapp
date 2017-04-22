@@ -9,7 +9,6 @@
 
 @using (Html.BeginForm("ShipmentCostCalculator", "ServicePackageFees", "FormMethod.Get"))
 {
-    @Html.HiddenFor(a => a.NumberOfPackages);
     <div class="form-horizontal">
         <div class="form-group">
             @Html.LabelFor(model => model.Origin, "Origin", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -54,7 +53,8 @@
             @Html.HiddenFor(a => a.Packages[i].PackageTypeSizeID);
         }
     }
-    <button>+</button>
+    @Html.HiddenFor(a => a.NumberOfPackages);
+    <button name="addPackage" value="true">+</button>
     <input type="submit" value="Submit" />
     <hr />
     <div class="form-horizontal">
