@@ -76,7 +76,7 @@ Here is a basic workflow for the project. I try to standardise everything so tha
         update-database -configurationtypename AspIdentityConfiguration
         update-database -configurationtypename SinExConfiguration
 
-* Final solution for problematic database - Delete it!
+* Ultimate solution for problematic database - Delete it!
 
     Enter "SQL Server Object Explorer" in Quick Launch and find the correct database and delete it. Update database again in Package Manager Console.
 
