@@ -76,16 +76,22 @@ Here is a basic workflow for the project. I try to standardise everything so tha
         update-database -configurationtypename AspIdentityConfiguration
         update-database -configurationtypename SinExConfiguration
 
+* Final solution for problematic database - Delete it!
+
+    Enter "SQL Server Object Explorer" in Quick Launch and find the correct database and delete it. Update database again in Package Manager Console.
+
+
 ## History ##
 
 *README.md Revision History*
 
-   | Time               | Author           | Comment                        |
-   | ------------------ |:----------------:| ------------------------------:|
-   | 2017/04/06 22:00   | Cheung Wing Kei  | Initial Commit.                |  
-   | 2017/04/10 02:18   | Cheung Wing Kei  | Updated Q&A.                   |  
-   | 2017/04/11 17:30   | Cheung Wing Kei  | Updated Git workflow Step 6.   | 
-   | 2017/04/17 16:33   | Cheung Wing Kei  | Updated Git workflow Step 4.   |  
+   | Time               | Author           | Comment                                  |
+   | ------------------ |:----------------:| ----------------------------------------:|
+   | 2017/04/06 22:00   | Cheung Wing Kei  | Initial Commit.                          |  
+   | 2017/04/10 02:18   | Cheung Wing Kei  | Updated Q&A.                             |  
+   | 2017/04/11 17:30   | Cheung Wing Kei  | Updated Git workflow Step 6.             | 
+   | 2017/04/17 16:33   | Cheung Wing Kei  | Updated Git workflow Step 4.             |  
+   | 2017/04/25 14:54   | Cheung Wing Kei  | Updated Possible Problems & Solutions.   |  
 
 
 *Repository Master Branch Revision History*
