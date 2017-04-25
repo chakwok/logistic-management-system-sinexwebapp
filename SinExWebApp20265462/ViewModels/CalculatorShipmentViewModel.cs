@@ -15,7 +15,7 @@ namespace SinExWebApp20265462.ViewModels
         public virtual int ServiceTypeID { get; set; }
         public virtual List<SelectListItem> ServiceTypes { get; set; }
 
-        [Range(1, 10, ErrorMessage = "Please include 1-10 packages in your shipment.")]
+        [Range(1, 10)]
         public virtual int NumberOfPackages { get; set; }
         public IList<CalculatorPackageViewModel> Packages { get; set; }
 

@@ -46,8 +46,7 @@ namespace SinExWebApp20265462.Controllers
 
             return View(shipmentCostCalculator);
         }
-
-        [ValidateAntiForgeryToken]
+        
         [HttpPost]
         public ActionResult ShipmentCostCalculator(CalculatorShipmentViewModel shipment, int? NumberOfPackages, bool addPackage=false, bool delPackage=false)
         {
@@ -57,15 +56,27 @@ namespace SinExWebApp20265462.Controllers
 
             shipment.ShipmentCost = 0;
 
-            if (NumberOfPackages != null) shipment.NumberOfPackages = (int) NumberOfPackages;
+            if (NumberOfPackages != null) shipment.NumberOfPackages = (int)NumberOfPackages;
             if (addPackage == true)
             {
-                shipment.NumberOfPackages++;
+                if (shipment.NumberOfPackages < 10)
+                {
+                    shipment.NumberOfPackages++;
+                } else
+                {
+                    ViewBag.StatusMessage = "A shipment should include not more than 10 packages.";
+                }
             }
             else if (delPackage == true)
-            {                
-                shipment.NumberOfPackages--;
-                shipment.Packages[shipment.NumberOfPackages].Weight = 0;
+            {
+                if (shipment.NumberOfPackages > 1)
+                {
+                    shipment.NumberOfPackages--;
+                    shipment.Packages[shipment.NumberOfPackages].Weight = 0;
+                } else
+                {
+                    ViewBag.StatusMessage = "A shipment should include at least 1 package.";
+                }
             }
             NumberOfPackages = shipment.NumberOfPackages;
             ViewBag.NumberOfPackages = NumberOfPackages;
@@ -88,7 +99,7 @@ namespace SinExWebApp20265462.Controllers
                 decimal packageCost = 0;
                 float weightLimit = db.PackageTypeSizes.Find(package.PackageTypeSizeID).WeightLimit;
 
-                packageCost = (decimal) package.Weight * servicePackageFee.Fee;
+                packageCost = (decimal)package.Weight * servicePackageFee.Fee;
 
                 if (weightLimit > 0 && package.Weight > weightLimit)
                 {
@@ -100,7 +111,6 @@ namespace SinExWebApp20265462.Controllers
                 package.PackageCost = packageCost;
                 shipment.ShipmentCost += packageCost;
             }
-
 
             return View(shipment);
         }
