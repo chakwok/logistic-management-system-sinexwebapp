@@ -23,35 +23,96 @@ namespace SinExWebApp20265462.Controllers
             return View(servicePackageFees.ToList());
         }
 
-        public ActionResult ServicePackageFeesCalculator(string Origin, string Destination, int? ServiceTypeID, int? PackageTypeSizeID, float? Weight,string CurrencyCode)
+        // GET: ShipmentCostCalculator
+        public ActionResult ShipmentCostCalculator()
         {
-            var servicePackageFeesCalculator = new ServicePackageFeesCalculatorViewModel();
+            var shipmentCostCalculator = new CalculatorShipmentViewModel();
+            shipmentCostCalculator.Packages = new CalculatorPackageViewModel[10];
 
-            servicePackageFeesCalculator.Destinations = PopulateDestinationsDropDownList().ToList();
-            servicePackageFeesCalculator.ServiceTypes = PopulateServiceTypesDropDownList().ToList();
-            servicePackageFeesCalculator.PackageTypeSizes = PopulatePackageTypeSizesDropDownList().ToList();
-            servicePackageFeesCalculator.CurrencyCodes = PopulateCurrenciesDropDownList().ToList();
+            shipmentCostCalculator.Destinations = PopulateDestinationsDropDownList().ToList();
+            shipmentCostCalculator.ServiceTypes = PopulateServiceTypesDropDownList().ToList();
+            shipmentCostCalculator.CurrencyCodes = PopulateCurrenciesDropDownList().ToList();
 
-            if (ServiceTypeID == null && PackageTypeSizeID == null)
+            ViewBag.NumberOfPackages = 1;
+            shipmentCostCalculator.NumberOfPackages = 1;
+            shipmentCostCalculator.ShipmentCost = 0;
+
+            for (int i = 0; i < 10; i++)
             {
-                servicePackageFeesCalculator.PackageCost = 0;
-                return View(servicePackageFeesCalculator);
+                shipmentCostCalculator.Packages[i] = new CalculatorPackageViewModel();
+                shipmentCostCalculator.Packages[i].PackageTypeSizes = PopulatePackageTypeSizesDropDownList().ToList();
+                shipmentCostCalculator.Packages[i].PackageCost = 0;
             }
 
-            PackageTypeSize packageTypeSize = db.PackageTypeSizes.Find(PackageTypeSizeID);
-            ServicePackageFee servicePackageFee = db.ServicePackageFees.First(s => (s.ServiceTypeID == ServiceTypeID) && (s.PackageTypeID == packageTypeSize.PackageTypeID));
-            float packageCost = 0;
-            float weightLimit = db.PackageTypeSizes.Find(PackageTypeSizeID).WeightLimit;
+            return View(shipmentCostCalculator);
+        }
+        
+        [HttpPost]
+        public ActionResult ShipmentCostCalculator(CalculatorShipmentViewModel shipment, int? NumberOfPackages, bool addPackage=false, bool delPackage=false)
+        {
+            shipment.Destinations = PopulateDestinationsDropDownList().ToList();
+            shipment.ServiceTypes = PopulateServiceTypesDropDownList().ToList();
+            shipment.CurrencyCodes = PopulateCurrenciesDropDownList().ToList();
 
-            if (Weight != null) packageCost = (float) Weight * (float) servicePackageFee.Fee;
-            if (weightLimit > 0 && Weight > weightLimit)
+            shipment.ShipmentCost = 0;
+
+            if (NumberOfPackages != null) shipment.NumberOfPackages = (int)NumberOfPackages;
+            if (addPackage == true)
             {
-                packageCost += 500;
+                if (shipment.NumberOfPackages < 10)
+                {
+                    shipment.NumberOfPackages++;
+                } else
+                {
+                    ViewBag.StatusMessage = "A shipment should include not more than 10 packages.";
+                }
             }
-            packageCost = (packageCost < (float)servicePackageFee.MinimumFee) ? (float)servicePackageFee.MinimumFee : packageCost;
+            else if (delPackage == true)
+            {
+                if (shipment.NumberOfPackages > 1)
+                {
+                    shipment.NumberOfPackages--;
+                    shipment.Packages[shipment.NumberOfPackages].Weight = 0;
+                } else
+                {
+                    ViewBag.StatusMessage = "A shipment should include at least 1 package.";
+                }
+            }
+            NumberOfPackages = shipment.NumberOfPackages;
+            ViewBag.NumberOfPackages = NumberOfPackages;
 
-            servicePackageFeesCalculator.PackageCost = ConvertCurrency(CurrencyCode, (decimal) packageCost);
-            return View(servicePackageFeesCalculator);
+            foreach (CalculatorPackageViewModel package in shipment.Packages)
+            {
+                package.PackageTypeSizes = PopulatePackageTypeSizesDropDownList().ToList();
+
+                if (package == null || package.Weight == 0)
+                {
+                    continue;
+                }
+                else
+                {
+                    //shipment.NumberOfPackages++;
+                }
+                PackageTypeSize packageTypeSize = db.PackageTypeSizes.Find(package.PackageTypeSizeID);
+                ServicePackageFee servicePackageFee = db.ServicePackageFees.First(s => (s.ServiceTypeID == shipment.ServiceTypeID) && (s.PackageTypeID == packageTypeSize.PackageTypeID));
+
+                decimal packageCost = 0;
+                float weightLimit = db.PackageTypeSizes.Find(package.PackageTypeSizeID).WeightLimit;
+
+                packageCost = (decimal)package.Weight * servicePackageFee.Fee;
+
+                if (weightLimit > 0 && package.Weight > weightLimit)
+                {
+                    packageCost += 500;
+                }
+
+                packageCost = (packageCost < servicePackageFee.MinimumFee) ? servicePackageFee.MinimumFee : packageCost;
+                packageCost = ConvertCurrency(shipment.CurrencyCode, packageCost);
+                package.PackageCost = packageCost;
+                shipment.ShipmentCost += packageCost;
+            }
+
+            return View(shipment);
         }
 
         // GET: ServicePackageFees/GenerateServicePackageFeesReport

@@ -238,17 +238,26 @@
     <Compile Include="Models\SinExDatabaseContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\CalculatorPackageViewModel.cs" />
+    <Compile Include="ViewModels\CalculatorShipmentViewModel.cs" />
     <Compile Include="ViewModels\ServicePackageFeesCalculatorViewModel.cs" />
     <Compile Include="ViewModels\ServicePackageFeesCurrenciesListViewModel.cs" />
     <Compile Include="ViewModels\RegisterCustomerViewModel.cs" />
     <Compile Include="ViewModels\ServicePackageFeesListViewModel.cs" />
     <Compile Include="ViewModels\ServicePackageFeesIndexViewModel.cs" />
-    <Compile Include="ViewModels\ShipmentCostCalculatorViewModel.cs" />
     <Compile Include="ViewModels\ShipmentsListViewModel.cs" />
     <Compile Include="ViewModels\ShipmentsReportViewModel.cs" />
     <Compile Include="ViewModels\ShipmentsSearchViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-SinExWebApp20265462-20170301080023.mdf" />
+    <Content Include="App_Data\aspnet-SinExWebApp20265462-20170301080023_log.ldf">
+      <DependentUpon>aspnet-SinExWebApp20265462-20170301080023.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\SinExDatabaseContext-20170301200643.mdf" />
+    <Content Include="App_Data\SinExDatabaseContext-20170301200643_log.ldf">
+      <DependentUpon>SinExDatabaseContext-20170301200643.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\PagedList.css" />
@@ -364,9 +373,9 @@
     <Content Include="Views\ServicePackageFees\ServicePackageFeesCalculator.cshtml" />
     <Content Include="Views\Manage\EditPersonalProfile.cshtml" />
     <Content Include="Views\Manage\EditBusinessProfile.cshtml" />
+    <Content Include="Views\ServicePackageFees\ShipmentCostCalculator.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
