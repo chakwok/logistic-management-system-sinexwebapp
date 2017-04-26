@@ -61,8 +61,11 @@ namespace SinExWebApp20265462.Controllers
             return new SelectList(packageTypeSizeQuery, "PackageTypeSizeID", "Size", "PackageType.Type", new { selectedValue = "PackageTypeSizeID" });
         }
 
-        public void SendEmail()
+        public void SendEmail(string recipient, string message)
         {
+            //CURRENTLY RECIPIENT MUST BE COMP3111....
+            //to prevent non exisiting email
+
             // Create an instance of MailMessage named mail.
             MailMessage mail = new MailMessage();
 
@@ -76,9 +79,9 @@ namespace SinExWebApp20265462.Controllers
             mail.To.Add("comp3111_team119@cse.ust.hk");
 
             mail.Subject = "Testing Mail";
-            mail.Body = "Hello??";
+            mail.Body = message;
+            //mail.IsBodyHtml = true;
             // Send the message.
-
             emailServer.Send(mail);
         }
     }
