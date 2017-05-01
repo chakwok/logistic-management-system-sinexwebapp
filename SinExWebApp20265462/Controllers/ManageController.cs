@@ -13,7 +13,7 @@ using System.Data.Entity;
 namespace SinExWebApp20265462.Controllers
 {
     [Authorize]
-    public class ManageController : Controller
+    public class ManageController : BaseController
     {
         private SinExDatabaseContext db = new SinExDatabaseContext();
         private ApplicationSignInManager _signInManager;
@@ -264,6 +264,7 @@ namespace SinExWebApp20265462.Controllers
             string currentUserType = db.ShippingAccounts.Find(currentUserId).AccountType;
             EditProfileViewModel model = new EditProfileViewModel();
 
+
             if (currentUserType == "Personal")
             {
                 model.PersonalInformation = (PersonalShippingAccount)db.ShippingAccounts.Find(currentUserId);
@@ -288,6 +289,8 @@ namespace SinExWebApp20265462.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             PersonalShippingAccount model = (PersonalShippingAccount)db.ShippingAccounts.Find(id);
+
+            ViewBag.DisplayedShippingAccountId = ShowShippingAccountId((int)id);
             if (model == null)
             {
                 return HttpNotFound();
@@ -327,6 +330,7 @@ namespace SinExWebApp20265462.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             BusinessShippingAccount model = (BusinessShippingAccount)db.ShippingAccounts.Find(id);
+            ViewBag.DisplayedShippingAccountId = ShowShippingAccountId((int)id);
             if (model == null)
             {
                 return HttpNotFound();
