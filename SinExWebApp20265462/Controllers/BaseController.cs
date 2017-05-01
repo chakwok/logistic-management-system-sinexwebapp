@@ -36,6 +36,19 @@ namespace SinExWebApp20265462.Controllers
             return result;
         }
 
+        public string ShowShippingAccountId (int ShippingAccountId)
+        {
+            var digit = "";
+            int count = ShippingAccountId.ToString().Length;
+            for ( int i =0; i <12 - count; i++)
+            {
+                digit += 0;
+            }
+            return (digit + ShippingAccountId.ToString());
+
+
+        }
+
         public SelectList PopulateCurrenciesDropDownList()
         {
             var currencyQuery = db.Currencies.Select(s => s.CurrencyCode).Distinct().OrderBy(c => c);
