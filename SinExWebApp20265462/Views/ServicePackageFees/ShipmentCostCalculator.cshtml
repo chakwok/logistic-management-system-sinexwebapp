@@ -65,9 +65,8 @@
         }
         else
         {
-            @Html.HiddenFor(a => a.Packages[i].PackageTypeSizeID);
-            <input type="hidden" value=0 name="Model.NumberOfPackages" />
-
+            <input type="hidden" name="@Html.NameFor(model => model.Packages[i].PackageTypeSizeID)" value=1 />
+            <input type="hidden" name="@Html.NameFor(model => model.Packages[i].Weight)" value=0 />
         }
     }
 
