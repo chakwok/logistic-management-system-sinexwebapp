@@ -3,8 +3,8 @@
 @if (User.IsInRole("Customer"))
 {
     <text> Shipping Account : </text>
-    @Html.DisplayFor(a => a.ShippingAccountId)
 }
+@ViewBag.DisplayedShippingAccountId
 
 <p></p>
 <text> Account Type : </text>
