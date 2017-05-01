@@ -37,6 +37,129 @@ namespace SinExWebApp20265462.Controllers
             return View(shipment);
         }
 
+        // GET: Shipments/ArrangeShipment
+        public ActionResult ArrangeShipment ()
+        {
+            var shipment = new ArrangeShipmentViewModel();
+            shipment.Packages = new ArrangeShipmentPackageViewModel[10];
+
+            shipment.ServiceTypes = PopulateServiceTypesDropDownList().ToList();
+            shipment.Destinations = PopulateDestinationsDropDownList().ToList();
+            shipment.CurrencyCodes = PopulateCurrenciesDropDownList().ToList();
+
+            ViewBag.NumberOfPackages = 1;
+            shipment.NumberOfPackages = 1;
+            shipment.ShipmentCost = 0;
+
+            for (int i = 0; i < 10; i++)
+            {
+                shipment.Packages[i] = new ArrangeShipmentPackageViewModel();
+                shipment.Packages[i].PackageTypeSizes = PopulatePackageTypeSizesDropDownList().ToList();
+                shipment.Packages[i].Description = "";
+                shipment.Packages[i].Value = 0;
+                shipment.Packages[i].PackageCost = 0;
+            }
+
+
+            return View(shipment);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ArrangeShipment(ArrangeShipmentViewModel shipment, int? NumberOfPackages, bool addPackage = false, bool delPackage = false)
+        {
+            shipment.Destinations = PopulateDestinationsDropDownList().ToList();
+            shipment.ServiceTypes = PopulateServiceTypesDropDownList().ToList();
+            shipment.CurrencyCodes = PopulateCurrenciesDropDownList().ToList();
+            for (int i = 0; i < 10; i++)
+            {
+                shipment.Packages[i].PackageTypeSizes = PopulatePackageTypeSizesDropDownList().ToList();
+            }
+            
+            shipment.ShipmentCost = 0;
+
+            if (addPackage == true)
+            {
+                if (shipment.NumberOfPackages < 10)
+                {
+                    shipment.NumberOfPackages++;
+                }
+                else
+                {
+                    ViewBag.PackageStatusMessage = "A shipment should include not more than 10 packages.";
+                }
+                ViewBag.NumberOfPackages = shipment.NumberOfPackages;
+                return View(shipment);
+            }
+            else if (delPackage == true)
+            {
+                if (shipment.NumberOfPackages > 1)
+                {
+                    shipment.NumberOfPackages--;
+                }
+                else
+                {
+                    ViewBag.PackageStatusMessage = "A shipment should include at least 1 package.";
+                }
+                ViewBag.NumberOfPackages = shipment.NumberOfPackages;
+                return View(shipment);
+            }
+            // TODO: Avoid Package.Weight = 0
+            
+
+            if (shipment.ShipmentPayer == "Recipient" || shipment.DTPayer == "Recipient")
+            {
+                if (shipment.RecipientShippingAccountId == null)
+                {
+                    ViewBag.RecipientStatusMessage = "Recipient Account ID is required to be the payer.";
+                    return View(shipment);
+                }
+            }
+
+            SaveToSessionState("newShipment", shipment);
+            return RedirectToAction("ConfirmShipment");
+        }
+
+        public ActionResult ConfirmShipment()
+        {
+            ArrangeShipmentViewModel shipment = (ArrangeShipmentViewModel) Session["newShipment"];
+            shipment.ServiceType = db.ServiceTypes.Find(shipment.ServiceTypeID).Type;
+            shipment.RecipientProvince = GetProvince(shipment.Destination);
+
+            ViewBag.NumberOfPackages = shipment.NumberOfPackages;
+            shipment.ShipmentCost = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                if (i >= shipment.NumberOfPackages || shipment.Packages[i].CustomerWeight == 0)
+                {
+                    shipment.Packages[i].PackageTypeSizeID = 1;
+                    shipment.Packages[i].CustomerWeight = 0;
+                    continue;
+                }
+                PackageTypeSize packageTypeSize = db.PackageTypeSizes.Find(shipment.Packages[i].PackageTypeSizeID);
+                ServicePackageFee servicePackageFee = db.ServicePackageFees.First(s => (s.ServiceTypeID == shipment.ServiceTypeID) && (s.PackageTypeID == packageTypeSize.PackageTypeID));
+                shipment.Packages[i].PackageTypeSize = packageTypeSize.PackageType.Type + " (" + packageTypeSize.Size + ")";
+
+                decimal packageCost = 0;
+                float weightLimit = db.PackageTypeSizes.Find(shipment.Packages[i].PackageTypeSizeID).WeightLimit;
+
+                packageCost = (decimal)shipment.Packages[i].CustomerWeight * servicePackageFee.Fee;
+
+                if (weightLimit > 0 && shipment.Packages[i].CustomerWeight > weightLimit)
+                {
+                    packageCost += 500;
+                }
+
+                packageCost = (packageCost < servicePackageFee.MinimumFee) ? servicePackageFee.MinimumFee : packageCost;
+                packageCost = ConvertCurrency(shipment.CurrencyCode, packageCost);
+                shipment.Packages[i].PackageCost = packageCost;
+                shipment.ShipmentCost += packageCost;
+            }
+
+            return View(shipment);
+        }
+
+
         // GET: Shipments/GenerateHistoryReport
         public ActionResult GenerateHistoryReport(int? CurrentShippingAccountId,
             DateTime? StartShippedDate, DateTime? EndShippedDate,
