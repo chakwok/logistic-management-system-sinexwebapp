@@ -83,13 +83,31 @@ namespace SinExWebApp20265462.Controllers
                 return View(model);
             }
 
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
+            var user = await UserManager.FindAsync(model.UserName, model.Password);
+
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    if (user != null)
+                    {
+                        if (user.EmailConfirmed)
+                        {
+                            return RedirectToLocal(returnUrl);
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Please Confirm Email Address.");
+                            return View(model);
+                        }
+                    }
+                    else {
+                        ModelState.AddModelError("", "The username or password is wrong.");
+                        return View(model);
+                    }
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -170,6 +188,7 @@ namespace SinExWebApp20265462.Controllers
                 {
                     model.LoginInformation.Email = model.BusinessInformation.Email;
                 }
+
                 var user = new ApplicationUser { UserName = model.LoginInformation.UserName, Email = model.LoginInformation.Email };
                 var result = await UserManager.CreateAsync(user, model.LoginInformation.Password);
                 if (result.Succeeded)
@@ -192,15 +211,27 @@ namespace SinExWebApp20265462.Controllers
                             db.ShippingAccounts.Add(model.BusinessInformation);
                         }
                         db.SaveChanges();
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                        BaseController b = new BaseController();
+
+
+                        string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                        b.SendEmail(user.Email,user.UserName, callbackUrl);
+
+
+
+                        return RedirectToAction("Confirm","Account", new { Email = user.Email });
+
 
                         // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                         // Send an email with this link
                         // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                         // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                         // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                        return RedirectToAction("Index", "Home");
                     }
                     else
                     {
@@ -214,6 +245,7 @@ namespace SinExWebApp20265462.Controllers
             return View(model);
         }
 
+        
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
@@ -225,6 +257,38 @@ namespace SinExWebApp20265462.Controllers
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
+        }
+        
+
+        //
+        // Get: /Account/ConfirmEmail
+        //public async Task<ActionResult> ConfirmEmail(string token, string email) {
+        //    ApplicationUser user = this.UserManager.FindById(token);
+        //    if (user != null)
+        //    {
+        //        if (user.Email == email)
+        //        {
+        //            user.EmailConfirmed = true;
+        //            await UserManager.UpdateAsync(user);
+        //            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+        //            return RedirectToAction("Index", "Home", new { ConfirmedEmail = user.Email });
+        //        }
+        //        else
+        //        {
+        //            return RedirectToAction("Confirm", "Account", new { Email = email });
+        //        }
+        //    }
+        //    else {
+        //        return RedirectToAction("Confirm", "Account", new { Email = "" });
+        //    }
+        //}
+
+        //remind user to check email to verfiy
+        [AllowAnonymous]
+        public ActionResult Confirm(string Email)
+        {
+            ViewBag.Email = Email;
+            return View();
         }
 
         //
