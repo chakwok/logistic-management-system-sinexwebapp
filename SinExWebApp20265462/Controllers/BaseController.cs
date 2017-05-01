@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 
@@ -71,6 +72,30 @@ namespace SinExWebApp20265462.Controllers
         {
             var packageTypeSizeQuery = db.PackageTypeSizes;
             return new SelectList(packageTypeSizeQuery, "PackageTypeSizeID", "Size", "PackageType.Type", new { selectedValue = "PackageTypeSizeID" });
+        }
+
+        public void SendEmail(string recipient, string username, string confrimURL)
+        {
+            //CURRENTLY RECIPIENT MUST BE COMP3111....
+            //to prevent non exisiting email
+
+            // Create an instance of MailMessage named mail.
+            MailMessage mail = new MailMessage();
+
+            // Create an instance of SmtpClient named emailServer.
+            // Set the mail server to use as "smtp.ust.hk".
+            SmtpClient emailServer = new SmtpClient("smtp.cse.ust.hk");
+
+            // Set the sender (From), receiver (To), subject and 
+            // message body fields of the mail message.
+            mail.From = new MailAddress("comp3111_team119@cse.ust.hk", "comp3111_team119");
+            mail.To.Add(recipient);
+
+            mail.Subject = "SinEx Account Confirmation";
+            mail.Body = "Dear "+ username + ",\nThank you for signing up for our SinEx service \nPress the link below to verify your registration\n" + confrimURL; 
+            //mail.IsBodyHtml = true;
+            // Send the message.
+            emailServer.Send(mail);
         }
     }
 }
