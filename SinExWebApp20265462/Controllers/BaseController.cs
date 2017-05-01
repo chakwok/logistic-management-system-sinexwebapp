@@ -61,7 +61,7 @@ namespace SinExWebApp20265462.Controllers
             return new SelectList(packageTypeSizeQuery, "PackageTypeSizeID", "Size", "PackageType.Type", new { selectedValue = "PackageTypeSizeID" });
         }
 
-        public void SendEmail(string recipient, string message)
+        public void SendEmail(string recipient, string username, string confrimURL)
         {
             //CURRENTLY RECIPIENT MUST BE COMP3111....
             //to prevent non exisiting email
@@ -76,10 +76,10 @@ namespace SinExWebApp20265462.Controllers
             // Set the sender (From), receiver (To), subject and 
             // message body fields of the mail message.
             mail.From = new MailAddress("comp3111_team119@cse.ust.hk", "comp3111_team119");
-            mail.To.Add("comp3111_team119@cse.ust.hk");
+            mail.To.Add(recipient);
 
-            mail.Subject = "Testing Mail";
-            mail.Body = message;
+            mail.Subject = "SinEx Account Confirmation";
+            mail.Body = "Dear "+ username + ",\nThank you for signing up for our SinEx service \nPress the link below to verify your registration\n" + confrimURL; 
             //mail.IsBodyHtml = true;
             // Send the message.
             emailServer.Send(mail);
