@@ -56,7 +56,7 @@ namespace SinExWebApp20265462.Controllers
 
             shipment.ShipmentCost = 0;
 
-            if (NumberOfPackages != null) shipment.NumberOfPackages = (int)NumberOfPackages;
+            //if (NumberOfPackages != null) shipment.NumberOfPackages = (int)NumberOfPackages;
             if (addPackage == true)
             {
                 if (shipment.NumberOfPackages < 10)
@@ -78,37 +78,35 @@ namespace SinExWebApp20265462.Controllers
                     ViewBag.StatusMessage = "A shipment should include at least 1 package.";
                 }
             }
-            NumberOfPackages = shipment.NumberOfPackages;
-            ViewBag.NumberOfPackages = NumberOfPackages;
+            //NumberOfPackages = shipment.NumberOfPackages;
+            ViewBag.NumberOfPackages = shipment.NumberOfPackages;
 
-            foreach (CalculatorPackageViewModel package in shipment.Packages)
+            for (int i = 0; i < 10; i++)
             {
-                package.PackageTypeSizes = PopulatePackageTypeSizesDropDownList().ToList();
+                shipment.Packages[i].PackageTypeSizes = PopulatePackageTypeSizesDropDownList().ToList();
 
-                if (package == null || package.Weight == 0)
+                if (i >= NumberOfPackages || shipment.Packages[i].Weight == 0) // NumberOfPackages = old
                 {
+                    shipment.Packages[i].PackageTypeSizeID = 1;
+                    shipment.Packages[i].Weight = 0;
                     continue;
                 }
-                else
-                {
-                    //shipment.NumberOfPackages++;
-                }
-                PackageTypeSize packageTypeSize = db.PackageTypeSizes.Find(package.PackageTypeSizeID);
+                PackageTypeSize packageTypeSize = db.PackageTypeSizes.Find(shipment.Packages[i].PackageTypeSizeID);
                 ServicePackageFee servicePackageFee = db.ServicePackageFees.First(s => (s.ServiceTypeID == shipment.ServiceTypeID) && (s.PackageTypeID == packageTypeSize.PackageTypeID));
 
                 decimal packageCost = 0;
-                float weightLimit = db.PackageTypeSizes.Find(package.PackageTypeSizeID).WeightLimit;
+                float weightLimit = db.PackageTypeSizes.Find(shipment.Packages[i].PackageTypeSizeID).WeightLimit;
 
-                packageCost = (decimal)package.Weight * servicePackageFee.Fee;
+                packageCost = (decimal)shipment.Packages[i].Weight * servicePackageFee.Fee;
 
-                if (weightLimit > 0 && package.Weight > weightLimit)
+                if (weightLimit > 0 && shipment.Packages[i].Weight > weightLimit)
                 {
                     packageCost += 500;
                 }
 
                 packageCost = (packageCost < servicePackageFee.MinimumFee) ? servicePackageFee.MinimumFee : packageCost;
                 packageCost = ConvertCurrency(shipment.CurrencyCode, packageCost);
-                package.PackageCost = packageCost;
+                shipment.Packages[i].PackageCost = packageCost;
                 shipment.ShipmentCost += packageCost;
             }
 

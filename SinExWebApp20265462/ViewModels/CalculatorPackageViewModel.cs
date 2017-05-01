@@ -9,8 +9,6 @@ namespace SinExWebApp20265462.ViewModels
 {
     public class CalculatorPackageViewModel
     {
-        [Key]
-        public virtual int CalculatorPackageID { get; set; }
         public virtual int PackageTypeSizeID { get; set; }
         public virtual List<SelectListItem> PackageTypeSizes { get; set; }
 
