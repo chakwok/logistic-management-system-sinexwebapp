@@ -1,0 +1,269 @@
+﻿@model SinExWebApp20265462.ViewModels.ArrangeShipmentViewModel
+
+@{
+    ViewBag.Title = "Arrange A Shipment";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+@using (Html.BeginForm("ArrangeShipment", "Shipments", "FormMethod.Get"))
+{
+    @Html.AntiForgeryToken()
+    <hr />
+    <input type="hidden" value=@ViewBag.NumberOfPackages name="NumberOfPackages" />
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.CurrencyCode, "Currency", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(a => a.CurrencyCode, Model.CurrencyCodes, new { @class = "form-control", style = "width: 150px;", onchange = "this.form.submit()" })
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <h5>Shipment Information</h5>
+    <hr />
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReferenceNumber, "Reference Number", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ReferenceNumber, new { htmlAttributes = new { placeholder = "For Your Own Use", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ReferenceNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ServiceTypeID, "Service Type", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(a => a.ServiceTypeID, Model.ServiceTypes, new { @class = "form-control", style = "width: 150px;" })
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <h5>Recipient Information</h5>
+    <hr />
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.RecipientName, "Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RecipientName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RecipientName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RecipientShippingAccountId, "Account ID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RecipientShippingAccountId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RecipientShippingAccountId, "", new { @class = "text-danger" })
+                <p class="text-danger">@ViewBag.RecipientStatusMessage</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RecipientCompanyName, "Company", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RecipientCompanyName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RecipientCompanyName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RecipientDepartmentName, "Department", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RecipientDepartmentName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RecipientDepartmentName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RecipientBuilding, "Building", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RecipientBuilding, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RecipientBuilding, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RecipientStreet, "Street", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RecipientStreet, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RecipientStreet, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Destination, "City", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(a => a.Destination, Model.Destinations, new { @class = "form-control", style = "width: 150px;" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RecipientPostalCode, "Postal Code", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RecipientPostalCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RecipientPostalCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RecipientPhoneNumber, "Phone Number", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RecipientPhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RecipientPhoneNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RecipientEmail, "Email", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RecipientEmail, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RecipientEmail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <h5>Package Information</h5>
+    <hr />
+    <p class="text-danger">@ViewBag.PackageStatusMessage</p>
+
+    <!--<div id="packages" class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.NumberOfPackages, "Number Of Packages", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NumberOfPackages, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>-->
+    for (int i = 0, tmp = 1; i < 10; i++, tmp++)
+    {
+        if (i < ViewBag.NumberOfPackages)
+        {
+            <div id="packages" class="form-horizontal">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Packages[i], "Package " + tmp)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Packages[i].PackageTypeSizeID, "Package Type", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(a => a.Packages[i].PackageTypeSizeID, Model.Packages[i].PackageTypeSizes, new { @class = "form-control", style = "width: 150px;" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Packages[i].Description, "Description", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(a => a.Packages[i].Description, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Packages[i].Value, "Content Value", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(a => a.Packages[i].Value, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Packages[i].CustomerWeight, "Weight", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(a => a.Packages[i].CustomerWeight, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </div>
+            <hr />
+        }
+        else
+        {
+            <input type="hidden" name="@Html.NameFor(model => model.Packages[i].PackageTypeSizeID)" value=1 />
+            <input type="hidden" name="@Html.NameFor(model => model.Packages[i].Description)" value="" />
+            <input type="hidden" name="@Html.NameFor(model => model.Packages[i].Value)" value=0 />
+            <input type="hidden" name="@Html.NameFor(model => model.Packages[i].CustomerWeight)" value=0 />
+        }
+    }
+
+    <button name="addPackage" value="true" class="btn btn-default">+</button>
+    <button name="delPackage" value="true" class="btn btn-default">-</button>
+
+    <br />
+    <h5>Other Information</h5>
+    <hr />
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NotifySender, "Notify sender?", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.NotifySender, new SelectList(
+    new List<Object>{
+        new { value=false , text = "No"  },
+        new { value=true , text = "Yes" },
+    },
+    "value",
+    "text",
+    2), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NotifyRecipient, "Notify recipient?", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.NotifyRecipient, new SelectList(
+    new List<Object>{
+        new { value=false , text = "No"  },
+        new { value=true , text = "Yes" },
+    },
+    "value",
+    "text",
+    2), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ShipmentPayer, "Shipment Payer", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ShipmentPayer, new SelectList(
+    new List<Object>{
+        new { value="Sender" , text = "Sender"  },
+        new { value="Recipient" , text = "Recipient" },
+    },
+    "value",
+    "text",
+    2), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DTPayer, "Duties & Taxes Payer", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.DTPayer, new SelectList(
+    new List<Object>{
+        new { value="Sender" , text = "Sender"  },
+        new { value="Recipient" , text = "Recipient" },
+    },
+    "value",
+    "text",
+    2), new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Next" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

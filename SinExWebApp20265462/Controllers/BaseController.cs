@@ -12,14 +12,6 @@ namespace SinExWebApp20265462.Controllers
     {
         private SinExDatabaseContext db = new SinExDatabaseContext();
 
-        /*
-        // GET: Base
-        public ActionResult Index()
-        {
-            return View();
-        }
-        */
-
         public decimal ConvertCurrency (string CurrencyCode, decimal Fee)
         {
             if (CurrencyCode == null) return Fee;
@@ -35,6 +27,25 @@ namespace SinExWebApp20265462.Controllers
             result = result * Decimal.Parse(Session[key].ToString()); ;
 
             return result;
+        }
+
+        public bool SaveToSessionState<T>(string key, T obj)
+        {
+            if (Session[key] == null)
+            {
+                Session.Add(key, obj);
+                return true;
+            }
+            return false;
+        }
+
+        public string GetProvince(string City)
+        {
+            string province;
+
+            province = db.Destinations.First(d => d.City == City).ProvinceCode;
+
+            return province;
         }
 
         public string ShowShippingAccountId (int ShippingAccountId)
