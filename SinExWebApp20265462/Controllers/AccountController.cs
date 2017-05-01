@@ -100,16 +100,14 @@ namespace SinExWebApp20265462.Controllers
                         }
                         else
                         {
-                            ModelState.AddModelError("", "Confirm Email Address.");
+                            ModelState.AddModelError("", "Please Confirm Email Address.");
                             return View(model);
                         }
                     }
                     else {
-                        ModelState.AddModelError("", "Invalid login attempt.");
+                        ModelState.AddModelError("", "The username or password is wrong.");
                         return View(model);
                     }
-
-                    break;
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -222,7 +220,7 @@ namespace SinExWebApp20265462.Controllers
                         var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                         //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                        b.SendEmail("", callbackUrl);
+                        b.SendEmail(user.Email,user.UserName, callbackUrl);
 
 
 
