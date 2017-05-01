@@ -102,3 +102,5 @@ Here is a basic workflow for the project. I try to standardise everything so tha
    | 2017/04/10 02:30   | Cheung Wing Kei  | ShippingAccountId successfully changed to int.   |
    | 2017/04/04 03:30   | Cheung Wing Kei  | Edit account successful.                         |
    | 2017/04/25 14:30   | Cheung Wing Kei  | Shipment Cost Calculator successful.                         |
+   | 2017/04/25 17:10   | Cheung Wing Kei  | 12 digit account id display.                   |
+   | 2017/04/25 18:20   | Cheung Wing Kei  | Email verification successful.                         |
