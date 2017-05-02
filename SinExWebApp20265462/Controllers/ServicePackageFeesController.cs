@@ -48,44 +48,25 @@ namespace SinExWebApp20265462.Controllers
         }
         
         [HttpPost]
-        public ActionResult ShipmentCostCalculator(CalculatorShipmentViewModel shipment, int? NumberOfPackages, bool addPackage=false, bool delPackage=false)
+        // POST: ShipmentCostCalculator
+        public ActionResult ShipmentCostCalculator(CalculatorShipmentViewModel shipment)
         {
             shipment.Destinations = PopulateDestinationsDropDownList().ToList();
             shipment.ServiceTypes = PopulateServiceTypesDropDownList().ToList();
             shipment.CurrencyCodes = PopulateCurrenciesDropDownList().ToList();
+            for (int i = 0; i < 10; i++)
+            {
+                shipment.Packages[i].PackageTypeSizes = PopulatePackageTypeSizesDropDownList().ToList();
+            }
 
             shipment.ShipmentCost = 0;
 
-            //if (NumberOfPackages != null) shipment.NumberOfPackages = (int)NumberOfPackages;
-            if (addPackage == true)
-            {
-                if (shipment.NumberOfPackages < 10)
-                {
-                    shipment.NumberOfPackages++;
-                } else
-                {
-                    ViewBag.StatusMessage = "A shipment should include not more than 10 packages.";
-                }
-            }
-            else if (delPackage == true)
-            {
-                if (shipment.NumberOfPackages > 1)
-                {
-                    shipment.NumberOfPackages--;
-                    shipment.Packages[shipment.NumberOfPackages].Weight = 0;
-                } else
-                {
-                    ViewBag.StatusMessage = "A shipment should include at least 1 package.";
-                }
-            }
-            //NumberOfPackages = shipment.NumberOfPackages;
+            
             ViewBag.NumberOfPackages = shipment.NumberOfPackages;
 
             for (int i = 0; i < 10; i++)
             {
-                shipment.Packages[i].PackageTypeSizes = PopulatePackageTypeSizesDropDownList().ToList();
-
-                if (i >= NumberOfPackages || shipment.Packages[i].Weight == 0) // NumberOfPackages = old
+                if (i >= shipment.NumberOfPackages || shipment.Packages[i].Weight == 0)
                 {
                     shipment.Packages[i].PackageTypeSizeID = 1;
                     shipment.Packages[i].Weight = 0;
