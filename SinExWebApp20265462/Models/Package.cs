@@ -13,7 +13,7 @@ namespace SinExWebApp20265462.Models
         [Key]
         public virtual int PackageId { get; set; }
 
-        public virtual PackageTypeSize PackageTypeSize { get; set; }
+        public virtual string PackageTypeSize { get; set; }
 
         public virtual string Description { get; set; }
         public virtual decimal Value { get; set; }
@@ -23,6 +23,7 @@ namespace SinExWebApp20265462.Models
 
         public virtual decimal PackageCost { get; set; }
 
+        public virtual int WaybillId { get; set; }
         public virtual Shipment Shipment { get; set; }
     }
 }
