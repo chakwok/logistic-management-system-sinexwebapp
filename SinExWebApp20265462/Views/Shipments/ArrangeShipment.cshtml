@@ -11,7 +11,6 @@
 {
     @Html.AntiForgeryToken()
     <hr />
-    <input type="hidden" value=@ViewBag.NumberOfPackages name="NumberOfPackages" />
 
     <div class="form-horizontal">
         <div class="form-group">
@@ -132,14 +131,24 @@
     <hr />
     <p class="text-danger">@ViewBag.PackageStatusMessage</p>
 
-    <!--<div id="packages" class="form-horizontal">
+    <div class="form-horizontal">
         <div class="form-group">
-            @Html.LabelFor(model => model.NumberOfPackages, "Number Of Packages", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NumberOfPackages, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.LabelFor(model => model.NumberOfPackages, "Number of Packages", htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.DropDownListFor(a => a.NumberOfPackages, new SelectList(
+                    new List<Object>{
+                    new { value=1,text="1" }, new { value=2,text="2" }, new { value=3,text="3" },
+                    new { value=4,text="4" }, new { value=5,text="5" }, new { value=6,text="6" },
+                    new { value=7,text="7" }, new { value=8,text="8" }, new { value=9,text="9" }, new { value=10,text="10" }
+                },
+                "value",
+                "text",
+                ViewBag.NumberOfPackages), new { @class = "form-control", style = "width: 150px;", onchange = "this.form.submit()" })
             </div>
         </div>
-    </div>-->
+    </div>
+    <hr />
+
     for (int i = 0, tmp = 1; i < 10; i++, tmp++)
     {
         if (i < ViewBag.NumberOfPackages)
@@ -184,9 +193,6 @@
         }
     }
 
-    <button name="addPackage" value="true" class="btn btn-default">+</button>
-    <button name="delPackage" value="true" class="btn btn-default">-</button>
-
     <br />
     <h5>Other Information</h5>
     <hr />
@@ -196,13 +202,13 @@
             @Html.LabelFor(model => model.NotifySender, "Notify sender?", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.NotifySender, new SelectList(
-    new List<Object>{
-        new { value=false , text = "No"  },
-        new { value=true , text = "Yes" },
-    },
-    "value",
-    "text",
-    2), new { @class = "form-control" })
+                    new List<Object>{
+                        new { value=false , text = "No"  },
+                        new { value=true , text = "Yes" },
+                    },
+                    "value",
+                    "text",
+                    2), new { @class = "form-control" })
             </div>
         </div>
 
@@ -238,13 +244,13 @@
             @Html.LabelFor(model => model.DTPayer, "Duties & Taxes Payer", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.DTPayer, new SelectList(
-    new List<Object>{
-        new { value="Sender" , text = "Sender"  },
-        new { value="Recipient" , text = "Recipient" },
-    },
-    "value",
-    "text",
-    2), new { @class = "form-control" })
+                    new List<Object>{
+                        new { value="Sender" , text = "Sender"  },
+                        new { value="Recipient" , text = "Recipient" },
+                    },
+                    "value",
+                    "text",
+                    2), new { @class = "form-control" })
             </div>
         </div>
     </div>
