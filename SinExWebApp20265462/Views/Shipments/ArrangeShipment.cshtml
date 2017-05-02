@@ -17,7 +17,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CurrencyCode, "Currency", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(a => a.CurrencyCode, Model.CurrencyCodes, new { @class = "form-control", style = "width: 150px;", onchange = "this.form.submit()" })
+                @Html.DropDownListFor(a => a.CurrencyCode, Model.CurrencyCodes, new { @class = "form-control", style = "width: 150px;" })
             </div>
         </div>
     </div>
@@ -253,16 +253,15 @@
 
     <div class="form-horizontal">
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Next" class="btn btn-default" />
+            <div class="col-md-offset-2 col-md-2">
+                <input type="button" class="btn btn-default" value="Cancel" onclick="location.href='@Url.Action("Index", "Home")'" />
+            </div>
+            <div class="col-md-2">
+                <button type="submit" name="next" value="true" class="btn btn-default">Next</button>
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

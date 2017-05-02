@@ -2289,6 +2289,6 @@ C:\Users\WingKei\Documents\SinExWebApp\ArrangePackageShipment\sinexwebapp\SinExW
 C:\Users\WingKei\Documents\SinExWebApp\ArrangePackageShipment\sinexwebapp\SinExWebApp20265462\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\WingKei\Documents\SinExWebApp\ArrangePackageShipment\sinexwebapp\SinExWebApp20265462\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\WingKei\Documents\SinExWebApp\ArrangePackageShipment\sinexwebapp\SinExWebApp20265462\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\WingKei\Documents\SinExWebApp\ArrangePackageShipment\sinexwebapp\SinExWebApp20265462\obj\Debug\SinExWebApp20265462.csprojResolveAssemblyReference.cache
 C:\Users\WingKei\Documents\SinExWebApp\ArrangePackageShipment\sinexwebapp\SinExWebApp20265462\obj\Debug\SinExWebApp20265462.dll
 C:\Users\WingKei\Documents\SinExWebApp\ArrangePackageShipment\sinexwebapp\SinExWebApp20265462\obj\Debug\SinExWebApp20265462.pdb
+C:\Users\WingKei\Documents\SinExWebApp\ArrangePackageShipment\sinexwebapp\SinExWebApp20265462\obj\Debug\SinExWebApp20265462.csprojResolveAssemblyReference.cache
