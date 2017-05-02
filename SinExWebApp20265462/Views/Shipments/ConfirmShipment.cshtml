@@ -13,126 +13,154 @@
 
 	<h5>Shipment Information</h5>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
+    <table class="table">
+	<tr>
+        <td>
             @Html.LabelFor(model => model.CurrencyCode, "Currency", htmlAttributes: new { @class = "control-label col-md-2" })
-        </dt>
+        </td>
 
-        <dd>
+        <td>
             @Html.DisplayFor(Model => Model.CurrencyCode)
-        </dd>
-
-        <dt>
+        </td>
+	</tr>
+	
+	<tr>
+        <td>
             @Html.LabelFor(model => model.ReferenceNumber, "Reference Number", htmlAttributes: new { @class = "control-label col-md-2" })
-        </dt>
+        </td>
 
-        <dd>
+        <td>
             @Html.DisplayFor(Model => Model.ReferenceNumber)
-        </dd>
-
-        <dt>
+        </td>
+	</tr>
+	
+	<tr>
+        <td>
             @Html.LabelFor(model => model.ServiceType, "Service Type", htmlAttributes: new { @class = "control-label col-md-2" })
-        </dt>
+        </td>
 
-        <dd>
+        <td>
             @Html.DisplayFor(Model => Model.ServiceType)
-        </dd>
+        </td>
+	</tr>
 
-	</dl>
+	</table>
 	
 	<br />
 	<h5>Recipient Information</h5>
     <hr />
-	<dl class="dl-horizontal">
-		<dt>
+	<table class="table">
+	<tr>
+		<td>
             @Html.LabelFor(model => model.RecipientName, "Name", htmlAttributes: new { @class = "control-label col-md-2" })
-        </dt>
+        </td>
 	
-        <dd>
+        <td>
             @Html.DisplayFor(Model => Model.RecipientName)
-        </dd>
+        </td>
+	</tr>
 
-        <dt>
+	<tr>
+        <td>
             @Html.LabelFor(model => model.RecipientShippingAccountId, "Account ID", htmlAttributes: new { @class = "control-label col-md-2" })
-        </dt>
+        </td>
 
-        <dd>
+        <td>
             @Html.DisplayFor(Model => Model.RecipientShippingAccountId)
-        </dd>
+        </td>
+	</tr>
 
-        <dt>
+	<tr>
+        <td>
             @Html.LabelFor(model => model.RecipientCompanyName, "Company", htmlAttributes: new { @class = "control-label col-md-2" })
-        </dt>
+        </td>
 
-        <dd>
+        <td>
             @Html.DisplayFor(Model => Model.RecipientCompanyName)
-        </dd>
+        </td>
+	</tr>
 
-        <dt>
+	<tr>
+        <td>
             @Html.LabelFor(model => model.RecipientDepartmentName, "Department", htmlAttributes: new { @class = "control-label col-md-2" })
-        </dt>
+        </td>
 
-        <dd>
+        <td>
             @Html.DisplayFor(Model => Model.RecipientDepartmentName)
-        </dd>
+        </td>
+	</tr>
 
-        <dt>
+	<tr>
+        <td>
             @Html.LabelFor(model => model.RecipientBuilding, "Building", htmlAttributes: new { @class = "control-label col-md-2" })
-        </dt>
+        </td>
 
-        <dd>
+        <td>
             @Html.DisplayFor(Model => Model.RecipientBuilding)
-        </dd>
+        </td>
+	</tr>
 
-        <dt>
+	<tr>
+        <td>
             @Html.LabelFor(model => model.RecipientStreet, "Street", htmlAttributes: new { @class = "control-label col-md-2" })
-        </dt>
+        </td>
 
-        <dd>
+        <td>
             @Html.DisplayFor(Model => Model.RecipientStreet)
-        </dd>
+        </td>
+	</tr>
 
-        <dt>
+	<tr>
+        <td>
             @Html.LabelFor(model => model.Destination, "City", htmlAttributes: new { @class = "control-label col-md-2" })
-        </dt>
+        </td>
 
-        <dd>
+        <td>
             @Html.DisplayFor(Model => Model.Destination)
-        </dd>
+        </td>
+	</tr>
 
-        <dt>
+	<tr>
+        <td>
             @Html.LabelFor(model => model.RecipientProvince, "Province", htmlAttributes: new { @class = "control-label col-md-2" })
-        </dt>
+        </td>
 
-        <dd>
+        <td>
             @Html.DisplayFor(Model => Model.RecipientProvince)
-        </dd>
+        </td>
+	</tr>
 
-        <dt>
+	<tr>
+        <td>
             @Html.LabelFor(model => model.RecipientPostalCode, "Postal Code", htmlAttributes: new { @class = "control-label col-md-2" })
-        </dt>
+        </td>
 
-        <dd>
+        <td>
             @Html.DisplayFor(Model => Model.RecipientPostalCode)
-        </dd>
+        </td>
+	</tr>
 
-        <dt>
+	<tr>
+        <td>
             @Html.LabelFor(model => model.RecipientPhoneNumber, "Phone Number", htmlAttributes: new { @class = "control-label col-md-2" })
-        </dt>
+        </td>
 
-        <dd>
+        <td>
             @Html.DisplayFor(Model => Model.RecipientPhoneNumber)
-        </dd>
+        </td>
+	</tr>
 
-        <dt>
+	<tr>
+        <td>
             @Html.LabelFor(model => model.RecipientEmail, "Email", htmlAttributes: new { @class = "control-label col-md-2" })
-        </dt>
+        </td>
 
-        <dd>
+        <td>
             @Html.DisplayFor(Model => Model.RecipientEmail)
-        </dd>
+        </td>
+	</tr>
 
-    </dl>
+    </table>
 	
 	<br />
 	<h5>Package Information</h5>
@@ -200,40 +228,48 @@
     <br />
     <h5>Other Information</h5>
     <hr />
-    <dl class="dl-horizontal">
+    <table class="table">
 
-        <dt>
+	<tr>
+        <td>
             @Html.LabelFor(model => model.NotifySender, "Notify sender?", htmlAttributes: new { @class = "control-label col-md-2" })
-        </dt>
+        </td>
 		
-		<dd>
+		<td>
 			@Html.DisplayFor(a => a.NotifySender)
-		</dd>
+		</td>
+	</tr>
 
-        <dt>
+	<tr>
+        <td>
             @Html.LabelFor(model => model.NotifyRecipient, "Notify recipient?", htmlAttributes: new { @class = "control-label col-md-2" })
-        </dt>
+        </td>
 
-		<dd>
+		<td>
 			@Html.DisplayFor(a => a.NotifyRecipient)
-		<dd>
+		<td>
+	</tr>
 		
-        <dt>
+	<tr>
+        <td>
             @Html.LabelFor(model => model.ShipmentPayer, "Shipment Payer", htmlAttributes: new { @class = "control-label col-md-2" })
-		</dt>
+		</td>
 		
-		<dd>
+		<td>
 			@Html.DisplayFor(a => a.ShipmentPayer)
-		<dd>
-		
-        <dt>
+		<td>
+	</tr>
+	
+	<tr>
+        <td>
             @Html.LabelFor(model => model.DTPayer, "Duties & Taxes Payer", htmlAttributes: new { @class = "control-label col-md-2" })
-		</dt>
+		</td>
 		
-		<dd>
+		<td>
 			@Html.DisplayFor(a => a.DTPayer)
-		<dd>
-    </dl>
+		<td>
+	</tr>
+    </table>
 
     <hr />
 	<div class="form-horizontal">
