@@ -20,6 +20,18 @@ namespace SinExWebApp20265462.Controllers
         }
         */
 
+        public static decimal getPenaltyFee()
+        {
+            return GlobalVariables.PenaltyFee;
+        }
+
+        public static void setPenaltyFee(decimal newPenaltyFee)
+        {
+            GlobalVariables.PenaltyFee = newPenaltyFee;
+            return;
+        }
+
+
         public decimal ConvertCurrency (string CurrencyCode, decimal Fee)
         {
             if (CurrencyCode == null) return Fee;

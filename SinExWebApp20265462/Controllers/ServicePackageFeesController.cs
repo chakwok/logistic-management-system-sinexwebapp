@@ -19,9 +19,18 @@ namespace SinExWebApp20265462.Controllers
         // GET: ServicePackageFees
         public ActionResult Index()
         {
+            ViewBag.PenaltyFee = getPenaltyFee();
             var servicePackageFees = db.ServicePackageFees.Include(s => s.PackageType).Include(s => s.ServiceType);
             return View(servicePackageFees.ToList());
         }
+
+        public ActionResult SetPenaltyFee(decimal? newPenaltyFee)
+        {
+            setPenaltyFee(newPenaltyFee.GetValueOrDefault());
+            //GlobalVariables.PenaltyFee = 600;
+            return RedirectToAction("Index", "ServicePackageFees");
+        }
+
 
         // GET: ShipmentCostCalculator
         public ActionResult ShipmentCostCalculator()
@@ -190,6 +199,7 @@ namespace SinExWebApp20265462.Controllers
         // GET: ServicePackageFees/Edit/5
         public ActionResult Edit(int? id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
