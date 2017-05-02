@@ -249,7 +249,9 @@ namespace SinExWebApp20265462.Controllers
         }
 
 
-        //
+        //manage address
+    
+
         // GET: /Manage/EditProfile
         public async Task<ActionResult> EditProfile()
         {

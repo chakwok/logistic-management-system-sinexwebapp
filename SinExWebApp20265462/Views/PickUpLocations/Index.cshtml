@@ -1,0 +1,62 @@
+﻿@model IEnumerable<SinExWebApp20265462.Models.PickUpLocation>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Pick Up Location</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PickUpNickName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PickUpBuilding)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PickUpStreet)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PickUpCity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PickUpProvinceCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PickUpPostalCode)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PickUpNickName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PickUpBuilding)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PickUpStreet)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PickUpCity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PickUpProvinceCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PickUpPostalCode)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PickUpLocationID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PickUpLocationID })
+        </td>
+    </tr>
+}
+
+</table>
