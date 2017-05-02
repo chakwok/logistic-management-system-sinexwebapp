@@ -85,8 +85,17 @@ namespace SinExWebApp20265462.Controllers
                 digit += 0;
             }
             return (digit + ShippingAccountId.ToString());
+        }
 
-
+        public string ShowWaybillId(int WaybillId)
+        {
+            var digit = "";
+            int count = WaybillId.ToString().Length;
+            for (int i = 0; i < 16 - count; i++)
+            {
+                digit += 0;
+            }
+            return (digit + WaybillId.ToString());
         }
 
         public SelectList PopulateCurrenciesDropDownList()
