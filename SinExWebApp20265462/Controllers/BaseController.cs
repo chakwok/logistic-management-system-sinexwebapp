@@ -1,4 +1,5 @@
-﻿using SinExWebApp20265462.Models;
+﻿using Microsoft.AspNet.Identity;
+using SinExWebApp20265462.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +47,33 @@ namespace SinExWebApp20265462.Controllers
             province = db.Destinations.First(d => d.City == City).ProvinceCode;
 
             return province;
+        }
+
+        public int GetUserId()
+        {
+            string userName = User.Identity.GetUserName();
+            string key = userName + "Id";
+
+            if (Session[key] == null)
+            {
+                int? ShippingAccountId = db.ShippingAccounts.First(s => s.UserName == userName).ShippingAccountId;
+                if (ShippingAccountId != null) Session.Add(key, ShippingAccountId);
+                else return -1;
+            }
+            
+            return Int32.Parse(Session[key].ToString());
+        }
+
+        public string GetUserCity(int userId)
+        {
+            string key = "user" + userId + "City";
+            if (Session[key] == null)
+            {
+                string userCity = db.ShippingAccounts.Find(userId).City;
+                if (userCity != null) Session.Add(key, userCity);
+                else return "";
+            }
+            return Session[key].ToString();
         }
 
         public string ShowShippingAccountId (int ShippingAccountId)
