@@ -214,6 +214,8 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PackageTypesController.cs" />
     <Compile Include="Controllers\PersonalShippingAccountsController.cs" />
+    <Compile Include="Controllers\PickUpLocationsController.cs" />
+    <Compile Include="Controllers\RecipientAddressesController.cs" />
     <Compile Include="Controllers\ServicePackageFeesController.cs" />
     <Compile Include="Controllers\ServiceTypesController.cs" />
     <Compile Include="Controllers\ShipmentsController.cs" />
@@ -231,6 +233,8 @@
     <Compile Include="Models\PackageType.cs" />
     <Compile Include="Models\PackageTypeSize.cs" />
     <Compile Include="Models\PersonalShippingAccount.cs" />
+    <Compile Include="Models\PickUpLocation.cs" />
+    <Compile Include="Models\RecipientAddress.cs" />
     <Compile Include="Models\ServicePackageFee.cs" />
     <Compile Include="Models\ServiceType.cs" />
     <Compile Include="Models\Shipment.cs" />
@@ -374,6 +378,16 @@
     <Content Include="Views\Manage\EditPersonalProfile.cshtml" />
     <Content Include="Views\Manage\EditBusinessProfile.cshtml" />
     <Content Include="Views\ServicePackageFees\ShipmentCostCalculator.cshtml" />
+    <Content Include="Views\RecipientAddresses\Create.cshtml" />
+    <Content Include="Views\RecipientAddresses\Delete.cshtml" />
+    <Content Include="Views\RecipientAddresses\Details.cshtml" />
+    <Content Include="Views\RecipientAddresses\Edit.cshtml" />
+    <Content Include="Views\RecipientAddresses\Index.cshtml" />
+    <Content Include="Views\PickUpLocations\Create.cshtml" />
+    <Content Include="Views\PickUpLocations\Delete.cshtml" />
+    <Content Include="Views\PickUpLocations\Details.cshtml" />
+    <Content Include="Views\PickUpLocations\Edit.cshtml" />
+    <Content Include="Views\PickUpLocations\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Base\" />
