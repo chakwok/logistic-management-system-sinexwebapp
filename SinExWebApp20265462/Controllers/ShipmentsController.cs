@@ -67,7 +67,7 @@ namespace SinExWebApp20265462.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         // POST: Shipments/ArrangeShipment
-        public ActionResult ArrangeShipment(ArrangeShipmentViewModel shipment, int? NumberOfPackages, bool addPackage = false, bool delPackage = false,
+        public ActionResult ArrangeShipment(ArrangeShipmentViewModel shipment,
             bool next = false)
         {
 
@@ -81,35 +81,9 @@ namespace SinExWebApp20265462.Controllers
             
             shipment.ShipmentCost = 0;
 
-            if (addPackage)
-            {
-                if (shipment.NumberOfPackages < 10)
-                {
-                    shipment.NumberOfPackages++;
-                }
-                else
-                {
-                    ViewBag.PackageStatusMessage = "A shipment should include not more than 10 packages.";
-                }
-                ViewBag.NumberOfPackages = shipment.NumberOfPackages;
-                return View(shipment);
-            }
-            else if (delPackage)
-            {
-                if (shipment.NumberOfPackages > 1)
-                {
-                    shipment.NumberOfPackages--;
-                }
-                else
-                {
-                    ViewBag.PackageStatusMessage = "A shipment should include at least 1 package.";
-                }
-                ViewBag.NumberOfPackages = shipment.NumberOfPackages;
-                return View(shipment);
-            }
-            
-            if (!next) return View(shipment);
             ViewBag.NumberOfPackages = shipment.NumberOfPackages;
+
+            if (!next) return View(shipment);
 
             for (int i = 0; i < shipment.NumberOfPackages; i++)
             {
