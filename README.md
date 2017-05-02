@@ -28,7 +28,7 @@ Here is a basic workflow for the project. I try to standardise everything so tha
 
 5. Submit a pull request on the Bitbucket repo webpage.
 
-6. ============= Do not proceed to this step until your pull request has been approved. =============
+6. __Do not proceed to this step until your pull request has been approved.__
 
     After the others review the branch and accept the pull request, someone merges the feature into the master branch.
 
@@ -76,7 +76,7 @@ Here is a basic workflow for the project. I try to standardise everything so tha
         update-database -configurationtypename AspIdentityConfiguration
         update-database -configurationtypename SinExConfiguration
 
-* Ultimate solution for problematic database - Delete it!
+* __Ultimate solution for problematic database - Delete it!__
 
     Enter "SQL Server Object Explorer" in Quick Launch and find the correct database and delete it. Update database again in Package Manager Console.
 
