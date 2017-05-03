@@ -46,6 +46,7 @@ namespace SinExWebApp20265462.Controllers
             shipment.ServiceTypes = PopulateServiceTypesDropDownList().ToList();
             shipment.Destinations = PopulateDestinationsDropDownList().ToList();
             shipment.CurrencyCodes = PopulateCurrenciesDropDownList().ToList();
+            shipment.RecipientAddresses = PopulateRecipientAddressesDropDownList().ToList();
 
             ViewBag.NumberOfPackages = 1;
             shipment.NumberOfPackages = 1;
@@ -74,6 +75,7 @@ namespace SinExWebApp20265462.Controllers
             shipment.Destinations = PopulateDestinationsDropDownList().ToList();
             shipment.ServiceTypes = PopulateServiceTypesDropDownList().ToList();
             shipment.CurrencyCodes = PopulateCurrenciesDropDownList().ToList();
+            shipment.RecipientAddresses = PopulateRecipientAddressesDropDownList().ToList();
             for (int i = 0; i < 10; i++)
             {
                 shipment.Packages[i].PackageTypeSizes = PopulatePackageTypeSizesDropDownList().ToList();
@@ -83,7 +85,20 @@ namespace SinExWebApp20265462.Controllers
 
             ViewBag.NumberOfPackages = shipment.NumberOfPackages;
 
-            if (!next) return View(shipment);
+            if (!next)
+            {
+                RecipientAddress recipientAddress = db.RecipientAddresses.Find(shipment.RecipientAddressID);
+                ViewBag.RecipientName = recipientAddress.RecipientName;
+                ViewBag.RecipientShippingAccountId = recipientAddress.RecipientShippingAccountId;
+                ViewBag.RecipientCompanyName = recipientAddress.CompanyName;
+                ViewBag.RecipientDepartmentName = recipientAddress.DepartmentName;
+                ViewBag.RecipientBuilding = recipientAddress.Building;
+                ViewBag.RecipientStreet = recipientAddress.Street;
+                ViewBag.RecipientPostalCode = recipientAddress.PostalCode;
+                ViewBag.RecipientPhoneNumber = recipientAddress.RecipientPhoneNumber;
+                ViewBag.RecipientEmail = shipment.RecipientEmail;
+                return View(shipment);
+            }
 
             for (int i = 0; i < shipment.NumberOfPackages; i++)
             {
@@ -94,14 +109,24 @@ namespace SinExWebApp20265462.Controllers
                 }
             }
 
+            if (shipment.NotifyRecipient)
+            {
+                if (shipment.RecipientEmail == null)
+                {
+                    ViewBag.RecipientEmailStatusMessage = "Recipient email has to be provided for notification.";
+                    return View(shipment);
+                }
+            }
+
             if (shipment.ShipmentPayer == "Recipient" || shipment.DTPayer == "Recipient")
             {
                 if (shipment.RecipientShippingAccountId == null)
                 {
-                    ViewBag.RecipientStatusMessage = "Recipient Account ID is required to be the payer.";
+                    ViewBag.RecipientShippingAccountIdStatusMessage = "Recipient Account ID is required to be the payer.";
                     return View(shipment);
                 }
             }
+            
 
             if (Session["newShipment"] != null) Session.Remove("newShipment");
             SaveToSessionState("newShipment", shipment);
@@ -174,11 +199,12 @@ namespace SinExWebApp20265462.Controllers
             shipment.RecipientCompanyName = shipmentView.RecipientCompanyName;
             shipment.RecipientDepartmentName = shipmentView.RecipientDepartmentName;
             shipment.RecipientBuilding = shipmentView.RecipientBuilding;
+            shipment.RecipientStreet = shipmentView.RecipientStreet;
             shipment.Destination = shipmentView.Destination;
             shipment.RecipientProvince = shipmentView.RecipientProvince;
             shipment.RecipientPostalCode = shipmentView.RecipientPostalCode;
-            shipment.RecipientPhoneNumber = shipment.RecipientPhoneNumber;
-            shipment.RecipientEmail = shipment.RecipientEmail;
+            shipment.RecipientPhoneNumber = shipmentView.RecipientPhoneNumber;
+            shipment.RecipientEmail = shipmentView.RecipientEmail;
             shipment.NumberOfPackages = shipmentView.NumberOfPackages;
             shipment.ShipmentPayer = shipmentView.ShipmentPayer;
             shipment.DTPayer = shipmentView.DTPayer;

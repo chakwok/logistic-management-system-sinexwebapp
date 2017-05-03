@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SinExWebApp20265462.Models;
 
 namespace SinExWebApp20265462.ViewModels
 {
@@ -16,7 +17,8 @@ namespace SinExWebApp20265462.ViewModels
         public virtual string ServiceType { get; set; }
         public virtual List<SelectListItem> ServiceTypes { get; set; }
 
-
+        public virtual int RecipientAddressID { get; set; }
+        public virtual List<SelectListItem> RecipientAddresses { get; set; }
 
         [Required]
         [StringLength(70)]
@@ -45,7 +47,6 @@ namespace SinExWebApp20265462.ViewModels
         [StringLength(14, MinimumLength = 8, ErrorMessage = "Phone number must be between 8-14 digits.")]
         [RegularExpression("^[0-9]*$", ErrorMessage = "Phone number must be numeric.")]
         public virtual string RecipientPhoneNumber { get; set; }
-        [Required]
         [StringLength(30)]
         [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "Email not valid")]
         public virtual string RecipientEmail { get; set; }
