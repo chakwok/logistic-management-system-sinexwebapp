@@ -170,7 +170,7 @@ namespace SinExWebApp20265462.Controllers
             shipment.ShippingAccountId = GetUserId();
             shipment.Origin = GetUserCity(shipment.ShippingAccountId);
             shipment.RecipientName = shipmentView.RecipientName;
-            if (shipmentView.RecipientShippingAccountId != null) shipment.RecipientShippingAccountId = Int32.Parse(shipmentView.RecipientShippingAccountId);
+            if (shipmentView.RecipientShippingAccountId != null) shipment.RecipientShippingAccountId = shipmentView.RecipientShippingAccountId;
             shipment.RecipientCompanyName = shipmentView.RecipientCompanyName;
             shipment.RecipientDepartmentName = shipmentView.RecipientDepartmentName;
             shipment.RecipientBuilding = shipmentView.RecipientBuilding;
