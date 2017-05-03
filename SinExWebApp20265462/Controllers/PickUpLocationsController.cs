@@ -7,10 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SinExWebApp20265462.Models;
+using SinExWebApp20265462.ViewModels;
 
 namespace SinExWebApp20265462.Controllers
 {
-    public class PickUpLocationsController : Controller
+    public class PickUpLocationsController : BaseController
     {
         private SinExDatabaseContext db = new SinExDatabaseContext();
 
@@ -38,7 +39,9 @@ namespace SinExWebApp20265462.Controllers
         // GET: PickUpLocations/Create
         public ActionResult Create()
         {
-            return View();
+            PickUpLocationViewModel pickUpLocation = new PickUpLocationViewModel();
+            pickUpLocation.PickUpCities = PopulateDestinationsDropDownList().ToList();
+            return View(pickUpLocation);
         }
 
         // POST: PickUpLocations/Create
@@ -46,16 +49,21 @@ namespace SinExWebApp20265462.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PickUpLocationID,PickUpNickName,PickUpBuilding,PickUpStreet,PickUpCity,PickUpProvinceCode,PickUpPostalCode")] PickUpLocation pickUpLocation)
+        public ActionResult Create([Bind(Include = "PickUpLocationID,PickUpNickName,PickUpBuilding,PickUpStreet,PickUpCity,PickUpProvinceCode,PickUpPostalCode")] PickUpLocationViewModel pickUpLocationViewModel)
         {
             if (ModelState.IsValid)
             {
+                PickUpLocation pickUpLocation = new PickUpLocation(pickUpLocationViewModel.PickUpLocationID,
+                    pickUpLocationViewModel.PickUpNickName, pickUpLocationViewModel.PickUpBuilding, pickUpLocationViewModel.PickUpStreet,
+                    pickUpLocationViewModel.PickUpCity, pickUpLocationViewModel.PickUpProvinceCode, pickUpLocationViewModel.PickUpPostalCode);
+
+                pickUpLocation.PickUpProvinceCode = GetProvince(pickUpLocation.PickUpCity);
                 db.PickUpLocations.Add(pickUpLocation);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(pickUpLocation);
+            return View(pickUpLocationViewModel);
         }
 
         // GET: PickUpLocations/Edit/5
@@ -70,7 +78,12 @@ namespace SinExWebApp20265462.Controllers
             {
                 return HttpNotFound();
             }
-            return View(pickUpLocation);
+            PickUpLocationViewModel pickUpLocationViewModel = new PickUpLocationViewModel(pickUpLocation.PickUpLocationID,
+                pickUpLocation.PickUpNickName, pickUpLocation.PickUpBuilding, pickUpLocation.PickUpStreet,
+                pickUpLocation.PickUpCity, pickUpLocation.PickUpProvinceCode, pickUpLocation.PickUpPostalCode);
+
+            pickUpLocationViewModel.PickUpCities = PopulateDestinationsDropDownList().ToList();
+            return View(pickUpLocationViewModel);
         }
 
         // POST: PickUpLocations/Edit/5
@@ -78,15 +91,20 @@ namespace SinExWebApp20265462.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PickUpLocationID,PickUpNickName,PickUpBuilding,PickUpStreet,PickUpCity,PickUpProvinceCode,PickUpPostalCode")] PickUpLocation pickUpLocation)
+        public ActionResult Edit([Bind(Include = "PickUpLocationID,PickUpNickName,PickUpBuilding,PickUpStreet,PickUpCity,PickUpProvinceCode,PickUpPostalCode")] PickUpLocationViewModel pickUpLocationViewModel)
         {
             if (ModelState.IsValid)
             {
+                PickUpLocation pickUpLocation = new PickUpLocation(pickUpLocationViewModel.PickUpLocationID,
+                    pickUpLocationViewModel.PickUpNickName, pickUpLocationViewModel.PickUpBuilding, pickUpLocationViewModel.PickUpStreet,
+                    pickUpLocationViewModel.PickUpCity, pickUpLocationViewModel.PickUpProvinceCode, pickUpLocationViewModel.PickUpPostalCode);
+
+                pickUpLocation.PickUpProvinceCode = GetProvince(pickUpLocation.PickUpCity);
                 db.Entry(pickUpLocation).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(pickUpLocation);
+            return View(pickUpLocationViewModel);
         }
 
         // GET: PickUpLocations/Delete/5

@@ -7,10 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SinExWebApp20265462.Models;
+using SinExWebApp20265462.ViewModels;
 
 namespace SinExWebApp20265462.Controllers
 {
-    public class RecipientAddressesController : Controller
+    public class RecipientAddressesController : BaseController
     {
         private SinExDatabaseContext db = new SinExDatabaseContext();
 
@@ -38,7 +39,9 @@ namespace SinExWebApp20265462.Controllers
         // GET: RecipientAddresses/Create
         public ActionResult Create()
         {
-            return View();
+            RecipientAddressViewModel recipientAddress = new RecipientAddressViewModel();
+            recipientAddress.Cities = PopulateDestinationsDropDownList().ToList();
+            return View(recipientAddress);
         }
 
         // POST: RecipientAddresses/Create
@@ -46,16 +49,21 @@ namespace SinExWebApp20265462.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RecipientAddressID,NickName,Building,Street,City,ProvinceCode,PostalCode")] RecipientAddress recipientAddress)
+        public ActionResult Create([Bind(Include = "RecipientAddressID,NickName,Building,Street,City,ProvinceCode,PostalCode")] RecipientAddressViewModel recipientAddressViewModel)
         {
             if (ModelState.IsValid)
             {
+                RecipientAddress recipientAddress = new RecipientAddress(recipientAddressViewModel.RecipientAddressID,
+                    recipientAddressViewModel.NickName, recipientAddressViewModel.Building, recipientAddressViewModel.Street,
+                    recipientAddressViewModel.City, recipientAddressViewModel.ProvinceCode, recipientAddressViewModel.PostalCode);
+
+                recipientAddress.ProvinceCode = GetProvince(recipientAddress.City);
                 db.RecipientAddresses.Add(recipientAddress);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(recipientAddress);
+            return View(recipientAddressViewModel);
         }
 
         // GET: RecipientAddresses/Edit/5
@@ -70,7 +78,12 @@ namespace SinExWebApp20265462.Controllers
             {
                 return HttpNotFound();
             }
-            return View(recipientAddress);
+            RecipientAddressViewModel recipientAddressViewModel = new RecipientAddressViewModel(recipientAddress.RecipientAddressID,
+                    recipientAddress.NickName, recipientAddress.Building, recipientAddress.Street,
+                    recipientAddress.City, recipientAddress.ProvinceCode, recipientAddress.PostalCode);
+
+            recipientAddressViewModel.Cities = PopulateDestinationsDropDownList().ToList();
+            return View(recipientAddressViewModel);
         }
 
         // POST: RecipientAddresses/Edit/5
@@ -78,15 +91,20 @@ namespace SinExWebApp20265462.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RecipientAddressID,NickName,Building,Street,City,ProvinceCode,PostalCode")] RecipientAddress recipientAddress)
+        public ActionResult Edit([Bind(Include = "RecipientAddressID,NickName,Building,Street,City,ProvinceCode,PostalCode")] RecipientAddressViewModel recipientAddressViewModel)
         {
             if (ModelState.IsValid)
             {
+                RecipientAddress recipientAddress = new RecipientAddress(recipientAddressViewModel.RecipientAddressID,
+                    recipientAddressViewModel.NickName, recipientAddressViewModel.Building, recipientAddressViewModel.Street,
+                    recipientAddressViewModel.City, recipientAddressViewModel.ProvinceCode, recipientAddressViewModel.PostalCode);
+
+                recipientAddress.ProvinceCode = GetProvince(recipientAddress.City);
                 db.Entry(recipientAddress).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(recipientAddress);
+            return View(recipientAddressViewModel);
         }
 
         // GET: RecipientAddresses/Delete/5
