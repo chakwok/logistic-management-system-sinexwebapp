@@ -17,5 +17,9 @@ namespace SinExWebApp20265462.Models
         public virtual string City { get; set; }
         public virtual string Province { get; set; }
         public virtual DateTime PickupDateTime { get; set; }
+
+        [Required]
+        public Shipment Shipment { get; set; }
+        public virtual int WaybillId { get; set; }
     }
 }

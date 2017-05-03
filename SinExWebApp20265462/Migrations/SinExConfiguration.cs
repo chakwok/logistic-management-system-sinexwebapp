@@ -4,6 +4,7 @@ namespace SinExWebApp20265462.Migrations
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using System.Data.Entity.Validation;
     using System.Linq;
 
     internal sealed class SinExConfiguration : DbMigrationsConfiguration<SinExWebApp20265462.Models.SinExDatabaseContext>
@@ -12,6 +13,7 @@ namespace SinExWebApp20265462.Migrations
         {
             AutomaticMigrationsEnabled = true;
         }
+
 
         protected override void Seed(SinExWebApp20265462.Models.SinExDatabaseContext context)
         {
@@ -26,7 +28,10 @@ namespace SinExWebApp20265462.Migrations
             //      new Person { FullName = "Brice Lambson" },
             //      new Person { FullName = "Rowan Miller" }
             //    );
-            //
+        //
+            //if (System.Diagnostics.Debugger.IsAttached == false)
+            //    System.Diagnostics.Debugger.Launch();
+
             context.PackageTypes.AddOrUpdate(
                 p => p.PackageTypeID,
                 new PackageType { PackageTypeID = 1, Type = "Envelope", Description = "for correspondence and documents only with no commercial value" },
@@ -68,31 +73,31 @@ namespace SinExWebApp20265462.Migrations
                 new ServicePackageFee { ServicePackageFeeID = 3, Fee = 100, MinimumFee = 160, ServiceTypeID = 1, PackageTypeID = 3 }, // Tube
                 new ServicePackageFee { ServicePackageFeeID = 4, Fee = 110, MinimumFee = 160, ServiceTypeID = 1, PackageTypeID = 4 }, // Box
                 new ServicePackageFee { ServicePackageFeeID = 5, Fee = 110, MinimumFee = 160, ServiceTypeID = 1, PackageTypeID = 5 }, // Customer
-                                                                                                                                      // Next Day 10:30
+                                                                                                                                        // Next Day 10:30
                 new ServicePackageFee { ServicePackageFeeID = 6, Fee = 140, MinimumFee = 140, ServiceTypeID = 2, PackageTypeID = 1 }, // Envelope
                 new ServicePackageFee { ServicePackageFeeID = 7, Fee = 90, MinimumFee = 140, ServiceTypeID = 2, PackageTypeID = 2 }, // Pak
                 new ServicePackageFee { ServicePackageFeeID = 8, Fee = 90, MinimumFee = 140, ServiceTypeID = 2, PackageTypeID = 3 }, // Tube
                 new ServicePackageFee { ServicePackageFeeID = 9, Fee = 99, MinimumFee = 100, ServiceTypeID = 2, PackageTypeID = 4 }, // Box
                 new ServicePackageFee { ServicePackageFeeID = 10, Fee = 99, MinimumFee = 140, ServiceTypeID = 2, PackageTypeID = 5 }, // Customer
-                                                                                                                                      // Next Day 12:00
+                                                                                                                                        // Next Day 12:00
                 new ServicePackageFee { ServicePackageFeeID = 11, Fee = 130, MinimumFee = 130, ServiceTypeID = 3, PackageTypeID = 1 }, // Envelope
                 new ServicePackageFee { ServicePackageFeeID = 12, Fee = 80, MinimumFee = 130, ServiceTypeID = 3, PackageTypeID = 2 }, // Pak
                 new ServicePackageFee { ServicePackageFeeID = 13, Fee = 80, MinimumFee = 130, ServiceTypeID = 3, PackageTypeID = 3 }, // Tube
                 new ServicePackageFee { ServicePackageFeeID = 14, Fee = 88, MinimumFee = 130, ServiceTypeID = 3, PackageTypeID = 4 }, // Box
                 new ServicePackageFee { ServicePackageFeeID = 15, Fee = 88, MinimumFee = 130, ServiceTypeID = 3, PackageTypeID = 5 }, // Customer
-                                                                                                                                      // Next Day 15:00
+                                                                                                                                        // Next Day 15:00
                 new ServicePackageFee { ServicePackageFeeID = 16, Fee = 120, MinimumFee = 120, ServiceTypeID = 4, PackageTypeID = 1 }, // Envelope
                 new ServicePackageFee { ServicePackageFeeID = 17, Fee = 70, MinimumFee = 120, ServiceTypeID = 4, PackageTypeID = 2 }, // Pak
                 new ServicePackageFee { ServicePackageFeeID = 18, Fee = 70, MinimumFee = 120, ServiceTypeID = 4, PackageTypeID = 3 }, // Tube
                 new ServicePackageFee { ServicePackageFeeID = 19, Fee = 77, MinimumFee = 120, ServiceTypeID = 4, PackageTypeID = 4 }, // Box
                 new ServicePackageFee { ServicePackageFeeID = 20, Fee = 77, MinimumFee = 120, ServiceTypeID = 4, PackageTypeID = 5 }, // Customer
-                                                                                                                                      // 2nd Day
+                                                                                                                                        // 2nd Day
                 new ServicePackageFee { ServicePackageFeeID = 21, Fee = 50, MinimumFee = 50, ServiceTypeID = 5, PackageTypeID = 1 }, // Envelope
                 new ServicePackageFee { ServicePackageFeeID = 22, Fee = 50, MinimumFee = 50, ServiceTypeID = 5, PackageTypeID = 2 }, // Pak
                 new ServicePackageFee { ServicePackageFeeID = 23, Fee = 50, MinimumFee = 50, ServiceTypeID = 5, PackageTypeID = 3 }, // Tube
                 new ServicePackageFee { ServicePackageFeeID = 24, Fee = 55, MinimumFee = 55, ServiceTypeID = 5, PackageTypeID = 4 }, // Box
                 new ServicePackageFee { ServicePackageFeeID = 25, Fee = 55, MinimumFee = 55, ServiceTypeID = 5, PackageTypeID = 5 }, // Customer
-                                                                                                                                     // Ground
+                                                                                                                                        // Ground
                 new ServicePackageFee { ServicePackageFeeID = 26, Fee = 25, MinimumFee = 25, ServiceTypeID = 6, PackageTypeID = 1 },// Envelope
                 new ServicePackageFee { ServicePackageFeeID = 27, Fee = 25, MinimumFee = 25, ServiceTypeID = 6, PackageTypeID = 2 }, // Pak
                 new ServicePackageFee { ServicePackageFeeID = 28, Fee = 25, MinimumFee = 25, ServiceTypeID = 6, PackageTypeID = 3 }, // Tube
@@ -152,6 +157,84 @@ namespace SinExWebApp20265462.Migrations
                 new Destination { DestinationID = 40, City = "Zhengzhou", ProvinceCode = "HA", CurrencyCode = "CNY" }
                 );
 
+            context.ShipmentTracking.AddOrUpdate(
+                p => p.ShipmentTrackingID,
+                new ShipmentTracking { ShipmentTrackingID = 1, WaybillId = 1 }
+            );
+
+            context.ShipmentStates.AddOrUpdate(
+                p => p.ShipmentStateID,
+                new ShipmentState { ShipmentStateID = 1, ShipmentTrackingID = 1, Date = new DateTime(2017, 4, 6), Time = new DateTime(2017, 4, 6, 13, 55, 0), Description = "Picked Up", Location = "Hong Kong", Remarks = "Vehicle 34" },
+                new ShipmentState { ShipmentStateID = 2, ShipmentTrackingID = 1, Date = new DateTime(2017, 4, 6), Time = new DateTime(2017, 4, 6, 16, 15, 0), Description = "At local sort facility", Location = "Tung Chung", Remarks = "" },
+                new ShipmentState { ShipmentStateID = 3, ShipmentTrackingID = 1, Date = new DateTime(2017, 4, 6), Time = new DateTime(2017, 4, 6, 18, 05, 0), Description = "Left Origin", Location = "HKIA", Remarks = "CX0123" },
+                new ShipmentState { ShipmentStateID = 4, ShipmentTrackingID = 1, Date = new DateTime(2017, 4, 6), Time = new DateTime(2017, 4, 6, 20, 18, 0), Description = "At local sort facility", Location = "Pudong", Remarks = "" },
+                new ShipmentState { ShipmentStateID = 5, ShipmentTrackingID = 1, Date = new DateTime(2017, 4, 7), Time = new DateTime(2017, 4, 7, 20, 18, 0), Description = "On vehicle for delivery", Location = "Pudong", Remarks = "Vehicle 1032" },
+                new ShipmentState { ShipmentStateID = 6, ShipmentTrackingID = 1, Date = new DateTime(2017, 4, 7), Time = new DateTime(2017, 4, 7, 20, 18, 0), Description = "Delivered", Location = "Shanghai", Remarks = "" }
+            );
+
+
+
+            context.Packages.AddOrUpdate(
+                p => p.PackageId,
+                //the cost should be turn to rmb
+                new Package { PackageId = 1, WaybillId = 1, Description = "Correspondence", Value = 50, CustomerWeight = 0, ActualWeight = 0, PackageCost = 140 },
+                new Package { PackageId = 2, WaybillId = 1, Description = "Correspondence", Value = 50, CustomerWeight = 0, ActualWeight = 0, PackageCost = 140 }
+            );
+
+            context.Pickups.AddOrUpdate(
+                p => p.PickupId,
+                new Pickup
+                {
+                    PickupId = 1,
+                    WaybillId = 1,
+                    Address = "Flat A, 20/F, Block A, Galaxia, 275 Fung Tak Rd,Hong Kong, HK",
+                    Type = "immediate",
+                    PickupDateTime = new DateTime(2017, 4, 6, 12, 55, 0)
+                }
+            );
+
+            context.Shipments.AddOrUpdate(
+                p => p.WaybillId,
+                new Shipment
+                {
+                    WaybillId = 1,
+                    ShippingAccountId = 1,
+                    ServiceType = "Next Day 10:30",
+                    RecipientName = " Monica Mok",
+                    RecipientBuilding = "Flat A 15/F Tower 2 Golden Estate",
+                    RecipientStreet = "12 Mandarin Drive",
+                    Destination = "Shanghai",
+                    RecipientProvince = "SH",
+                    RecipientPostalCode = "207345",
+                    RecipientPhoneNumber = "862167890123",
+                    RecipientEmail = "lsechan@connect.ust.hk",
+                    ShipmentPayer = "recipient",
+                    DTPayer = "recipient",
+                    NotifyRecipient = false,
+                    NotifySender = false,
+                    DutiesCost = 0,
+                    TaxesCost = 0,
+                    AuthorizationCode = "8261",
+                    PickupId = 1,
+                    //make up data
+                    ReferenceNumber = "",
+                    ShippedDate = new DateTime(2017,12,1),
+                    DeliveredDate = new DateTime(2017,12,1),
+                    Origin = "Hong Kong",
+                    RecipientCompanyName = "company name",
+                    RecipientDepartmentName = "department name",
+                    RecipientShippingAccountId = "",
+                    NumberOfPackages = 2,
+                    Status = "Delivered",
+                    ShipmentCost = 300,
+                    ShipmentTrackingID = 1,
+
+
+
+                }
+            );
+
+
             /*
             // Add shipping accounts
             context.ShippingAccounts.AddOrUpdate(
@@ -192,7 +275,7 @@ namespace SinExWebApp20265462.Migrations
                 new Shipment { WaybillId = 25, ReferenceNumber = "386456", ServiceType = "Same Day", ShippedDate = new DateTime(2017, 01, 05), DeliveredDate = new DateTime(2017, 01, 05), RecipientName = "Jerry Jia", NumberOfPackages = 1, Origin = "Beijing", Destination = "Hangzhou", Status = "Delivered", ShippingAccountId = 2 }
             );
             */
-            
+
 
         }
     }

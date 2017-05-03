@@ -23,7 +23,7 @@ namespace SinExWebApp20265462.Models
         public virtual string Origin { get; set; } // Sender's City
 
         public virtual string RecipientName { get; set; }
-        public virtual int RecipientShippingAccountId { get; set; } // If Payer is Recipient
+        public virtual string RecipientShippingAccountId { get; set; } // If Payer is Recipient
         public virtual string RecipientCompanyName { get; set; } // If any
         public virtual string RecipientDepartmentName { get; set; } // If any
         public virtual string RecipientBuilding { get; set; } // If any
@@ -45,6 +45,7 @@ namespace SinExWebApp20265462.Models
 
         public virtual string Status { get; set; } // Confirmed; Picked up; Shipped; Delivered
 
+        public virtual int PickupId { get; set; }
         public virtual Pickup Pickup { get; set; }
 
         public virtual decimal ShipmentCost { get; set; }  // Sum of PackageCosts
@@ -52,5 +53,8 @@ namespace SinExWebApp20265462.Models
         public virtual decimal TaxesCost { get; set; }
 
         public virtual string AuthorizationCode { get; set; } // After payment, sent by Credit Card Authorization Authority.
+
+        public virtual int ShipmentTrackingID { get; set; }
+        public virtual ShipmentTracking ShipmentTracking { get; set;}
     }
 }
