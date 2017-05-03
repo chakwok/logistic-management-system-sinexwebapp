@@ -122,6 +122,12 @@ namespace SinExWebApp20265462.Controllers
             return new SelectList(packageTypeSizeQuery, "PackageTypeSizeID", "Size", "PackageType.Type", new { selectedValue = "PackageTypeSizeID" });
         }
 
+        public SelectList PopulateRecipientAddressesDropDownList()
+        {
+            var recipientAddressQuery = db.RecipientAddresses;
+            return new SelectList(recipientAddressQuery, "RecipientAddressID", "NickName", new { selectedValue = "RecipientAddressID" });
+        }
+
         public void SendEmail(string recipient, string username, string confrimURL)
         {
             //CURRENTLY RECIPIENT MUST BE COMP3111....

@@ -49,13 +49,16 @@ namespace SinExWebApp20265462.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RecipientAddressID,NickName,Building,Street,City,ProvinceCode,PostalCode")] RecipientAddressViewModel recipientAddressViewModel)
+        public ActionResult Create([Bind(Include = "RecipientAddressID,NickName,RecipientName,RecipientShippingAccountId,CompanyName,DepartmentName,Building,Street,City,ProvinceCode,PostalCode,RecipientPhoneNumber,RecipientEmail")] RecipientAddressViewModel recipientAddressViewModel)
         {
             if (ModelState.IsValid)
             {
                 RecipientAddress recipientAddress = new RecipientAddress(recipientAddressViewModel.RecipientAddressID,
-                    recipientAddressViewModel.NickName, recipientAddressViewModel.Building, recipientAddressViewModel.Street,
-                    recipientAddressViewModel.City, recipientAddressViewModel.ProvinceCode, recipientAddressViewModel.PostalCode);
+                    recipientAddressViewModel.NickName, recipientAddressViewModel.RecipientName, recipientAddressViewModel.RecipientShippingAccountId,
+                    recipientAddressViewModel.CompanyName, recipientAddressViewModel.DepartmentName,
+                    recipientAddressViewModel.Building, recipientAddressViewModel.Street, recipientAddressViewModel.City, recipientAddressViewModel.ProvinceCode,
+                    recipientAddressViewModel.PostalCode, recipientAddressViewModel.RecipientPhoneNumber, recipientAddressViewModel.RecipientEmail
+                    );
 
                 recipientAddress.ProvinceCode = GetProvince(recipientAddress.City);
                 db.RecipientAddresses.Add(recipientAddress);
@@ -79,8 +82,10 @@ namespace SinExWebApp20265462.Controllers
                 return HttpNotFound();
             }
             RecipientAddressViewModel recipientAddressViewModel = new RecipientAddressViewModel(recipientAddress.RecipientAddressID,
-                    recipientAddress.NickName, recipientAddress.Building, recipientAddress.Street,
-                    recipientAddress.City, recipientAddress.ProvinceCode, recipientAddress.PostalCode);
+                    recipientAddress.NickName, recipientAddress.RecipientName, recipientAddress.RecipientShippingAccountId,
+                    recipientAddress.CompanyName, recipientAddress.DepartmentName,
+                    recipientAddress.Building, recipientAddress.Street, recipientAddress.City, recipientAddress.ProvinceCode,
+                    recipientAddress.PostalCode, recipientAddress.RecipientPhoneNumber, recipientAddress.RecipientEmail);
 
             recipientAddressViewModel.Cities = PopulateDestinationsDropDownList().ToList();
             return View(recipientAddressViewModel);
@@ -91,13 +96,16 @@ namespace SinExWebApp20265462.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RecipientAddressID,NickName,Building,Street,City,ProvinceCode,PostalCode")] RecipientAddressViewModel recipientAddressViewModel)
+        public ActionResult Edit([Bind(Include = "RecipientAddressID,NickName,RecipientName,RecipientShippingAccountId,CompanyName,DepartmentName,Building,Street,City,ProvinceCode,PostalCode,RecipientPhoneNumber,RecipientEmail")]  RecipientAddressViewModel recipientAddressViewModel)
         {
             if (ModelState.IsValid)
             {
                 RecipientAddress recipientAddress = new RecipientAddress(recipientAddressViewModel.RecipientAddressID,
-                    recipientAddressViewModel.NickName, recipientAddressViewModel.Building, recipientAddressViewModel.Street,
-                    recipientAddressViewModel.City, recipientAddressViewModel.ProvinceCode, recipientAddressViewModel.PostalCode);
+                    recipientAddressViewModel.NickName, recipientAddressViewModel.RecipientName, recipientAddressViewModel.RecipientShippingAccountId,
+                    recipientAddressViewModel.CompanyName, recipientAddressViewModel.DepartmentName,
+                    recipientAddressViewModel.Building, recipientAddressViewModel.Street, recipientAddressViewModel.City, recipientAddressViewModel.ProvinceCode,
+                    recipientAddressViewModel.PostalCode, recipientAddressViewModel.RecipientPhoneNumber, recipientAddressViewModel.RecipientEmail
+                    );
 
                 recipientAddress.ProvinceCode = GetProvince(recipientAddress.City);
                 db.Entry(recipientAddress).State = EntityState.Modified;

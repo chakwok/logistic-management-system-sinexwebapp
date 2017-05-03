@@ -46,9 +46,19 @@
     <hr />
     <div class="form-horizontal">
         <div class="form-group">
+            @Html.LabelFor(model => model.RecipientAddressID, "Use saved address", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.DropDownListFor(a => a.RecipientAddressID, Model.RecipientAddresses, new { @class = "form-control", style = "width: 150px;" })
+            </div>
+            <div class="col-md-8">
+                <button type="button" class="btn btn-default" onclick="this.form.submit()">Submit</button>
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.RecipientName, "Name", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RecipientName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.RecipientName, new { htmlAttributes = new { @Value=ViewBag.RecipientName, @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.RecipientName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -56,16 +66,16 @@
         <div class="form-group">
             @Html.LabelFor(model => model.RecipientShippingAccountId, "Account ID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RecipientShippingAccountId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.RecipientShippingAccountId, new { htmlAttributes = new { @Value = ViewBag.RecipientShippingAccountId, @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.RecipientShippingAccountId, "", new { @class = "text-danger" })
-                <p class="text-danger">@ViewBag.RecipientStatusMessage</p>
+                <p class="text-danger">@ViewBag.RecipientShippingAccountIdStatusMessage</p>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.RecipientCompanyName, "Company", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RecipientCompanyName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.RecipientCompanyName, new { htmlAttributes = new { @Value = ViewBag.RecipientCompanyName, @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.RecipientCompanyName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -73,7 +83,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.RecipientDepartmentName, "Department", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RecipientDepartmentName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.RecipientDepartmentName, new { htmlAttributes = new { @Value = ViewBag.RecipientDepartmentName, @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.RecipientDepartmentName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -81,7 +91,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.RecipientBuilding, "Building", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RecipientBuilding, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.RecipientBuilding, new { htmlAttributes = new { @Value = ViewBag.RecipientBuilding, @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.RecipientBuilding, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -89,7 +99,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.RecipientStreet, "Street", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RecipientStreet, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.RecipientStreet, new { htmlAttributes = new { @Value = ViewBag.RecipientStreet, @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.RecipientStreet, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -104,7 +114,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.RecipientPostalCode, "Postal Code", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RecipientPostalCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.RecipientPostalCode, new { htmlAttributes = new { @Value = ViewBag.RecipientPostalCode, @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.RecipientPostalCode, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -112,7 +122,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.RecipientPhoneNumber, "Phone Number", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RecipientPhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.RecipientPhoneNumber, new { htmlAttributes = new { @Value = ViewBag.RecipientPhoneNumber, @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.RecipientPhoneNumber, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -120,8 +130,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.RecipientEmail, "Email", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RecipientEmail, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.RecipientEmail, new { htmlAttributes = new { @Value = ViewBag.RecipientEmail, @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.RecipientEmail, "", new { @class = "text-danger" })
+                <p class="text-danger">@ViewBag.RecipientEmailStatusMessage</p>
             </div>
         </div>
     </div>
