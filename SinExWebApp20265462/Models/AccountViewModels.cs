@@ -70,7 +70,7 @@ namespace SinExWebApp20265462.Models
         [Display(Name = "User name")]
         [StringLength(10, MinimumLength = 6)]
         [RegularExpression("^[a-zA-Z0-9]+$", ErrorMessage = "Only characters and numbers are accepted.")]
-        //[Remote("CheckUserName", "Account", ErrorMessage = "This user name has been used.")]
+        [Remote("CheckUserName", "Account", ErrorMessage = "This user name has been used.")]
         public string UserName { get; set; }
 
         [Display(Name = "Email")]

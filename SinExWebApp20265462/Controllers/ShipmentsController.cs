@@ -52,11 +52,12 @@ namespace SinExWebApp20265462.Controllers
             int pageNumber = (page ?? 1);
             
             var name = User.Identity.GetUserName();
-            int? ShippingAccountId = db.ShippingAccounts.First(s => s.UserName == name).ShippingAccountId;
+            int? ShippingAccountId;
 
             // Retain search condition for sorting
             if (User.IsInRole("Customer"))
             {
+                ShippingAccountId = db.ShippingAccounts.First(s => s.UserName == name).ShippingAccountId;
                 /*
                 if (ShippingAccountId == null)
                 {
