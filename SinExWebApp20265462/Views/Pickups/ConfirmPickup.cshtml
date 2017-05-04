@@ -1,0 +1,78 @@
+﻿@model SinExWebApp20265462.ViewModels.PickupViewModel
+
+@{
+    ViewBag.Title = "Arrange A Shipment Pickup";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("ConfirmPickup", "Pickups", "FormMethod.Get"))
+{
+    <hr />
+    <h4>Pickup</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Pickup.Type)
+        </dt>
+    
+        <dd>
+            @Html.DisplayFor(model => model.Pickup.Type)
+        </dd>
+    
+        <dt>
+            @Html.DisplayNameFor(model => model.Pickup.Building)
+        </dt>
+    
+        <dd>
+            @Html.DisplayFor(model => model.Pickup.Building)
+        </dd>
+    
+        <dt>
+            @Html.DisplayNameFor(model => model.Pickup.Street)
+        </dt>
+    
+        <dd>
+            @Html.DisplayFor(model => model.Pickup.Street)
+        </dd>
+    
+        <dt>
+            @Html.DisplayNameFor(model => model.Pickup.City)
+        </dt>
+    
+        <dd>
+            @Html.DisplayFor(model => model.Pickup.City)
+        </dd>
+    
+        <dt>
+            @Html.DisplayNameFor(model => model.Pickup.ProvinceCode)
+        </dt>
+    
+        <dd>
+            @Html.DisplayFor(model => model.Pickup.ProvinceCode)
+        </dd>
+    
+        <dt>
+            @Html.DisplayNameFor(model => model.Pickup.PostalCode)
+        </dt>
+    
+        <dd>
+            @Html.DisplayFor(model => model.Pickup.PostalCode)
+        </dd>
+    
+        @if (Model.Pickup.Type == "Prearranged")
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Pickup.PickupDateTime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Pickup.PickupDateTime)
+            </dd>
+        }
+
+    </dl>
+    <div class="col-md-2">
+        <input type="submit" value="Confirm Shipment" class="btn btn-default" />
+    </div>
+}

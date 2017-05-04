@@ -405,6 +405,7 @@
     <Content Include="Views\Pickups\Index.cshtml" />
     <Content Include="Views\Pickups\Create.cshtml" />
     <Content Include="Views\Pickups\ArrangePrearrangedPickup.cshtml" />
+    <Content Include="Views\Pickups\ConfirmPickup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Base\" />

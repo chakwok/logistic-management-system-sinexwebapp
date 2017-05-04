@@ -13,14 +13,6 @@ namespace SinExWebApp20265462.Controllers
     {
         private SinExDatabaseContext db = new SinExDatabaseContext();
 
-        /*
-        // GET: Base
-        public ActionResult Index()
-        {
-            return View();
-        }
-        */
-
         public decimal ConvertCurrency (string CurrencyCode, decimal Fee)
         {
             if (CurrencyCode == null) return Fee;
@@ -134,6 +126,12 @@ namespace SinExWebApp20265462.Controllers
         {
             var recipientAddressQuery = db.RecipientAddresses;
             return new SelectList(recipientAddressQuery, "RecipientAddressID", "NickName", new { selectedValue = "RecipientAddressID" });
+        }
+
+        public SelectList PopulatePickUpLocationsDropDownList()
+        {
+            var pickUpLocationQuery = db.PickUpLocations;
+            return new SelectList(pickUpLocationQuery, "PickUpLocationID", "PickUpNickName", new { selectedValue = "PickUpLocationID" });
         }
 
         public void SendEmail(string recipient, string username, string confrimURL)
