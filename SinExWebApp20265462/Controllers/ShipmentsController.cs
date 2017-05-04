@@ -73,7 +73,7 @@ namespace SinExWebApp20265462.Controllers
         {
 
             shipment.Destinations = PopulateDestinationsDropDownList().ToList();
-            shipment.Destinations = new SelectList(db.Destinations, "DestinationID", "City").ToList();
+            shipment.Destinations = PopulateDestinationsDropDownList().ToList();
             shipment.ServiceTypes = PopulateServiceTypesDropDownList().ToList();
             shipment.CurrencyCodes = PopulateCurrenciesDropDownList().ToList();
             shipment.RecipientAddresses = PopulateRecipientAddressesDropDownList().ToList();
@@ -199,13 +199,8 @@ namespace SinExWebApp20265462.Controllers
             Shipment shipment = new Shipment();
             shipment.ReferenceNumber = shipmentView.ReferenceNumber;
             shipment.ServiceType = shipmentView.ServiceType;
-<<<<<<< HEAD
             shipment.ShippedDate = new DateTime (1990,1,1);       // TODO
             shipment.DeliveredDate = new DateTime(1990, 1, 1);     // TODO
-=======
-            shipment.ShippedDate = DateTime.MinValue;       // TODO
-            shipment.DeliveredDate = DateTime.MinValue;     // TODO
->>>>>>> 71a7e0ef91e3dfe7c7d79bec48b16f9d76917e8c
             shipment.ShippingAccountId = GetUserId();
             shipment.Origin = GetUserCity(shipment.ShippingAccountId);
             shipment.RecipientName = shipmentView.RecipientName;
