@@ -13,9 +13,15 @@ namespace SinExWebApp20265462.Models
         [Key]
         public virtual int PickupId { get; set; }
         public virtual string Type { get; set; } // Immediate or Prearranged
-        public virtual string Address { get; set; }
+        [StringLength(50)]
+        public virtual string Building { get; set; }
+        [Required]
+        [StringLength(35)]
+        public virtual string Street { get; set; }
         public virtual string City { get; set; }
-        public virtual string Province { get; set; }
+        public virtual string ProvinceCode { get; set; }    // Autogenerate
+        public virtual string PostalCode { get; set; }
         public virtual DateTime PickupDateTime { get; set; }
+        public virtual ICollection<Shipment> Shipments { get; set; }
     }
 }

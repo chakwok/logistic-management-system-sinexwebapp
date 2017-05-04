@@ -29,6 +29,7 @@ namespace SinExWebApp20265462.ViewModels
         public virtual string PickUpNickName { get; set; }
         [StringLength(50)]
         public virtual string PickUpBuilding { get; set; }
+        [Required]
         [StringLength(35)]
         public virtual string PickUpStreet { get; set; }
 
