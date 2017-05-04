@@ -33,6 +33,12 @@ namespace SinExWebApp20265462.Models
 
         public System.Data.Entity.DbSet<SinExWebApp20265462.Models.Shipment> Shipments { get; set; }
 
+        public System.Data.Entity.DbSet<SinExWebApp20265462.Models.Package> Packages { get; set; }
+
+        public System.Data.Entity.DbSet<SinExWebApp20265462.Models.Pickup> Pickups { get; set; }
+
         public System.Data.Entity.DbSet<SinExWebApp20265462.Models.ShippingAccount> ShippingAccounts { get; set; }
+        public System.Data.Entity.DbSet<SinExWebApp20265462.Models.RecipientAddress> RecipientAddresses { get; set; }
+        public System.Data.Entity.DbSet<SinExWebApp20265462.Models.PickUpLocation> PickUpLocations { get; set; }
     }
 }
