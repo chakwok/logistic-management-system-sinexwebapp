@@ -47,6 +47,8 @@ namespace SinExWebApp20265462.Controllers
             shipment.Destinations = PopulateDestinationsDropDownList().ToList();
             shipment.CurrencyCodes = PopulateCurrenciesDropDownList().ToList();
             shipment.RecipientAddresses = PopulateRecipientAddressesDropDownList().ToList();
+            if (shipment.RecipientAddresses.Count > 0) ViewBag.ShowRecipientAddresses = true;
+            else ViewBag.ShowRecipientAddresses = false;
 
             ViewBag.NumberOfPackages = 1;
             shipment.NumberOfPackages = 1;
@@ -77,6 +79,8 @@ namespace SinExWebApp20265462.Controllers
             shipment.ServiceTypes = PopulateServiceTypesDropDownList().ToList();
             shipment.CurrencyCodes = PopulateCurrenciesDropDownList().ToList();
             shipment.RecipientAddresses = PopulateRecipientAddressesDropDownList().ToList();
+            if (shipment.RecipientAddresses.Count > 0) ViewBag.ShowRecipientAddresses = true;
+            else ViewBag.ShowRecipientAddresses = false;
             for (int i = 0; i < 10; i++)
             {
                 shipment.Packages[i].PackageTypeSizes = PopulatePackageTypeSizesDropDownList().ToList();
@@ -87,9 +91,9 @@ namespace SinExWebApp20265462.Controllers
             ViewBag.NumberOfPackages = shipment.NumberOfPackages;
             ViewBag.CityID = 1;
 
-            if (!next)
+            if (!next)  // Submit RecipientAddress or Change in NumberOfPackages in View
             {
-                if (shipment.RecipientAddressID == 0)
+                if (shipment.RecipientAddressID == 0)   // If Change in NumberOfPackages in View
                 {
                     return View(shipment);
                 }
@@ -180,6 +184,8 @@ namespace SinExWebApp20265462.Controllers
                 packageCost = ConvertCurrency(shipment.CurrencyCode, packageCost);
                 shipment.Packages[i].PackageCost = packageCost;
                 shipment.ShipmentCost += packageCost;
+
+                SaveToSessionState("newPackage" + i.ToString(), shipment.Packages[i]);
             }
 
             if (Session["newShipment"] != null) Session.Remove("newShipment");
@@ -197,6 +203,7 @@ namespace SinExWebApp20265462.Controllers
 
 
             Shipment shipment = new Shipment();
+            shipment.WaybillId = db.Shipments.Count() + 1;
             shipment.ReferenceNumber = shipmentView.ReferenceNumber;
             shipment.ServiceType = shipmentView.ServiceType;
             shipment.ShippedDate = new DateTime (1990,1,1);       // TODO
@@ -219,7 +226,7 @@ namespace SinExWebApp20265462.Controllers
             shipment.DTPayer = shipmentView.DTPayer;
             shipment.NotifySender = shipmentView.NotifySender;
             shipment.NotifyRecipient = shipmentView.NotifyRecipient;
-            shipment.Status = "Confirmed";      // TODO
+            shipment.Status = "Pending";      // TODO
             shipment.ShipmentCost = shipmentView.ShipmentCost;      // TODO
             shipment.DutiesCost = 0;      // TODO
             shipment.TaxesCost = 0;      // TODO
@@ -229,14 +236,19 @@ namespace SinExWebApp20265462.Controllers
             for (int i = 0; i < shipment.NumberOfPackages; i++)
             {
                 shipment.Packages[i] = new Package();
-                shipment.Packages[i].PackageTypeSize = shipment.Packages[i].PackageTypeSize;
-                shipment.Packages[i].Description = shipment.Packages[i].Description;
-                shipment.Packages[i].Value = shipment.Packages[i].Value;
-                shipment.Packages[i].CustomerWeight = shipment.Packages[i].CustomerWeight;
+                ArrangeShipmentPackageViewModel packageView = (ArrangeShipmentPackageViewModel)Session["newPackage" + i.ToString()];
+
+                shipment.Packages[i].PackageTypeSize = packageView.PackageTypeSize;
+                shipment.Packages[i].Description = packageView.Description;
+                shipment.Packages[i].Value = packageView.Value;
+                shipment.Packages[i].CustomerWeight = packageView.CustomerWeight;
                 shipment.Packages[i].ActualWeight = 0;      // TODO
-                shipment.Packages[i].PackageCost = shipment.Packages[i].PackageCost;      // TODO
+                shipment.Packages[i].PackageCost = packageView.PackageCost;      // TODO
                 shipment.Packages[i].WaybillId = shipment.WaybillId;
                 shipment.Packages[i].Shipment = shipment;
+
+                Session.Remove("newPackage" + i.ToString());
+                db.Packages.Add(shipment.Packages[i]);
             }
 
             db.Shipments.Add(shipment);
