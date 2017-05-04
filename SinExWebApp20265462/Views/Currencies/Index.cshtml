@@ -25,6 +25,14 @@
         <td>
             @Html.DisplayFor(modelItem => item.ExchangeRate)
         </td>
+        <td>
+            @if (User.IsInRole("Employee"))
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = item.CurrencyCode })
+                //@Html.ActionLink("Details", "Details", new { id = item.WaybillId }) |
+                //@Html.ActionLink("Delete", "Delete", new { id = item.WaybillId })
+            }
+        </td>
     </tr>
 }
 
