@@ -1,0 +1,72 @@
+﻿@model SinExWebApp20265462.Models.PickUpLocation
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>PickUpLocation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PickUpNickName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PickUpNickName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PickUpBuilding)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PickUpBuilding)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PickUpStreet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PickUpStreet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PickUpCity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PickUpCity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PickUpProvinceCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PickUpProvinceCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PickUpPostalCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PickUpPostalCode)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

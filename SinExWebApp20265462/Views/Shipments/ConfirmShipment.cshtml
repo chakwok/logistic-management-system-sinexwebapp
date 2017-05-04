@@ -1,0 +1,271 @@
+﻿@model SinExWebApp20265462.ViewModels.ArrangeShipmentViewModel
+
+@{
+    ViewBag.Title = "Arrange A Shipment";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("ConfirmShipment", "Shipments", "FormMethod.Get"))
+{
+    <hr />
+    <input type="hidden" value=@ViewBag.NumberOfPackages name="NumberOfPackages" />
+
+	<h5>Shipment Information</h5>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.LabelFor(model => model.CurrencyCode, "Currency")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(Model => Model.CurrencyCode)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.ReferenceNumber, "Reference Number")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(Model => Model.ReferenceNumber)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.ServiceType, "Service Type")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(Model => Model.ServiceType)
+        </dd>
+
+	</dl>
+	
+	<br />
+	<h5>Recipient Information</h5>
+    <hr />
+	<dl class="dl-horizontal">
+		<dt>
+            @Html.LabelFor(model => model.RecipientName, "Name")
+        </dt>
+	
+        <dd>
+            @Html.DisplayFor(Model => Model.RecipientName)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.RecipientShippingAccountId, "Account ID")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(Model => Model.RecipientShippingAccountId)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.RecipientCompanyName, "Company")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(Model => Model.RecipientCompanyName)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.RecipientDepartmentName, "Department")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(Model => Model.RecipientDepartmentName)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.RecipientBuilding, "Building")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(Model => Model.RecipientBuilding)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.RecipientStreet, "Street")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(Model => Model.RecipientStreet)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.Destination, "City")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(Model => Model.Destination)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.RecipientProvince, "Province")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(Model => Model.RecipientProvince)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.RecipientPostalCode, "Postal Code")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(Model => Model.RecipientPostalCode)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.RecipientPhoneNumber, "Phone Number")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(Model => Model.RecipientPhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.RecipientEmail, "Email")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(Model => Model.RecipientEmail)
+        </dd>
+
+    </dl>
+	
+	<br />
+	<h5>Package Information</h5>
+    <hr />
+    <table class="table">
+        <tr>
+            <th>
+                Package
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Value
+            </th>
+			<th>
+                Weight
+            </th>
+            <th>
+                Cost
+            </th>
+        </tr>
+
+
+        @for (int i = 0, tmp = 1; i < ViewBag.NumberOfPackages; i++, tmp++)
+        {
+            <tr>
+            <td>
+                @tmp
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => Model.Packages[i].PackageTypeSize)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => Model.Packages[i].Description)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => Model.Packages[i].Value)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => Model.Packages[i].CustomerWeight)
+            </td>
+				
+			<td>
+                @Html.DisplayFor(modelItem => Model.Packages[i].PackageCost)
+            </td>
+			</tr>
+        }
+    </table>
+    for (int i = ViewBag.NumberOfPackages; i < 10; i++)
+    {
+        <input type="hidden" name="@Html.NameFor(model => model.Packages[i].PackageTypeSizeID)" value=1 />
+        <input type="hidden" name="@Html.NameFor(model => model.Packages[i].Description)" value="" />
+        <input type="hidden" name="@Html.NameFor(model => model.Packages[i].Value)" value=0 />
+        <input type="hidden" name="@Html.NameFor(model => model.Packages[i].CustomerWeight)" value=0 />
+    }
+
+    <br />
+    <h5>Other Information</h5>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.LabelFor(model => model.NotifySender, "Notify sender?")
+        </dt>
+		
+		<dd>
+			@Html.DisplayFor(a => a.NotifySender)
+		</dd>
+
+        <dt>
+            @Html.LabelFor(model => model.NotifyRecipient, "Notify recipient?")
+        </dt>
+
+		<dd>
+			@Html.DisplayFor(a => a.NotifyRecipient)
+		<dd>
+		
+        <dt>
+            @Html.LabelFor(model => model.ShipmentPayer, "Shipment Payer")
+		</dt>
+		
+		<dd>
+			@Html.DisplayFor(a => a.ShipmentPayer)
+		<dd>
+		
+        <dt>
+            @Html.LabelFor(model => model.DTPayer, "Duties & Taxes Payer")
+		</dt>
+		
+		<dd>
+			@Html.DisplayFor(a => a.DTPayer)
+		<dd>
+    </dl>
+
+    <hr />
+	<div class="form-horizontal">
+        <div class="form-group">
+		@Html.LabelFor(model => model.ShipmentCost, "Shipment Cost", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(a => a.ShipmentCost)
+            </div>
+        </div>
+    </div>
+
+    <hr />
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-2">
+                <input type="button" class="btn btn-default" value="Cancel" onclick="location.href='@Url.Action("Index", "Home")'" />
+            </div>
+            <div class="col-md-2">
+                <button type="button" onclick="goBack()" class="btn btn-default" >Prev</button>
+
+                <script>
+                    function goBack() {
+                        window.history.back();
+                    }
+                </script>
+            </div>
+            <div class="col-md-2">
+                <input type="submit" value="Confirm Shipment" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+    <p>
+        @Html.ActionLink("Back to List", "Index")
+    </p>

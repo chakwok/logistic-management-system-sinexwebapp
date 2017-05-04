@@ -57,9 +57,9 @@ namespace SinExWebApp20265462.Models
         [RegularExpression("^[0-9]*$", ErrorMessage = "Expiry month must be numeric.")]
         public virtual int CreditCardExpiryMonth { get; set; }
         [Required]
-        [Range(17, 99, ErrorMessage = "Your credit card is expired.")]
+        [Range(2017, 2099, ErrorMessage = "Your credit card is expired.")]
         //[MaxLength(2, ErrorMessage = "Please enter a 2-digit number.")]
-        [RegularExpression("[0-9]{2,2}", ErrorMessage = "Please enter a 2-digit number.")]
+        [RegularExpression("[0-9]{4,4}", ErrorMessage = "Please enter a 4-digit number.")]
         public virtual int CreditCardExpiryYear { get; set; }
         public virtual ICollection<Shipment> Shipments { get; set; }
     }
