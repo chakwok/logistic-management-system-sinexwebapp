@@ -45,7 +45,7 @@
     <h5>Recipient Information</h5>
     <hr />
     <div class="form-horizontal">
-        @if (ViewBag.ShowRecipientAddresses)
+        @if (ViewBag.ShowRecipientAddresses == 1)
         {
             <div class="form-group">
                 @Html.LabelFor(model => model.RecipientAddressID, "Use saved address", htmlAttributes: new { @class = "control-label col-md-2" })

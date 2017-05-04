@@ -11,9 +11,10 @@
     @Html.AntiForgeryToken()
         
     <div class="form-horizontal">
-        <h4>Pickup</h4>
+        <h5>Pick Up Information</h5>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
         <div class="form-group">
             @Html.LabelFor(model => model.Pickup.Type, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -24,20 +25,23 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PickUpLocationID, "Use saved address", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-2">
-                @Html.DropDownListFor(a => a.PickUpLocationID, Model.PickUpLocations, new { @class = "form-control", style = "width: 150px;" })
+    @if (ViewBag.ShowPickupLocation == 1)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.PickUpLocations, "Use saved address", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.DropDownListFor(a => a.PickUpLocationID, Model.PickUpLocations, new { @class = "form-control", style = "width: 150px;" })
+                </div>
+                <div class="col-md-8">
+                    <button type="button" class="btn btn-default" onclick="this.form.submit()">Submit</button>
+                </div>
             </div>
-            <div class="col-md-8">
-                <button type="button" class="btn btn-default" onclick="this.form.submit()">Submit</button>
-            </div>
-        </div>
+        }
     
         <div class="form-group">
             @Html.LabelFor(model => model.Pickup.Building, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Pickup.Building, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Pickup.Building, new { htmlAttributes = new { @Value = ViewBag.PickUpBuilding, @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Pickup.Building, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -45,7 +49,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Pickup.Street, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Pickup.Street, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Pickup.Street, new { htmlAttributes = new { @Value = ViewBag.PickUpStreet, @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Pickup.Street, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -60,15 +64,35 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Pickup.PostalCode, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Pickup.PostalCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Pickup.PostalCode, new { htmlAttributes = new { @Value = ViewBag.PickUpPostalCode, @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Pickup.PostalCode, "", new { @class = "text-danger" })
             </div>
         </div>
-    
+
+        <br />
+        <h5>Select Shipments</h5>
+        <hr />
+        @for (int i = 0; i < Model.ShipmentCheckBoxes.Count(); i++)
+        {
+            <div class="form-group">
+                @Html.CheckBoxFor(model => model.ShipmentCheckBoxes[i].Checked, new { id = "shipment_" + i, @class = "checkbox-inline col-md-2" })
+                <div class="col-md-10">
+                    @Html.LabelFor(model => model.ShipmentCheckBoxes[i].Value, "Waybill ID " + Model.ShipmentCheckBoxes[i].Value)
+                </div>
+            </div>
+            @Html.HiddenFor(m => m.ShipmentCheckBoxes[i].Value)
+        }
+        
+        
+        <br />
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <button type="submit" name="next" value="true" class="btn btn-default">Next</button>
             </div>
         </div>
     </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 }
