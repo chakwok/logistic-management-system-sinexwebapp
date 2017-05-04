@@ -6,12 +6,26 @@ using System.Linq;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
+using static SinExWebApp20265462.Models.GlobalVariable;
 
 namespace SinExWebApp20265462.Controllers
 {
     public class BaseController : Controller
     {
         private SinExDatabaseContext db = new SinExDatabaseContext();
+
+
+        public static decimal getPenaltyFee()
+        {
+            return GlobalVariables.PenaltyFee;
+        }
+
+        public static void setPenaltyFee(decimal newPenaltyFee)
+        {
+            GlobalVariables.PenaltyFee = newPenaltyFee;
+            return;
+        }
+
 
         public decimal ConvertCurrency (string CurrencyCode, decimal Fee)
         {
