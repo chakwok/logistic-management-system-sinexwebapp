@@ -72,7 +72,7 @@ namespace SinExWebApp20265462.Controllers
             bool next = false)
         {
 
-            shipment.Destinations = PopulateDestinationsDropDownList().ToList();
+            shipment.Destinations = new SelectList(db.Destinations, "DestinationID", "City").ToList();
             shipment.ServiceTypes = PopulateServiceTypesDropDownList().ToList();
             shipment.CurrencyCodes = PopulateCurrenciesDropDownList().ToList();
             shipment.RecipientAddresses = PopulateRecipientAddressesDropDownList().ToList();
@@ -84,9 +84,15 @@ namespace SinExWebApp20265462.Controllers
             shipment.ShipmentCost = 0;
 
             ViewBag.NumberOfPackages = shipment.NumberOfPackages;
+            ViewBag.CityID = 1;
 
             if (!next)
             {
+                if (shipment.RecipientAddressID == 0)
+                {
+                    return View(shipment);
+                }
+
                 RecipientAddress recipientAddress = db.RecipientAddresses.Find(shipment.RecipientAddressID);
                 ViewBag.RecipientName = recipientAddress.RecipientName;
                 ViewBag.RecipientShippingAccountId = recipientAddress.RecipientShippingAccountId;
@@ -94,6 +100,8 @@ namespace SinExWebApp20265462.Controllers
                 ViewBag.RecipientDepartmentName = recipientAddress.DepartmentName;
                 ViewBag.RecipientBuilding = recipientAddress.Building;
                 ViewBag.RecipientStreet = recipientAddress.Street;
+                ViewBag.CityID = db.Destinations.First(s => s.City == recipientAddress.City).DestinationID;
+                ViewBag.City = recipientAddress.City;
                 ViewBag.RecipientPostalCode = recipientAddress.PostalCode;
                 ViewBag.RecipientPhoneNumber = recipientAddress.RecipientPhoneNumber;
                 ViewBag.RecipientEmail = shipment.RecipientEmail;
@@ -190,8 +198,8 @@ namespace SinExWebApp20265462.Controllers
             Shipment shipment = new Shipment();
             shipment.ReferenceNumber = shipmentView.ReferenceNumber;
             shipment.ServiceType = shipmentView.ServiceType;
-            shipment.ShippedDate = DateTime.Now;
-            shipment.DeliveredDate = DateTime.Now;
+            shipment.ShippedDate = DateTime.MinValue;       // TODO
+            shipment.DeliveredDate = DateTime.MinValue;     // TODO
             shipment.ShippingAccountId = GetUserId();
             shipment.Origin = GetUserCity(shipment.ShippingAccountId);
             shipment.RecipientName = shipmentView.RecipientName;
@@ -210,10 +218,10 @@ namespace SinExWebApp20265462.Controllers
             shipment.DTPayer = shipmentView.DTPayer;
             shipment.NotifySender = shipmentView.NotifySender;
             shipment.NotifyRecipient = shipmentView.NotifyRecipient;
-            shipment.Status = "Confirmed";
-            shipment.ShipmentCost = shipmentView.ShipmentCost;
-            shipment.DutiesCost = 0;
-            shipment.TaxesCost = 0;
+            shipment.Status = "Confirmed";      // TODO
+            shipment.ShipmentCost = shipmentView.ShipmentCost;      // TODO
+            shipment.DutiesCost = 0;      // TODO
+            shipment.TaxesCost = 0;      // TODO
             shipment.AuthorizationCode = "";
 
             shipment.Packages = new Package[shipment.NumberOfPackages];
@@ -224,8 +232,8 @@ namespace SinExWebApp20265462.Controllers
                 shipment.Packages[i].Description = shipment.Packages[i].Description;
                 shipment.Packages[i].Value = shipment.Packages[i].Value;
                 shipment.Packages[i].CustomerWeight = shipment.Packages[i].CustomerWeight;
-                shipment.Packages[i].ActualWeight = 0;  // = Unavailable
-                shipment.Packages[i].PackageCost = shipment.Packages[i].PackageCost;
+                shipment.Packages[i].ActualWeight = 0;      // TODO
+                shipment.Packages[i].PackageCost = shipment.Packages[i].PackageCost;      // TODO
                 shipment.Packages[i].WaybillId = shipment.WaybillId;
                 shipment.Packages[i].Shipment = shipment;
             }

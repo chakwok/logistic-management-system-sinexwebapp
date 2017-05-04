@@ -106,7 +106,7 @@ namespace SinExWebApp20265462.Controllers
 
         public SelectList PopulateDestinationsDropDownList()
         {
-            var destinationQuery = db.Destinations.Select(s => s.City).Distinct().OrderBy(c => c);
+            var destinationQuery = db.Destinations.Select(c => c.City);
             return new SelectList(destinationQuery);
         }
 

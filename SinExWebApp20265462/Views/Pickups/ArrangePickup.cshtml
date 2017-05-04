@@ -1,0 +1,74 @@
+﻿@model SinExWebApp20265462.ViewModels.PickupViewModel
+
+@{
+    ViewBag.Title = "Arrange A Shipment Pickup";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm(Html.BeginForm("ArrangePickup", "Pickups", "FormMethod.Get"))) 
+{
+    @Html.AntiForgeryToken()
+        
+    <div class="form-horizontal">
+        <h4>Pickup</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Pickup.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(a => a.Pickup.Type, new SelectList(
+                    new List<Object>{
+                        new { value="Immediate",text="Immediate" }, new { value="Prearranged",text="Prearranged" }
+                    }, "value", "text", 1), new { @class = "form-control", style = "width: 150px;" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PickUpLocationID, "Use saved address", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.DropDownListFor(a => a.PickUpLocationID, Model.PickUpLocations, new { @class = "form-control", style = "width: 150px;" })
+            </div>
+            <div class="col-md-8">
+                <button type="button" class="btn btn-default" onclick="this.form.submit()">Submit</button>
+            </div>
+        </div>
+    
+        <div class="form-group">
+            @Html.LabelFor(model => model.Pickup.Building, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Pickup.Building, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Pickup.Building, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    
+        <div class="form-group">
+            @Html.LabelFor(model => model.Pickup.Street, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Pickup.Street, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Pickup.Street, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    
+        <div class="form-group">
+            @Html.LabelFor(model => model.Pickup.City, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(a => a.Pickup.City, Model.Cities, new { @class = "form-control", style = "width: 150px;" })
+            </div>
+        </div>
+    
+        <div class="form-group">
+            @Html.LabelFor(model => model.Pickup.PostalCode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Pickup.PostalCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Pickup.PostalCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" name="next" value="true" class="btn btn-default">Next</button>
+            </div>
+        </div>
+    </div>
+}
