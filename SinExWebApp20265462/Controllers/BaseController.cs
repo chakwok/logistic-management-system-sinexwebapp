@@ -128,6 +128,12 @@ namespace SinExWebApp20265462.Controllers
             return new SelectList(recipientAddressQuery, "RecipientAddressID", "NickName", new { selectedValue = "RecipientAddressID" });
         }
 
+        public SelectList PopulatePickUpLocationsDropDownList()
+        {
+            var pickUpLocationQuery = db.PickUpLocations;
+            return new SelectList(pickUpLocationQuery, "PickUpLocationID", "PickUpNickName", new { selectedValue = "PickUpLocationID" });
+        }
+
         public void SendEmail(string recipient, string username, string confrimURL)
         {
             //CURRENTLY RECIPIENT MUST BE COMP3111....

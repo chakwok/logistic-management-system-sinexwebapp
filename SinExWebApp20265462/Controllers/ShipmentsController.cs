@@ -47,8 +47,8 @@ namespace SinExWebApp20265462.Controllers
             shipment.Destinations = PopulateDestinationsDropDownList().ToList();
             shipment.CurrencyCodes = PopulateCurrenciesDropDownList().ToList();
             shipment.RecipientAddresses = PopulateRecipientAddressesDropDownList().ToList();
-            if (shipment.RecipientAddresses.Count > 0) ViewBag.ShowRecipientAddresses = true;
-            else ViewBag.ShowRecipientAddresses = false;
+            if (shipment.RecipientAddresses.Count > 0) ViewBag.ShowRecipientAddresses = 1;
+            else ViewBag.ShowRecipientAddresses = 0;
 
             ViewBag.NumberOfPackages = 1;
             shipment.NumberOfPackages = 1;
@@ -79,8 +79,8 @@ namespace SinExWebApp20265462.Controllers
             shipment.ServiceTypes = PopulateServiceTypesDropDownList().ToList();
             shipment.CurrencyCodes = PopulateCurrenciesDropDownList().ToList();
             shipment.RecipientAddresses = PopulateRecipientAddressesDropDownList().ToList();
-            if (shipment.RecipientAddresses.Count > 0) ViewBag.ShowRecipientAddresses = true;
-            else ViewBag.ShowRecipientAddresses = false;
+            if (shipment.RecipientAddresses.Count > 0) ViewBag.ShowRecipientAddresses = 1;
+            else ViewBag.ShowRecipientAddresses = 0;
             for (int i = 0; i < 10; i++)
             {
                 shipment.Packages[i].PackageTypeSizes = PopulatePackageTypeSizesDropDownList().ToList();
