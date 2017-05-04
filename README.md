@@ -104,3 +104,4 @@ Here is a basic workflow for the project. I try to standardise everything so tha
    | 2017/04/25 14:30   | Cheung Wing Kei  | Shipment Cost Calculator successful.                         |
    | 2017/04/25 17:10   | Cheung Wing Kei  | 12 digit account id display.                   |
    | 2017/04/25 18:20   | Cheung Wing Kei  | Email verification successful.                         |
+   | 2017/05/04 18:53   | Cheung Wing Kei  | Employee functionality implemented.                         |
