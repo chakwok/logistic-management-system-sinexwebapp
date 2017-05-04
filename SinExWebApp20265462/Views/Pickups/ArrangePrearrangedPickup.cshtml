@@ -9,34 +9,42 @@
 @using (Html.BeginForm(Html.BeginForm("ArrangePrearrangedPickup", "Pickups", "FormMethod.Get"))) 
 {
     @Html.AntiForgeryToken()
-        
+
+    for (int i = 0; i < Model.ShipmentCheckBoxes.Count(); i++)
+    {
+        @Html.HiddenFor(m => m.ShipmentCheckBoxes[i].Value)
+        @Html.HiddenFor(m => m.ShipmentCheckBoxes[i].Checked)
+    }
+
     <div class="form-horizontal">
-        <h4>Pickup</h4>
+        <h5>Prearranged Pickup Details</h5>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <p class="text-danger">@ViewBag.PickupDateTimeStatusMessage</p>
     
         <div class="form-group">
-            @Html.LabelFor(model => model.Pickup.PickupDateTime, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-2">
-                @Html.EditorFor(model => model.PickupDay, new { htmlAttributes = new { @class = "form-control", style = "width: 80px;" } })
+            <p class = "control-label col-md-2">Pick Up Date Time</p>
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.PickupDay, new { htmlAttributes = new { @Value = ViewBag.NULL, @class = "form-control", placeholder = "Day", style = "width: 80px;" } })
                 @Html.ValidationMessageFor(model => model.PickupDay, "", new { @class = "text-danger" })
             </div>
-            <div class="col-md-2">
-                @Html.EditorFor(model => model.PickupMonth, new { htmlAttributes = new { @class = "form-control", style = "width: 80px;" } })
-                @Html.ValidationMessageFor(model => model.PickupDay, "", new { @class = "text-danger" })
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.PickupMonth, new { htmlAttributes = new { @Value = ViewBag.NULL, @class = "form-control", placeholder = "Month", style = "width: 80px;" } })
+                @Html.ValidationMessageFor(model => model.PickupMonth, "", new { @class = "text-danger" })
             </div>
-            <div class="col-md-2">
-                @Html.EditorFor(model => model.PickupYear, new { htmlAttributes = new { @class = "form-control", style = "width: 80px;" } })
-                @Html.ValidationMessageFor(model => model.PickupDay, "", new { @class = "text-danger" })
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.PickupYear, new { htmlAttributes = new { @Value = ViewBag.NULL, @class = "form-control", placeholder = "Year", style = "width: 80px;" } })
+                @Html.ValidationMessageFor(model => model.PickupYear, "", new { @class = "text-danger" })
             </div>
-            <div class="col-md-2">
-                @Html.EditorFor(model => model.PickupHour, new { htmlAttributes = new { @class = "form-control", style = "width: 80px;" } })
-                @Html.ValidationMessageFor(model => model.PickupDay, "", new { @class = "text-danger" })
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.PickupHour, new { htmlAttributes = new { @Value = ViewBag.NULL, @class = "form-control", placeholder = "Hour", style = "width: 80px;" } })
+                @Html.ValidationMessageFor(model => model.PickupHour, "", new { @class = "text-danger" })
             </div>
-            <div class="col-md-2">
-                @Html.EditorFor(model => model.PickupMinute, new { htmlAttributes = new { @class = "form-control", style = "width: 80px;" } })
-                @Html.ValidationMessageFor(model => model.PickupDay, "", new { @class = "text-danger" })
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.PickupMinute, new { htmlAttributes = new { @Value = ViewBag.NULL, @class = "form-control", placeholder = "Minute", style = "width: 80px;" } })
+                @Html.ValidationMessageFor(model => model.PickupMinute, "", new { @class = "text-danger" })
             </div>
+            <div class="col-md-7"></div>
         </div>
     
         <div class="form-group">
@@ -45,4 +53,8 @@
             </div>
         </div>
     </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 }

@@ -43,10 +43,10 @@ namespace SinExWebApp20265462.Models
         public bool NotifySender { get; set; }
         public bool NotifyRecipient { get; set; }
 
-        public virtual string Status { get; set; } // Confirmed; Cancelled; Picked up; Shipped; Delivered
+        public virtual string Status { get; set; } // Pending; Cancelled; Confirmed; Picked up; Shipped; Delivered
 
-        public virtual int PickupId { get; set; }
-
+        public virtual int Pickup { get; set; }
+        
         public virtual decimal ShipmentCost { get; set; }  // Sum of PackageCosts
         public virtual decimal DutiesCost { get; set; }
         public virtual decimal TaxesCost { get; set; }
