@@ -107,7 +107,12 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Destination, "City", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+<<<<<<< HEAD
                 @Html.DropDownListFor(a => a.Destination, Model.Destinations, new { @class = "form-control", style = "width: 150px;" })
+=======
+                @Html.DropDownListFor(a => a.Destination, new SelectList(
+                    Model.Destinations, "value", "text", ViewBag.CityID), new { @class = "form-control", style = "width: 150px;" })
+>>>>>>> 71a7e0ef91e3dfe7c7d79bec48b16f9d76917e8c
             </div>
         </div>
 
