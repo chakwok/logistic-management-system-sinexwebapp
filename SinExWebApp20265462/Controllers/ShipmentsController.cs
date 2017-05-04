@@ -259,7 +259,7 @@ namespace SinExWebApp20265462.Controllers
             int pageSize = 5;
             int pageNumber = (page ?? 1);
             
-            int? shippingAccountId = GetUserId();
+            int? shippingAccountId;
 
             // Retain search condition for sorting
             if (User.IsInRole("Customer"))
@@ -274,7 +274,7 @@ namespace SinExWebApp20265462.Controllers
                     page = 1;
                 }
                 */
-
+                shippingAccountId = GetUserId();
                 ViewBag.CurrentShippingAccountId = shippingAccountId;
                 shipmentSearch.Shipment.ShippingAccountId = shippingAccountId.GetValueOrDefault();
                 shipmentSearch.Shipment.AccountType = db.ShippingAccounts.Find(shippingAccountId).AccountType;

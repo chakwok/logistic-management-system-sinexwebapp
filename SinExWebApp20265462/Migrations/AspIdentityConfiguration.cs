@@ -54,7 +54,7 @@ namespace SinExWebApp20265462.Migrations
             {
                 var store = new UserStore<ApplicationUser>(context);
                 var manager = new UserManager<ApplicationUser>(store);
-                var user = new ApplicationUser { UserName = "employee" };
+                var user = new ApplicationUser { UserName = "employee", EmailConfirmed = true };
                 manager.Create(user, "employee##");
                 manager.AddToRole(user.Id, "Employee");
             }

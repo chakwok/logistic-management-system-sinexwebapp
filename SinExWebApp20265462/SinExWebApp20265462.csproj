@@ -229,6 +229,7 @@
     <Compile Include="Models\BusinessShippingAccount.cs" />
     <Compile Include="Models\Currency.cs" />
     <Compile Include="Models\Destination.cs" />
+    <Compile Include="Models\GlobalVariable.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Package.cs" />
