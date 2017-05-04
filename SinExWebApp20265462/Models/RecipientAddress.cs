@@ -11,8 +11,6 @@ namespace SinExWebApp20265462.Models
     [Table("RecipientAddress")]
     public class RecipientAddress
     {
-        private string companyName1;
-        private string companyName2;
 
         public RecipientAddress()
         {
