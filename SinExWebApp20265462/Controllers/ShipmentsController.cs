@@ -37,6 +37,227 @@ namespace SinExWebApp20265462.Controllers
             return View(shipment);
         }
 
+        // GET: Shipments/ArrangeShipment
+        public ActionResult ArrangeShipment ()
+        {
+            var shipment = new ArrangeShipmentViewModel();
+            shipment.Packages = new ArrangeShipmentPackageViewModel[10];
+
+            shipment.ServiceTypes = PopulateServiceTypesDropDownList().ToList();
+            shipment.Destinations = PopulateDestinationsDropDownList().ToList();
+            shipment.CurrencyCodes = PopulateCurrenciesDropDownList().ToList();
+            shipment.RecipientAddresses = PopulateRecipientAddressesDropDownList().ToList();
+            if (shipment.RecipientAddresses.Count > 0) ViewBag.ShowRecipientAddresses = 1;
+            else ViewBag.ShowRecipientAddresses = 0;
+
+            ViewBag.NumberOfPackages = 1;
+            shipment.NumberOfPackages = 1;
+            shipment.ShipmentCost = 0;
+
+            for (int i = 0; i < 10; i++)
+            {
+                shipment.Packages[i] = new ArrangeShipmentPackageViewModel();
+                shipment.Packages[i].PackageTypeSizes = PopulatePackageTypeSizesDropDownList().ToList();
+                shipment.Packages[i].Description = "";
+                shipment.Packages[i].Value = 0;
+                shipment.Packages[i].PackageCost = 0;
+            }
+
+
+            return View(shipment);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        // POST: Shipments/ArrangeShipment
+        public ActionResult ArrangeShipment(ArrangeShipmentViewModel shipment,
+            bool next = false)
+        {
+
+            shipment.Destinations = PopulateDestinationsDropDownList().ToList();
+            shipment.Destinations = PopulateDestinationsDropDownList().ToList();
+            shipment.ServiceTypes = PopulateServiceTypesDropDownList().ToList();
+            shipment.CurrencyCodes = PopulateCurrenciesDropDownList().ToList();
+            shipment.RecipientAddresses = PopulateRecipientAddressesDropDownList().ToList();
+            if (shipment.RecipientAddresses.Count > 0) ViewBag.ShowRecipientAddresses = 1;
+            else ViewBag.ShowRecipientAddresses = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                shipment.Packages[i].PackageTypeSizes = PopulatePackageTypeSizesDropDownList().ToList();
+            }
+            
+            shipment.ShipmentCost = 0;
+
+            ViewBag.NumberOfPackages = shipment.NumberOfPackages;
+            ViewBag.CityID = 1;
+
+            if (!next)  // Submit RecipientAddress or Change in NumberOfPackages in View
+            {
+                if (shipment.RecipientAddressID == 0)   // If Change in NumberOfPackages in View
+                {
+                    return View(shipment);
+                }
+
+                RecipientAddress recipientAddress = db.RecipientAddresses.Find(shipment.RecipientAddressID);
+                ViewBag.RecipientName = recipientAddress.RecipientName;
+                ViewBag.RecipientShippingAccountId = recipientAddress.RecipientShippingAccountId;
+                ViewBag.RecipientCompanyName = recipientAddress.CompanyName;
+                ViewBag.RecipientDepartmentName = recipientAddress.DepartmentName;
+                ViewBag.RecipientBuilding = recipientAddress.Building;
+                ViewBag.RecipientStreet = recipientAddress.Street;
+                ViewBag.CityID = db.Destinations.First(s => s.City == recipientAddress.City).DestinationID;
+                ViewBag.City = recipientAddress.City;
+                ViewBag.RecipientPostalCode = recipientAddress.PostalCode;
+                ViewBag.RecipientPhoneNumber = recipientAddress.RecipientPhoneNumber;
+                ViewBag.RecipientEmail = shipment.RecipientEmail;
+                return View(shipment);
+            }
+
+            for (int i = 0; i < shipment.NumberOfPackages; i++)
+            {
+                if (shipment.Packages[i].CustomerWeight == 0)
+                {
+                    ViewBag.PackageStatusMessage = "Package weight should not be 0.";
+                    return View(shipment);
+                }
+            }
+
+            if (shipment.NotifyRecipient)
+            {
+                if (shipment.RecipientEmail == null)
+                {
+                    ViewBag.RecipientEmailStatusMessage = "Recipient email has to be provided for notification.";
+                    return View(shipment);
+                }
+            }
+
+            if (shipment.ShipmentPayer == "Recipient" || shipment.DTPayer == "Recipient")
+            {
+                if (shipment.RecipientShippingAccountId == null)
+                {
+                    ViewBag.RecipientShippingAccountIdStatusMessage = "Recipient Account ID is required to be the payer.";
+                    return View(shipment);
+                }
+            }
+            
+
+            if (Session["newShipment"] != null) Session.Remove("newShipment");
+            SaveToSessionState("newShipment", shipment);
+            return RedirectToAction("ConfirmShipment");
+        }
+
+        // GET: Shipments/ConfirmShipment
+        public ActionResult ConfirmShipment()
+        {
+            if (Session["newShipment"] == null) return RedirectToAction("Index", "Home");
+            ArrangeShipmentViewModel shipment = (ArrangeShipmentViewModel) Session["newShipment"];
+            Session.Remove("newShipment");
+
+            shipment.ServiceType = db.ServiceTypes.Find(shipment.ServiceTypeID).Type;
+            shipment.RecipientProvince = GetProvince(shipment.Destination);
+
+            ViewBag.NumberOfPackages = shipment.NumberOfPackages;
+            shipment.ShipmentCost = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                if (i >= shipment.NumberOfPackages || shipment.Packages[i].CustomerWeight == 0)
+                {
+                    shipment.Packages[i].PackageTypeSizeID = 1;
+                    shipment.Packages[i].CustomerWeight = 0;
+                    continue;
+                }
+                PackageTypeSize packageTypeSize = db.PackageTypeSizes.Find(shipment.Packages[i].PackageTypeSizeID);
+                ServicePackageFee servicePackageFee = db.ServicePackageFees.First(s => (s.ServiceTypeID == shipment.ServiceTypeID) && (s.PackageTypeID == packageTypeSize.PackageTypeID));
+                shipment.Packages[i].PackageTypeSize = packageTypeSize.PackageType.Type + " (" + packageTypeSize.Size + ")";
+
+                decimal packageCost = 0;
+                float weightLimit = db.PackageTypeSizes.Find(shipment.Packages[i].PackageTypeSizeID).WeightLimit;
+
+                packageCost = (decimal)shipment.Packages[i].CustomerWeight * servicePackageFee.Fee;
+
+                if (weightLimit > 0 && shipment.Packages[i].CustomerWeight > weightLimit)
+                {
+                    packageCost += 500;
+                }
+
+                packageCost = (packageCost < servicePackageFee.MinimumFee) ? servicePackageFee.MinimumFee : packageCost;
+                packageCost = ConvertCurrency(shipment.CurrencyCode, packageCost);
+                shipment.Packages[i].PackageCost = packageCost;
+                shipment.ShipmentCost += packageCost;
+
+                SaveToSessionState("newPackage" + i.ToString(), shipment.Packages[i]);
+            }
+
+            if (Session["newShipment"] != null) Session.Remove("newShipment");
+            SaveToSessionState("newShipment", shipment);
+            return View(shipment);
+        }
+
+        [HttpPost]
+        // POST: Shipments/ConfirmShipment
+        public ActionResult ConfirmShipment(int? dummy)
+        {
+            if (Session["newShipment"] == null) return RedirectToAction("Index", "Home");
+            ArrangeShipmentViewModel shipmentView = (ArrangeShipmentViewModel)Session["newShipment"];
+            Session.Remove("newShipment");
+
+
+            Shipment shipment = new Shipment();
+            shipment.WaybillId = db.Shipments.Count() + 1;
+            shipment.ReferenceNumber = shipmentView.ReferenceNumber;
+            shipment.ServiceType = shipmentView.ServiceType;
+            shipment.ShippedDate = new DateTime (1990,1,1);       // TODO
+            shipment.DeliveredDate = new DateTime(1990, 1, 1);     // TODO
+            shipment.ShippingAccountId = GetUserId();
+            shipment.Origin = GetUserCity(shipment.ShippingAccountId);
+            shipment.RecipientName = shipmentView.RecipientName;
+            if (shipmentView.RecipientShippingAccountId != null) shipment.RecipientShippingAccountId = Int32.Parse(shipmentView.RecipientShippingAccountId);
+            shipment.RecipientCompanyName = shipmentView.RecipientCompanyName;
+            shipment.RecipientDepartmentName = shipmentView.RecipientDepartmentName;
+            shipment.RecipientBuilding = shipmentView.RecipientBuilding;
+            shipment.RecipientStreet = shipmentView.RecipientStreet;
+            shipment.Destination = shipmentView.Destination;
+            shipment.RecipientProvince = shipmentView.RecipientProvince;
+            shipment.RecipientPostalCode = shipmentView.RecipientPostalCode;
+            shipment.RecipientPhoneNumber = shipmentView.RecipientPhoneNumber;
+            shipment.RecipientEmail = shipmentView.RecipientEmail;
+            shipment.NumberOfPackages = shipmentView.NumberOfPackages;
+            shipment.ShipmentPayer = shipmentView.ShipmentPayer;
+            shipment.DTPayer = shipmentView.DTPayer;
+            shipment.NotifySender = shipmentView.NotifySender;
+            shipment.NotifyRecipient = shipmentView.NotifyRecipient;
+            shipment.Status = "Pending";      // TODO
+            shipment.ShipmentCost = shipmentView.ShipmentCost;      // TODO
+            shipment.DutiesCost = 0;      // TODO
+            shipment.TaxesCost = 0;      // TODO
+            shipment.AuthorizationCode = "";
+
+            shipment.Packages = new Package[shipment.NumberOfPackages];
+            for (int i = 0; i < shipment.NumberOfPackages; i++)
+            {
+                shipment.Packages[i] = new Package();
+                ArrangeShipmentPackageViewModel packageView = (ArrangeShipmentPackageViewModel)Session["newPackage" + i.ToString()];
+
+                shipment.Packages[i].PackageTypeSize = packageView.PackageTypeSize;
+                shipment.Packages[i].Description = packageView.Description;
+                shipment.Packages[i].Value = packageView.Value;
+                shipment.Packages[i].CustomerWeight = packageView.CustomerWeight;
+                shipment.Packages[i].ActualWeight = 0;      // TODO
+                shipment.Packages[i].PackageCost = packageView.PackageCost;      // TODO
+                shipment.Packages[i].WaybillId = shipment.WaybillId;
+                shipment.Packages[i].Shipment = shipment;
+
+                Session.Remove("newPackage" + i.ToString());
+                db.Packages.Add(shipment.Packages[i]);
+            }
+
+            db.Shipments.Add(shipment);
+            db.SaveChanges();
+
+            return RedirectToAction("GenerateHistoryReport");
+        }
+
+
         // GET: Shipments/GenerateHistoryReport
         public ActionResult GenerateHistoryReport(int? CurrentShippingAccountId,
             DateTime? StartShippedDate, DateTime? EndShippedDate,
@@ -51,8 +272,7 @@ namespace SinExWebApp20265462.Controllers
             int pageSize = 5;
             int pageNumber = (page ?? 1);
             
-            var name = User.Identity.GetUserName();
-            int? ShippingAccountId = db.ShippingAccounts.First(s => s.UserName == name).ShippingAccountId;
+            int? shippingAccountId = GetUserId();
 
             // Retain search condition for sorting
             if (User.IsInRole("Customer"))
@@ -68,15 +288,15 @@ namespace SinExWebApp20265462.Controllers
                 }
                 */
 
-                ViewBag.CurrentShippingAccountId = ShippingAccountId;
-                shipmentSearch.Shipment.ShippingAccountId = ShippingAccountId.GetValueOrDefault();
-                shipmentSearch.Shipment.AccountType = db.ShippingAccounts.First(s => s.UserName == name).AccountType;
-                ViewBag.DisplayedShippingAccountId = ShowShippingAccountId(ShippingAccountId.GetValueOrDefault());
+                ViewBag.CurrentShippingAccountId = shippingAccountId;
+                shipmentSearch.Shipment.ShippingAccountId = shippingAccountId.GetValueOrDefault();
+                shipmentSearch.Shipment.AccountType = db.ShippingAccounts.Find(shippingAccountId).AccountType;
+                ViewBag.DisplayedShippingAccountId = ShowShippingAccountId(shippingAccountId.GetValueOrDefault());
             }
             else
             {
                 shipmentSearch.Shipment.AccountType = "Employee";
-                ShippingAccountId = null;
+                shippingAccountId = null;
             }
                 
 
@@ -162,9 +382,9 @@ namespace SinExWebApp20265462.Controllers
             //if (User.IsInRole("Customer"))
             //{
                 // Add the condition to select a spefic shipping account if shipping account id is not null.
-            if (ShippingAccountId != null)
+            if (shippingAccountId != null)
             {
-                shipmentQuery = shipmentQuery.Where(s => s.ShippingAccountId == ShippingAccountId);
+                shipmentQuery = shipmentQuery.Where(s => s.ShippingAccountId == shippingAccountId);
                 //shipmentSearch.Shipments = shipmentQuery.ToList();
 
                 shipmentQuery = shipmentQuery.Where(s => (s.ShippedDate >= StartShippedDate && s.ShippedDate <= EndShippedDate));

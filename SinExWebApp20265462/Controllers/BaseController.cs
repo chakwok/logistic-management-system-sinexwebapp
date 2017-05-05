@@ -1,4 +1,5 @@
-﻿using SinExWebApp20265462.Models;
+﻿using Microsoft.AspNet.Identity;
+using SinExWebApp20265462.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +12,6 @@ namespace SinExWebApp20265462.Controllers
     public class BaseController : Controller
     {
         private SinExDatabaseContext db = new SinExDatabaseContext();
-
-        /*
-        // GET: Base
-        public ActionResult Index()
-        {
-            return View();
-        }
-        */
 
         public decimal ConvertCurrency (string CurrencyCode, decimal Fee)
         {
@@ -37,6 +30,52 @@ namespace SinExWebApp20265462.Controllers
             return result;
         }
 
+        public bool SaveToSessionState<T>(string key, T obj)
+        {
+            if (Session[key] == null)
+            {
+                Session.Add(key, obj);
+                return true;
+            }
+            return false;
+        }
+
+        public string GetProvince(string City)
+        {
+            string province;
+
+            province = db.Destinations.First(d => d.City == City).ProvinceCode;
+
+            return province;
+        }
+
+        public int GetUserId()
+        {
+            string userName = User.Identity.GetUserName();
+            string key = userName + "Id";
+
+            if (Session[key] == null)
+            {
+                int? ShippingAccountId = db.ShippingAccounts.First(s => s.UserName == userName).ShippingAccountId;
+                if (ShippingAccountId != null) Session.Add(key, ShippingAccountId);
+                else return -1;
+            }
+            
+            return Int32.Parse(Session[key].ToString());
+        }
+
+        public string GetUserCity(int userId)
+        {
+            string key = "user" + userId + "City";
+            if (Session[key] == null)
+            {
+                string userCity = db.ShippingAccounts.Find(userId).City;
+                if (userCity != null) Session.Add(key, userCity);
+                else return "";
+            }
+            return Session[key].ToString();
+        }
+
         public string ShowShippingAccountId (int ShippingAccountId)
         {
             var digit = "";
@@ -46,8 +85,17 @@ namespace SinExWebApp20265462.Controllers
                 digit += 0;
             }
             return (digit + ShippingAccountId.ToString());
+        }
 
-
+        public string ShowWaybillId(int WaybillId)
+        {
+            var digit = "";
+            int count = WaybillId.ToString().Length;
+            for (int i = 0; i < 16 - count; i++)
+            {
+                digit += 0;
+            }
+            return (digit + WaybillId.ToString());
         }
 
         public SelectList PopulateCurrenciesDropDownList()
@@ -72,6 +120,18 @@ namespace SinExWebApp20265462.Controllers
         {
             var packageTypeSizeQuery = db.PackageTypeSizes;
             return new SelectList(packageTypeSizeQuery, "PackageTypeSizeID", "Size", "PackageType.Type", new { selectedValue = "PackageTypeSizeID" });
+        }
+
+        public SelectList PopulateRecipientAddressesDropDownList()
+        {
+            var recipientAddressQuery = db.RecipientAddresses;
+            return new SelectList(recipientAddressQuery, "RecipientAddressID", "NickName", new { selectedValue = "RecipientAddressID" });
+        }
+
+        public SelectList PopulatePickUpLocationsDropDownList()
+        {
+            var pickUpLocationQuery = db.PickUpLocations;
+            return new SelectList(pickUpLocationQuery, "PickUpLocationID", "PickUpNickName", new { selectedValue = "PickUpLocationID" });
         }
 
         public void SendEmail(string recipient, string username, string confrimURL)
