@@ -152,47 +152,6 @@ namespace SinExWebApp20265462.Migrations
                 new Destination { DestinationID = 40, City = "Zhengzhou", ProvinceCode = "HA", CurrencyCode = "CNY" }
                 );
 
-            context.ShipmentTracking.AddOrUpdate(
-                p => p.ShipmentTrackingID,
-                new ShipmentTracking { ShipmentTrackingID = 1, WaybillId = 1, Arrived = true, DeliveredTo = "Monica Mok", DeliveredAt = "Front Door"}
-                /*
-                new ShipmentTracking { ShipmentTrackingID = 2, WaybillId = 2, Arrived = true, DeliveredTo = "George Guo", DeliveredAt = "Front Door" },
-                new ShipmentTracking { ShipmentTrackingID = 3, WaybillId = 3, Arrived = true, DeliveredTo = "Sammy So", DeliveredAt = "Front Door" },
-                new ShipmentTracking { ShipmentTrackingID = 4, WaybillId = 4, Arrived = false, DeliveredTo = "", DeliveredAt = "" }
-                */
-            );
-            /*
-            context.ShipmentStates.AddOrUpdate(
-                p => p.ShipmentStateID,
-                //for shipment 1
-                new ShipmentState { ShipmentStateID = 1, ShipmentTrackingID = 1, Time = new DateTime(2017, 4, 6, 13, 55, 0), Description = "Picked Up", Location = "Hong Kong", Remarks = "Vehicle 34" },
-                new ShipmentState { ShipmentStateID = 2, ShipmentTrackingID = 1, Time = new DateTime(2017, 4, 6, 16, 15, 0), Description = "At local sort facility", Location = "Tung Chung", Remarks = "" },
-                new ShipmentState { ShipmentStateID = 3, ShipmentTrackingID = 1, Time = new DateTime(2017, 4, 6, 18, 05, 0), Description = "Left Origin", Location = "HKIA", Remarks = "CX0123" },
-                new ShipmentState { ShipmentStateID = 4, ShipmentTrackingID = 1, Time = new DateTime(2017, 4, 6, 20, 18, 0), Description = "At local sort facility", Location = "Pudong", Remarks = "" },
-                new ShipmentState { ShipmentStateID = 5, ShipmentTrackingID = 1, Time = new DateTime(2017, 4, 7, 20, 18, 0), Description = "On vehicle for delivery", Location = "Pudong", Remarks = "Vehicle 1032" },
-                new ShipmentState { ShipmentStateID = 6, ShipmentTrackingID = 1, Time = new DateTime(2017, 4, 7, 20, 18, 0), Description = "Delivered", Location = "Shanghai", Remarks = "" }
-
-                //for shipment 2
-                new ShipmentState { ShipmentStateID = 7, ShipmentTrackingID = 2, Time = new DateTime(2017, 4, 10, 16, 45, 0), Description = "Picked Up", Location = "Hong Kong", Remarks = "Vehicle 12" },
-                new ShipmentState { ShipmentStateID = 8, ShipmentTrackingID = 2, Time = new DateTime(2017, 4, 10, 20, 10, 0), Description = "At local sort facility", Location = "Tung Chung", Remarks = "" },
-                new ShipmentState { ShipmentStateID = 9, ShipmentTrackingID = 2, Time = new DateTime(2017, 4, 11, 10, 18, 0), Description = "Left Origin", Location = "HKIA", Remarks = "KA3845" },
-                new ShipmentState { ShipmentStateID = 10, ShipmentTrackingID = 2, Time = new DateTime(2017, 4, 11, 15, 28, 0), Description = "At local sort facility", Location = "Lanzhou", Remarks = "" },
-                new ShipmentState { ShipmentStateID = 11, ShipmentTrackingID = 2, Time = new DateTime(2017, 4, 12, 07, 38, 0), Description = "On vehicle for delivery", Location = "Lanzhou", Remarks = "Vehicle 82" },
-                new ShipmentState { ShipmentStateID = 12, ShipmentTrackingID = 2, Time = new DateTime(2017, 4, 12, 10, 13, 0), Description = "Delivered", Location = "Lanzhou", Remarks = "" },
-                //for shipment 3
-                new ShipmentState { ShipmentStateID = 13, ShipmentTrackingID = 3, Time = new DateTime(2017, 4, 14, 07, 55, 0), Description = "Picked Up", Location = "Hong Kong", Remarks = "Vehicle 13" },
-                new ShipmentState { ShipmentStateID = 14, ShipmentTrackingID = 3, Time = new DateTime(2017, 4, 14, 09, 08, 0), Description = "At local sort facility", Location = "Tung Chung", Remarks = "" },
-                new ShipmentState { ShipmentStateID = 15, ShipmentTrackingID = 3, Time = new DateTime(2017, 4, 14, 10, 18, 0), Description = "Left Origin", Location = "HKIA", Remarks = "KA3845" },
-                new ShipmentState { ShipmentStateID = 16, ShipmentTrackingID = 3, Time = new DateTime(2017, 4, 14, 15, 28, 0), Description = "At local sort facility", Location = "Fuzhou", Remarks = "" },
-                new ShipmentState { ShipmentStateID = 17, ShipmentTrackingID = 3, Time = new DateTime(2017, 4, 14, 15, 50, 0), Description = "On vehicle for delivery", Location = "Fuzhou", Remarks = "Vehicle 82" },
-                new ShipmentState { ShipmentStateID = 18, ShipmentTrackingID = 3, Time = new DateTime(2017, 4, 14, 16, 53, 0), Description = "Delivered", Location = "Fuzhou", Remarks = "" },
-                //for shipment 4
-                new ShipmentState { ShipmentStateID = 19, ShipmentTrackingID = 4, Time = new DateTime(2017, 5, 2, 08, 30, 0), Description = "Picked Up", Location = "Hong Kong", Remarks = "Vehicle 12" },
-                new ShipmentState { ShipmentStateID = 20, ShipmentTrackingID = 4, Time = new DateTime(2017, 5, 2, 10, 00, 0), Description = "At local sort facility", Location = "Shatin", Remarks = "" },
-                new ShipmentState { ShipmentStateID = 21, ShipmentTrackingID = 4, Time = new DateTime(2017, 5, 2, 10, 35, 0), Description = "Left origin", Location = "Shatin", Remarks = "Vehicle 667" }
-                );
-            */
-
             /*
             // Add shipping accounts
             context.ShippingAccounts.AddOrUpdate(
@@ -201,6 +160,39 @@ namespace SinExWebApp20265462.Migrations
                 new BusinessShippingAccount { ShippingAccountId = 2, UserName = "Business", AccountType = "Business", PhoneNumber = "61234567", Email = "comp3111_team119@cse.ust.hk", Building = "NULL", Street = "Test Street", City = "Hong Kong", Province = "HK", PostalCode = "NULL", CreditCardType = "American Express", CreditCardNumber = "9876543219876543", CreditCardSecurityNumber = "123", CardholderName = "Test Business", CreditCardExpiryMonth = 12, CreditCardExpiryYear = 18, ContactPersonName = "Test Contact", CompanyName = "Test Company", DepartmentName = "NULL"}
             );
             */
+
+            /*
+            // Add shipment data.
+            context.Shipments.AddOrUpdate(
+                p => p.WaybillId,
+                new Shipment { WaybillId = 1, ReferenceNumber = "", ServiceType = "Same Day", ShippedDate = new DateTime(2016, 11, 11), DeliveredDate = new DateTime(2016, 11, 11), RecipientName = "Andy Ho", NumberOfPackages = 1, Origin = "Hong Kong", Destination = "Guangzhou", Status = "Delivered", ShippingAccountId = 1 },
+                new Shipment { WaybillId = 2, ReferenceNumber = "A28756", ServiceType = "Same Day", ShippedDate = new DateTime(2016, 12, 12), DeliveredDate = new DateTime(2016, 12, 12), RecipientName = "John Wong", NumberOfPackages = 2, Origin = "Hong Kong", Destination = "Macau", Status = "Delivered", ShippingAccountId = 1 },
+                new Shipment { WaybillId = 3, ReferenceNumber = "", ServiceType = "Next Day 10:30", ShippedDate = new DateTime(2016, 12, 31), DeliveredDate = new DateTime(2017, 01, 01), RecipientName = "John Wong", NumberOfPackages = 1, Origin = "Hong Kong", Destination = "Beijing", Status = "Delivered", ShippingAccountId = 1 },
+                new Shipment { WaybillId = 4, ReferenceNumber = "", ServiceType = "Next Day 10:30", ShippedDate = new DateTime(2016, 11, 30), DeliveredDate = new DateTime(2016, 12, 01), RecipientName = "Daisy Chan", NumberOfPackages = 3, Origin = "Hong Kong", Destination = "Shanghai", Status = "Delivered", ShippingAccountId = 1 },
+                new Shipment { WaybillId = 5, ReferenceNumber = "", ServiceType = "Next Day 12:00", ShippedDate = new DateTime(2016, 11, 17), DeliveredDate = new DateTime(2016, 11, 18), RecipientName = "Daisy Chan", NumberOfPackages = 1, Origin = "Hong Kong", Destination = "Kashi", Status = "Delivered", ShippingAccountId = 1 },
+                new Shipment { WaybillId = 6, ReferenceNumber = "", ServiceType = "Ground", ShippedDate = new DateTime(2016, 12, 16), DeliveredDate = new DateTime(2016, 12, 15), RecipientName = "Harry Lee", NumberOfPackages = 1, Origin = "Hong Kong", Destination = "Harbin", Status = "Delivered", ShippingAccountId = 1 },
+                new Shipment { WaybillId = 7, ReferenceNumber = "45236", ServiceType = "2nd Day", ShippedDate = new DateTime(2017, 01, 14), DeliveredDate = new DateTime(2017, 01, 16), RecipientName = "John Wong", NumberOfPackages = 2, Origin = "Hong Kong", Destination = "Changchun", Status = "Delivered", ShippingAccountId = 1 },
+                new Shipment { WaybillId = 8, ReferenceNumber = "", ServiceType = "Next Day", ShippedDate = new DateTime(2016, 10, 19), DeliveredDate = new DateTime(2016, 10, 20), RecipientName = "Lisa Li", NumberOfPackages = 1, Origin = "Beijing", Destination = "Haikou", Status = "Delivered", ShippingAccountId = 2 },
+                new Shipment { WaybillId = 9, ReferenceNumber = "", ServiceType = "Same Day", ShippedDate = new DateTime(2016, 11, 04), DeliveredDate = new DateTime(2016, 11, 05), RecipientName = "Yolanda Yu", NumberOfPackages = 1, Origin = "Beijing", Destination = "Hangzhou", Status = "Delivered", ShippingAccountId = 2 },
+                new Shipment { WaybillId = 10, ReferenceNumber = "", ServiceType = "Next Day", ShippedDate = new DateTime(2017, 02, 02), DeliveredDate = new DateTime(2017, 02, 03), RecipientName = "Yolanda Yu", NumberOfPackages = 2, Origin = "Beijing", Destination = "Jinan", Status = "Delivered", ShippingAccountId = 2 },
+                new Shipment { WaybillId = 11, ReferenceNumber = "66543", ServiceType = "Ground", ShippedDate = new DateTime(2017, 01, 23), DeliveredDate = new DateTime(2017, 01, 26), RecipientName = "Arnold Au", NumberOfPackages = 3, Origin = "Beijing", Destination = "Guangzhou", Status = "Delivered", ShippingAccountId = 2 },
+                new Shipment { WaybillId = 12, ReferenceNumber = "", ServiceType = "Next Day 12:00", ShippedDate = new DateTime(2016, 12, 18), DeliveredDate = new DateTime(2016, 12, 19), RecipientName = "Andrew Li", NumberOfPackages = 1, Origin = "Nanjing", Destination = "Beijing", Status = "Delivered", ShippingAccountId = 3 },
+                new Shipment { WaybillId = 13, ReferenceNumber = "", ServiceType = "2nd Day", ShippedDate = new DateTime(2017, 01, 07), DeliveredDate = new DateTime(2017, 01, 09), RecipientName = "Amelia Auyeung", NumberOfPackages = 1, Origin = "Nanjing", Destination = "Kunming", Status = "Delivered", ShippingAccountId = 3 },
+                new Shipment { WaybillId = 14, ReferenceNumber = "887564", ServiceType = "Next Day 15:00", ShippedDate = new DateTime(2017, 02, 02), DeliveredDate = new DateTime(2017, 02, 03), RecipientName = "Amanda Au", NumberOfPackages = 2, Origin = "Nanjing", Destination = "Beijing", Status = "Delivered", ShippingAccountId = 3 },
+                new Shipment { WaybillId = 15, ReferenceNumber = "", ServiceType = "Ground", ShippedDate = new DateTime(2017, 01, 13), DeliveredDate = new DateTime(2017, 01, 20), RecipientName = "John Wong", NumberOfPackages = 1, Origin = "Hong Kong", Destination = "Nanning", Status = "Delivered", ShippingAccountId = 1 },
+                new Shipment { WaybillId = 16, ReferenceNumber = "348712", ServiceType = "Next Day 12:00", ShippedDate = new DateTime(2016, 12, 03), DeliveredDate = new DateTime(2016, 12, 04), RecipientName = "Derek Chan", NumberOfPackages = 5, Origin = "Haikou", Destination = "Hong Kong", Status = "Delivered", ShippingAccountId = 4 },
+                new Shipment { WaybillId = 17, ReferenceNumber = "", ServiceType = "2nd Day", ShippedDate = new DateTime(2017, 02, 10), DeliveredDate = new DateTime(2017, 02, 12), RecipientName = "Kelly Kwong", NumberOfPackages = 6, Origin = "Hong Kong", Destination = "Golmud", Status = "Delivered", ShippingAccountId = 1 },
+                new Shipment { WaybillId = 18, ReferenceNumber = "", ServiceType = "Same Day", ShippedDate = new DateTime(2017, 01, 18), DeliveredDate = new DateTime(2017, 01, 18), RecipientName = "Wendy Wang", NumberOfPackages = 4, Origin = "Hong Kong", Destination = "Hohhot", Status = "Delivered", ShippingAccountId = 1 },
+                new Shipment { WaybillId = 19, ReferenceNumber = "", ServiceType = "2nd Day", ShippedDate = new DateTime(2017, 02, 06), DeliveredDate = new DateTime(2017, 02, 08), RecipientName = "Larry Leung", NumberOfPackages = 2, Origin = "Guangzhou", Destination = "Hong Kong", Status = "Delivered", ShippingAccountId = 1 },
+                new Shipment { WaybillId = 20, ReferenceNumber = "22233398", ServiceType = "Next Day 15:00", ShippedDate = new DateTime(2016, 10, 09), DeliveredDate = new DateTime(2016, 10, 10), RecipientName = "Larry Leung", NumberOfPackages = 1, Origin = "Beijing", Destination = "Hong Kong", Status = "Delivered", ShippingAccountId = 1 },
+                new Shipment { WaybillId = 21, ReferenceNumber = "", ServiceType = "Same Day", ShippedDate = new DateTime(2016, 12, 04), DeliveredDate = new DateTime(2016, 12, 04), RecipientName = "Vincent Zhang", NumberOfPackages = 2, Origin = "Hulun Buir", Destination = "Lhasa", Status = "Delivered", ShippingAccountId = 4 },
+                new Shipment { WaybillId = 22, ReferenceNumber = "336723", ServiceType = "Ground", ShippedDate = new DateTime(2017, 02, 08), DeliveredDate = new DateTime(2017, 02, 10), RecipientName = "Sarah So", NumberOfPackages = 1, Origin = "Beijing", Destination = "Beijing", Status = "Delivered", ShippingAccountId = 4 },
+                new Shipment { WaybillId = 23, ReferenceNumber = "", ServiceType = "Next Day 15:00", ShippedDate = new DateTime(2016, 10, 23), DeliveredDate = new DateTime(2016, 10, 24), RecipientName = "Harry Ho", NumberOfPackages = 2, Origin = "Hefei", Destination = "Beijing", Status = "Delivered", ShippingAccountId = 1 },
+                new Shipment { WaybillId = 24, ReferenceNumber = "", ServiceType = "Ground", ShippedDate = new DateTime(2017, 01, 15), DeliveredDate = new DateTime(2017, 01, 19), RecipientName = "Peter Pang", NumberOfPackages = 3, Origin = "Beijing", Destination = "Lhasa", Status = "Delivered", ShippingAccountId = 2 },
+                new Shipment { WaybillId = 25, ReferenceNumber = "386456", ServiceType = "Same Day", ShippedDate = new DateTime(2017, 01, 05), DeliveredDate = new DateTime(2017, 01, 05), RecipientName = "Jerry Jia", NumberOfPackages = 1, Origin = "Beijing", Destination = "Hangzhou", Status = "Delivered", ShippingAccountId = 2 }
+            );
+            */
+            
 
         }
     }
