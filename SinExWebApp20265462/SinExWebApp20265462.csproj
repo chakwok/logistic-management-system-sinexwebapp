@@ -220,6 +220,7 @@
     <Compile Include="Controllers\ServicePackageFeesController.cs" />
     <Compile Include="Controllers\ServiceTypesController.cs" />
     <Compile Include="Controllers\ShipmentsController.cs" />
+    <Compile Include="Controllers\ShipmentTrackingsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -237,6 +238,8 @@
     <Compile Include="Models\PersonalShippingAccount.cs" />
     <Compile Include="Models\Pickup.cs" />
     <Compile Include="Models\PickUpLocation.cs" />
+    <Compile Include="Models\ShipmentState.cs" />
+    <Compile Include="Models\ShipmentTracking.cs" />
     <Compile Include="ViewModels\PickupViewModel.cs" />
     <Compile Include="Models\RecipientAddress.cs" />
     <Compile Include="Models\ServicePackageFee.cs" />
@@ -404,6 +407,11 @@
     <Content Include="Views\Pickups\Index.cshtml" />
     <Content Include="Views\Pickups\Create.cshtml" />
     <Content Include="Views\Pickups\ArrangePrearrangedPickup.cshtml" />
+    <Content Include="Views\ShipmentTrackings\Create.cshtml" />
+    <Content Include="Views\ShipmentTrackings\Delete.cshtml" />
+    <Content Include="Views\ShipmentTrackings\Details.cshtml" />
+    <Content Include="Views\ShipmentTrackings\Edit.cshtml" />
+    <Content Include="Views\ShipmentTrackings\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Base\" />
