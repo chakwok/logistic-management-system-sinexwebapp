@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Track shipment</h2>
+
+@using (Html.BeginForm("Details", "ShipmentTracking"))
+{
+    <input type="text" id="id" name="id" placeholder="input waybill ID" />
+    <button type="submit">Search</button>
+}

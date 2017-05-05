@@ -220,6 +220,7 @@
     <Compile Include="Controllers\ServicePackageFeesController.cs" />
     <Compile Include="Controllers\ServiceTypesController.cs" />
     <Compile Include="Controllers\ShipmentsController.cs" />
+    <Compile Include="Controllers\ShipmentTrackingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -406,6 +407,8 @@
     <Content Include="Views\Pickups\Create.cshtml" />
     <Content Include="Views\Pickups\ArrangePrearrangedPickup.cshtml" />
     <Content Include="Views\Pickups\ConfirmPickup.cshtml" />
+    <Content Include="Views\ShipmentTracking\Index.cshtml" />
+    <Content Include="Views\ShipmentTracking\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Base\" />
