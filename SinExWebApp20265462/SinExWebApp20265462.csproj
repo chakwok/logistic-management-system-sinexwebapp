@@ -224,8 +224,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="fonts\Migrations\AspIdentityConfiguration.cs" />
-    <Compile Include="fonts\Migrations\SinExConfiguration.cs" />
+    <Compile Include="Migrations\AspIdentityConfiguration.cs" />
+    <Compile Include="Migrations\SinExConfiguration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BusinessShippingAccount.cs" />
     <Compile Include="Models\Currency.cs" />
@@ -239,6 +239,8 @@
     <Compile Include="Models\PersonalShippingAccount.cs" />
     <Compile Include="Models\Pickup.cs" />
     <Compile Include="Models\PickUpLocation.cs" />
+    <Compile Include="Models\ShipmentState.cs" />
+    <Compile Include="Models\ShipmentTracking.cs" />
     <Compile Include="ViewModels\PickupViewModel.cs" />
     <Compile Include="Models\RecipientAddress.cs" />
     <Compile Include="Models\ServicePackageFee.cs" />
@@ -409,6 +411,8 @@
     <Content Include="Views\Pickups\ConfirmPickup.cshtml" />
     <Content Include="Views\ShipmentTracking\Index.cshtml" />
     <Content Include="Views\ShipmentTracking\Details.cshtml" />
+    <Content Include="Views\Shipments\Search.cshtml" />
+    <Content Include="Views\Shipments\Track.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Base\" />
