@@ -1,11 +1,12 @@
-﻿
+﻿@model IEnumerable<SinExWebApp20265462.Models.Shipment>
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Shipment Tracking";
 }
 
 <h2>Track shipment</h2>
 
-@using (Html.BeginForm("Details", "ShipmentTracking"))
+@using (Html.BeginForm("Track", "Shipments"))
 {
     <input type="text" id="id" name="id" placeholder="input waybill ID" />
     <button type="submit">Search</button>

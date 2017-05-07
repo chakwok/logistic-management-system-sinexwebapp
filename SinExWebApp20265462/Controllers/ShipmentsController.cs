@@ -409,6 +409,21 @@ namespace SinExWebApp20265462.Controllers
         }
         */
 
+
+
+        // GET: Shipments/Search
+        public ActionResult Search() {
+            return View();
+        }
+
+
+        public ActionResult Track(int? id)
+        {
+            var sh = db.Shipments.Where(s => s.WaybillId == id);
+            if (!sh.Any()) return View();
+            else return View(sh.First());
+        }
+
         // GET: Shipments/Create
         public ActionResult Create()
         {
