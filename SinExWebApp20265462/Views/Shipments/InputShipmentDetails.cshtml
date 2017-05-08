@@ -1,0 +1,74 @@
+﻿@model SinExWebApp20265462.Models.Shipment
+@{
+    ViewBag.Title = "Update Shipment Weight, Duty and Tax";
+}
+
+@if (Model != null)
+{
+    <h3>Shipment Information</h3>
+    <table class="table table-responsive">
+        <tr>
+            <td>Waybill Number:</td>
+            <td>@Model.WaybillId.ToString("0000000000000000")</td>
+            <td>Service Type:</td>
+            <td>@Model.ServiceType</td>
+        </tr>
+        <tr>
+            <td>Status:</td>
+            <td>@Model.Status</td>
+            <td></td>
+            <td></td>
+        </tr>
+        @if (Model.Status == "Delivered")
+        {
+            <tr>
+                <td>Delivered To:</td>
+                <td>@Model.DeliveredTo</td>
+                <td>Delivered At:</td>
+                <td>@Model.DeliveredAt</td>
+            </tr>
+            <tr>
+                <td>Shipment Cost</td>
+                <td>@Model.ShipmentCost</td>
+                <td>Duties Cost</td>
+                <td>@Model.DutiesCost</td>
+                <td>Taxes Cost</td>
+                <td>@Model.TaxesCost</td>
+            </tr>
+            @Html.ActionLink("Enter Shipment Duties & Taxes Cost", "Edit", new { id = Model.WaybillId })
+        }
+    </table>
+
+    <h3>Package Information</h3>
+    <table class="table">
+        <tr>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Value</th>
+            <th>Customer Weight</th>
+            <th>Actual Weight</th>
+            <th>Cost</th>
+        </tr>
+        @foreach (var p in Model.Packages)
+        {
+            <tr>
+                <td>@p.PackageTypeSize</td>
+                <td>@p.Description</td>
+                <td>@p.Value</td>
+                <td>@p.CustomerWeight</td>
+                <td>@p.ActualWeight</td>
+                <td>@p.PackageCost</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <h2>The shipment with the waybill id cannot be found.</h2>
+}
+
+<p>
+    @Html.ActionLink("Search Again", "SearchToInput")
+</p>
+
+    

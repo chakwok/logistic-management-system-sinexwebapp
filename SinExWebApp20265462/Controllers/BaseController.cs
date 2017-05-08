@@ -76,6 +76,11 @@ namespace SinExWebApp20265462.Controllers
             return Session[key].ToString();
         }
 
+        public decimal GetPenaltyFee()
+        {
+            return GlobalVariables.PenaltyFee;
+        }
+
         public string ShowShippingAccountId (int ShippingAccountId)
         {
             var digit = "";
