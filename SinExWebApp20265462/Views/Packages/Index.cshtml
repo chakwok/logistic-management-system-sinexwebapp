@@ -1,0 +1,80 @@
+﻿@model IEnumerable<SinExWebApp20265462.Models.Package>
+
+@{ 
+    ViewBag.Title = "Package weight";
+}
+
+<!DOCTYPE html>
+
+
+<h3>Enter package actual weight</h3>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Shipment.WaybillId)
+        </th>
+        <th>
+            Ref #
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PackageTypeSize)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Value)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomerWeight)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActualWeight)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PackageCost)
+        </th>
+        <th></th>
+    </tr>
+    
+@foreach (var item in Model) {
+    
+    <tr>
+        <td>@item.Shipment.WaybillId.ToString("0000")</td>
+        @if (item.Shipment.ReferenceNumber == "")
+        {
+            <td>N/A</td>
+        }
+        else
+        {
+            <td>
+                @Html.DisplayFor(modelItem => item.Shipment.ReferenceNumber)
+            </td>
+        }
+
+        <td>
+            @Html.DisplayFor(modelItem => item.PackageTypeSize)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Value)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CustomerWeight)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActualWeight)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PackageCost)
+        </td>
+        <td>
+            @Html.ActionLink("Input Actual Weight", "Edit", new { id=item.PackageId })
+        </td>
+    </tr>
+}
+    
+</table>
+
