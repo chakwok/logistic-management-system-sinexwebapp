@@ -52,5 +52,15 @@ namespace SinExWebApp20265462.Models
         public virtual decimal TaxesCost { get; set; }
 
         public virtual string AuthorizationCode { get; set; } // After payment, sent by Credit Card Authorization Authority.
+
+        public virtual IList<ShipmentState> ShipmentStates { get; set; }
+        public virtual string DeliveredTo { get; set; }
+        public virtual string DeliveredAt { get; set; }
+
+
+        public Shipment() {
+            Packages = new List<Package>();
+            ShipmentStates = new List<ShipmentState>();
+        }
     }
 }

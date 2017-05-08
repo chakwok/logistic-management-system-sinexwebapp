@@ -1,0 +1,81 @@
+﻿﻿@model SinExWebApp20265462.Models.Shipment
+@{
+    ViewBag.Title = "Shipment Tracking";
+}
+
+@if (Model != null)
+{
+    <h3>Shipment Information</h3>
+    <table class="table table-responsive">
+        <tr>
+            <td>Waybill Number:</td>
+            <td>@Model.WaybillId.ToString("0000000000000000")</td>
+            <td>Service Type:</td>
+            <td>@Model.ServiceType</td>
+        </tr>
+        <tr>
+            <td>Status:</td>
+            <td>@Model.Status</td>
+            <td></td>
+            <td></td>
+        </tr>
+        @if (Model.Status == "Delivered")
+        {
+            <tr>
+                <td>Delivered To:</td><td>@Model.DeliveredTo</td>
+                <td>Delivered At:</td><td>@Model.DeliveredAt</td>
+            </tr>
+        }
+    </table>
+
+    <h3>Package Information</h3>
+    <table class="table">
+        <tr>
+            <th>Type</th><th>Description</th><th>Actual Weight</th>
+        </tr>
+        @foreach (var p in Model.Packages)
+        {
+            <tr>
+                <td>@p.PackageTypeSize</td>
+                <td>@p.Description</td>
+                <td>@p.ActualWeight</td>
+            </tr>
+        }
+    </table>
+
+
+    if (Model.ShipmentStates.Count > 0)
+    {    
+        <h3>Shipment History</h3>
+        <table class="table table-responsive">
+            <tr>
+                <td>Date</td>
+                <td>Time</td>
+                <td>Desciption</td>
+                <td>Location</td>
+                <td>Remarks</td>
+            </tr>
+            @foreach (var state in Model.ShipmentStates)
+            {
+                <tr>
+                    <td>@state.Time.ToShortDateString()</td>
+                    <td>@state.Time.ToShortTimeString()</td>
+                    <td>@state.Description</td>
+                    <td>@state.Location</td>
+                    <td>@state.Remarks</td>
+                </tr>
+            }
+        </table>
+    }
+    else {
+        <h3>Your shipiment has not been picked up.</h3>
+    }
+
+}
+else {
+    <h2>The shipment with the waybill id cannot be found.</h2>
+}
+
+<p>
+    @Html.ActionLink("Search Again", "Search")
+</p>
