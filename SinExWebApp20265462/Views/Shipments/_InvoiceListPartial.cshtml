@@ -64,7 +64,7 @@
         </th>
  
         
-        <th></th>
+        <th>@Html.DisplayName("Navigate to Invoice")</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -91,7 +91,7 @@
             @Html.DisplayFor(modelItem => item.Destination)
         </td>
         <td>
-            
+            @Html.ActionLink("Link", "Invoice", new { id = item.WaybillId })
             @*@Html.ActionLink("Edit", "Edit", new { id=item.WaybillId }) |
             @Html.ActionLink("Details", "Details", new { id=item.WaybillId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.WaybillId })*@
