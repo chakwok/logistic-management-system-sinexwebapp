@@ -1,0 +1,14 @@
+﻿@model SinExWebApp20265462.Models.Package
+
+<h3>Select which package weight you want to enter</h3>
+@using (Html.BeginForm("Index", "Packages", FormMethod.Post, new { waybillId = 0 }))
+{
+    <div class="form-group">
+        <label class="control-label col-md-2">Waybill ID</label>
+        <div class="col-md-10">
+            @Html.DropDownList("waybillId", (SelectList)ViewBag.IdList)
+        </div>
+        <button type="submit">Submit</button>
+    </div>
+
+}
