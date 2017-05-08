@@ -426,7 +426,7 @@ namespace SinExWebApp20265462.Controllers
 
 
 
-        public ActionResult AddShipmentState(int? id) {
+        public ActionResult AddShipmentState() {
             var waybillIds = (from sh in db.Shipments select sh.WaybillId).AsQueryable();
             SelectList list = new SelectList(waybillIds, "id");
             ViewBag.IdList = list;
@@ -459,6 +459,22 @@ namespace SinExWebApp20265462.Controllers
             }
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Invoice(int id) {
+            Shipment model = db.Shipments.Where(s => s.WaybillId == id).First();
+            ViewBag.FullID = id.ToString("0000000000000000");
+
+            //only show last 4 digit of credit card number
+            string ccNumber = model.ShippingAccount.CreditCardNumber;
+            ccNumber = new string('X', ccNumber.Length - 4) + ccNumber.Substring(ccNumber.Length - 4);
+            ViewBag.ccNumber = ccNumber;
+
+            //find sender address
+
+            decimal cost = model.ShipmentCost + model.DutiesCost + model.TaxesCost;
+            ViewBag.cost = cost;
+            return View(model);
         }
 
         // GET: Shipments/Create
