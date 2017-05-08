@@ -1,0 +1,28 @@
+﻿@model SinExWebApp20265462.ViewModels.InvoiceSearchViewModel
+
+@if (User.IsInRole("Customer"))
+{
+    <text> Shipping Account : </text>
+}
+@ViewBag.DisplayedShippingAccountId
+
+<p></p>
+<text> Account Type : </text>
+@Html.LabelFor(a => a.AccountType, "")
+@Html.DisplayFor(a => a.AccountType) <text> Account </text>
+
+
+@using (Html.BeginForm("GenerateInvoiceRecord", "Shipments", "FormMethod.Get"))
+{
+    //@Html.DropDownListFor(a => a.ShippingAccountId, Model.ShippingAccounts, "Please select")
+    //<p></p>
+    <p>
+        Shipped date from&nbsp
+        @Html.TextBoxFor(a => a.StartShippedDate)
+        &nbspto&nbsp
+        @Html.TextBoxFor(a => a.EndShippedDate)
+    </p>
+    <p></p>
+    <input type="submit" value="Search" />
+    <p></p>
+}
