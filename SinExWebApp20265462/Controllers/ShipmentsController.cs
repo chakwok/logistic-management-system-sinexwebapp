@@ -424,6 +424,43 @@ namespace SinExWebApp20265462.Controllers
             else return View(sh.First());
         }
 
+
+
+        public ActionResult AddShipmentState(int? id) {
+            var waybillIds = (from sh in db.Shipments select sh.WaybillId).AsQueryable();
+            SelectList list = new SelectList(waybillIds, "id");
+            ViewBag.IdList = list;
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddShipmentStateFor(ShipmentState state, int waybillId, string deliveredTo, string deliveredAt) {
+            if (ModelState.IsValid) {
+                var shipment = db.Shipments.Where(s => s.WaybillId == waybillId).First();
+                if (shipment != null)
+                {
+                    db.ShipmentStates.Add(state);
+                    if (state.Description.ToLower() == "delivered")
+                    {
+                        shipment.Status = "Delivered";
+                        shipment.DeliveredAt = deliveredAt;
+                        shipment.DeliveredTo = deliveredTo;
+                    }
+                    else {
+                        shipment.Status = state.Description;
+                    }
+                    
+                    shipment.ShipmentStates.Add(state);
+                }
+
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
         // GET: Shipments/Create
         public ActionResult Create()
         {
