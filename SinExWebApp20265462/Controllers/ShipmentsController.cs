@@ -272,7 +272,7 @@ namespace SinExWebApp20265462.Controllers
             int pageSize = 5;
             int pageNumber = (page ?? 1);
             
-            int? shippingAccountId = GetUserId();
+            int? shippingAccountId;
 
             // Retain search condition for sorting
             if (User.IsInRole("Customer"))
@@ -287,7 +287,7 @@ namespace SinExWebApp20265462.Controllers
                     page = 1;
                 }
                 */
-
+                shippingAccountId = GetUserId();
                 ViewBag.CurrentShippingAccountId = shippingAccountId;
                 shipmentSearch.Shipment.ShippingAccountId = shippingAccountId.GetValueOrDefault();
                 shipmentSearch.Shipment.AccountType = db.ShippingAccounts.Find(shippingAccountId).AccountType;
@@ -424,6 +424,19 @@ namespace SinExWebApp20265462.Controllers
             else return View(sh.First());
         }
 
+        // GET: Shipments/SearchToInput
+        public ActionResult SearchToInput()
+        {
+            return View();
+        }
+
+        public ActionResult InputShipmentDetails(int? id)
+        {
+            var sh = db.Shipments.Where(s => s.WaybillId == id);
+            if (!sh.Any()) return View();
+            else return View(sh.First());
+        }
+
 
 
         public ActionResult AddShipmentState() {
@@ -520,13 +533,15 @@ namespace SinExWebApp20265462.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "WaybillId,ReferenceNumber,ServiceType,ShippedDate,DeliveredDate,RecipientName,NumberOfPackages,Origin,Destination,Status,ShippingAccountId")] Shipment shipment)
+        public ActionResult Edit(Shipment shipment, int WaybillId)
         {
             if (ModelState.IsValid)
             {
+                //int? CurrentEditId = ViewBag.CurrentEditId;
                 db.Entry(shipment).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index", "Home");
+                return RedirectToAction("InputShipmentDetails", new { id = WaybillId });
             }
             return View(shipment);
         }
