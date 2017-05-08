@@ -1,0 +1,82 @@
+﻿@model SinExWebApp20265462.Models.Package
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Package</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Shipment.ReferenceNumber)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Shipment.ReferenceNumber)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.PackageTypeSize)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.PackageTypeSize)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Value)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Value)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.CustomerWeight)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CustomerWeight)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ActualWeight)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ActualWeight)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.PackageCost)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.PackageCost)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.PackageId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>
