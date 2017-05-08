@@ -156,7 +156,7 @@ namespace SinExWebApp20265462.Migrations
             //
             // The following migration should commented out until database have 1 user account
             //
-            /*
+            
             var state1 = new List<ShipmentState>
             {
                 new ShipmentState { ShipmentStateID = 1, Time = new DateTime(2017, 4, 7, 08, 48, 0), Description = "Delivered", Location = "Shanghai", Remarks = "" },
@@ -224,7 +224,7 @@ namespace SinExWebApp20265462.Migrations
                  new Shipment { WaybillId = 4, ReferenceNumber = "", ServiceType = "Ground", ShippedDate = new DateTime(2017, 5, 2), DeliveredDate = new DateTime(2017, 1, 1), RecipientName = "iGear Computing", NumberOfPackages = 4, Origin = "Hong Kong", Destination = "Wuhan", ShippingAccountId = 1, TaxesCost = 0, ShipmentPayer = "Recipient", RecipientStreet = "18 Huaubaishu Road", RecipientProvince = "HB", RecipientPostalCode = "433456", RecipientShippingAccountId = 3, RecipientPhoneNumber = "8659166660123", RecipientEmail = "comp3111_team119@cse.ust.hk", RecipientCompanyName = "iGear Computing", NotifySender = false, NotifyRecipient = false, AuthorizationCode = "9318", DTPayer = "Recipient", DutiesCost = 0, ShipmentCost = 200, ShipmentStates = state4, Packages = package4, Status = "Left Origin"}
             );
 
-            */
+            
         }
     }
 }
