@@ -21,4 +21,5 @@ namespace SinExWebApp20265462.Models
         public virtual Shipment Shipment { get; set; }
         public virtual int WaybillId { get; set; }
     }
+
 }
