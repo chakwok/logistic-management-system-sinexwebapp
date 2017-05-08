@@ -148,7 +148,8 @@ namespace SinExWebApp20265462.Controllers
 
             // Set the sender (From), receiver (To), subject and 
             // message body fields of the mail message.
-            mail.From = new MailAddress("comp3111_team119@cse.ust.hk", "comp3111_team119");
+
+            //mail.From = new MailAddress("comp3111_team119@cse.ust.hk", "comp3111_team119");
             mail.To.Add(recipient);
 
             mail.Subject = "SinEx Account Confirmation";

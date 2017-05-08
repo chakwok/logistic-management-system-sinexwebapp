@@ -1,0 +1,97 @@
+﻿@model SinExWebApp20265462.Models.Shipment
+
+@{
+    ViewBag.Title = "Invoice";
+}
+<h3>Invoice for shipment #@ViewBag.FullID</h3>
+<table class="table table-responsive">
+    <tr>
+        <td>Shipment Payer:</td><td>@Model.ShipmentPayer</td>
+        @if (Model.ShipmentPayer == "Sender")
+        {
+            <td>Account ID:</td><td>@Model.ShippingAccount.ShippingAccountId.ToString("000000000000")</td>
+        }
+        else if (Model.ShipmentPayer == "Recipient")
+        {
+            <td>Account ID:</td><td>@Model.RecipientShippingAccountId.ToString("000000000000")</td>
+        }
+    </tr>
+    <tr>
+        <td>Duties Payer:</td><td>@Model.DTPayer</td>
+        @if (Model.DTPayer == "Sender")
+        {
+            <td>Account ID:</td>
+            <td>@Model.ShippingAccount.ShippingAccountId.ToString("000000000000")</td>
+        }
+        else if (Model.DTPayer == "Recipient")
+        {
+            <td>Account ID:</td>
+            <td>@Model.RecipientShippingAccountId.ToString("000000000000")</td>
+        }
+    </tr>
+
+
+    <tr>
+        <td>Pickup Date:</td><td>@DateTime.Now.ToLongDateString()</td>
+        <td>Service Type:</td><td>@Model.ServiceType</td>
+    </tr>
+    <tr>
+        @if (Model.ReferenceNumber == "")
+        {
+            <td>Reference number:</td><td>N/A</td>
+        }
+        else
+        {
+            <td>Reference number:</td><td>@Model.ReferenceNumber</td>
+        }
+        <td></td><td></td>
+    </tr>
+    <tr>
+        <td>Sender Full Name:</td><td>@Model.ShippingAccount.CardholderName</td>
+        <td>Recipient Full Name:</td><td>@Model.RecipientName</td>
+    </tr>
+    <tr>
+        <td>Sender Address address:</td><td>@Model.ShippingAccount.Building @Model.ShippingAccount.Street</td>
+        <td>Recipient Address:</td><td>@Model.RecipientBuilding @Model.RecipientStreet</td>
+    </tr>
+
+    <tr>
+        <td>Credit Card Type:</td><td>@Model.ShippingAccount.CreditCardType</td>
+        <td>Credit Card Number:</td><td>@ViewBag.ccNumber</td>
+    </tr>
+    <tr>
+        <td>Authorization Code:</td><td>@Model.AuthorizationCode</td>
+        <td></td><td></td>
+    </tr>
+</table>
+
+<h3>Package Information</h3>
+<table class="table">
+    <tr>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Value</th>
+        <th>Customer Weight</th>
+        <th>Actual Weight</th>
+        <th>Cost</th>
+    </tr>
+    @foreach (var p in Model.Packages)
+    {
+        <tr>
+            <td>@p.PackageTypeSize</td>
+            <td>@p.Description</td>
+            <td>@p.Value HKD?</td>
+            <td>@(p.ActualWeight + "kg")</td>
+            <td>@(p.CustomerWeight + "kg")</td>
+            <td>@(p.PackageCost + " CNY")</td>
+        </tr>
+    }
+</table>
+<div class="col-md-4">
+    <h4>Total Cost:</h4>
+    <table class="table table-condensed">
+        <tr><td>Duties cost:</td><td>@Model.DutiesCost</td></tr>
+        <tr><td>Taxes cost:</td><td>@Model.TaxesCost</td></tr>
+        <tr><td>Total:</td><td>@ViewBag.Cost</tr>
+    </table>
+</div>
