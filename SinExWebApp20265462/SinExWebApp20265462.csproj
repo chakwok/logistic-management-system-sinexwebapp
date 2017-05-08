@@ -240,6 +240,9 @@
     <Compile Include="Models\Pickup.cs" />
     <Compile Include="Models\PickUpLocation.cs" />
     <Compile Include="Models\ShipmentState.cs" />
+    <Compile Include="ViewModels\InvoiceListViewModel.cs" />
+    <Compile Include="ViewModels\InvoiceReportViewModel.cs" />
+    <Compile Include="ViewModels\InvoiceSearchViewModel.cs" />
     <Compile Include="ViewModels\PickupViewModel.cs" />
     <Compile Include="Models\RecipientAddress.cs" />
     <Compile Include="Models\ServicePackageFee.cs" />
@@ -410,6 +413,11 @@
     <Content Include="Views\Packages\Edit.cshtml" />
     <Content Include="Views\Packages\Index.cshtml" />
     <Content Include="Views\Packages\SelectEditPackage.cshtml" />
+    <Content Include="Views\Shipments\GenerateInvoiceRecord.cshtml" />
+    <Content Include="Views\Shipments\InputShipmentDetails.cshtml" />
+    <Content Include="Views\Shipments\SearchToInput.cshtml" />
+    <Content Include="Views\Shipments\_InvoiceListPartial.cshtml" />
+    <Content Include="Views\Shipments\_InvoiceSearchPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
