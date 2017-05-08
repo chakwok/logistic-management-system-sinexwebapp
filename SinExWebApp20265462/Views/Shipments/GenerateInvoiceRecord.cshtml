@@ -1,0 +1,10 @@
+﻿@model SinExWebApp20265462.ViewModels.InvoiceReportViewModel
+
+@{
+    ViewBag.Title = "Invoice Record";
+}
+
+<h2>Invoice Records</h2>
+
+@Html.Partial("_InvoiceSearchPartial", Model.Invoice)
+@Html.Partial("_InvoiceListPartial", Model.Invoices)

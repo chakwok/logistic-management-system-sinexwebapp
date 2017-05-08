@@ -257,6 +257,131 @@ namespace SinExWebApp20265462.Controllers
             return RedirectToAction("GenerateHistoryReport");
         }
 
+        //GET: Shipments/GenerateInvoiceRecord
+        public ActionResult GenerateInvoiceRecord(int? CurrentShippingAccountId, DateTime? StartShippedDate, DateTime? EndShippedDate,
+            string sortOrder)
+        {
+            // Instantiate an instance of the ShipmentsReportViewModel and the ShipmentsSearchViewModel.
+            var InvoiceSearch = new InvoiceReportViewModel();
+            InvoiceSearch.Invoice = new InvoiceSearchViewModel();
+
+            ViewBag.CurrentSort = sortOrder;
+            int? shippingAccountId;
+            if (User.IsInRole("Customer"))
+            {
+                /*
+                if (ShippingAccountId == null)
+                {
+                    ShippingAccountId = CurrentShippingAccountId;
+                }
+                else
+                {
+                    page = 1;
+                }
+                */
+                shippingAccountId = GetUserId();
+                ViewBag.CurrentShippingAccountId = shippingAccountId;
+                InvoiceSearch.Invoice.ShippingAccountId = shippingAccountId.GetValueOrDefault();
+                InvoiceSearch.Invoice.AccountType = db.ShippingAccounts.Find(shippingAccountId).AccountType;
+                ViewBag.DisplayedShippingAccountId = ShowShippingAccountId(shippingAccountId.GetValueOrDefault());
+            }
+            else
+            {
+                InvoiceSearch.Invoice.AccountType = "Employee";
+                shippingAccountId = null;
+            }
+
+            if (StartShippedDate == null && EndShippedDate == null)
+            {
+                StartShippedDate = DateTime.MinValue;
+                EndShippedDate = DateTime.MaxValue;
+            }
+            ViewBag.CurrentStartShippedDate = StartShippedDate;
+            ViewBag.CurrentEndShippedDate = EndShippedDate;
+
+            // Initialize the query to retrieve shipments using the ShipmentsListViewModel.
+            var InvoiceQuery = from s in db.Shipments
+                                select new InvoiceListViewModel
+                                {
+                                    WaybillId = s.WaybillId,
+                                    ServiceType = s.ServiceType,
+                                    ShippedDate = s.ShippedDate,
+                                    RecipientName = s.RecipientName,
+                                    NumberOfInvoice = s.ShipmentCost+ s.DutiesCost +s.TaxesCost,
+                                    Origin = s.Origin,
+                                    Destination = s.Destination,
+                                    ShippingAccountId = s.ShippingAccountId
+                                };
+
+
+            ViewBag.ServiceTypeSortParm = sortOrder == "ServiceType" ? "ServiceType_desc" : "ServiceType";
+            ViewBag.ShippedDateSortParm = sortOrder == "ShippedDate" ? "ShippedDate_desc" : "ShippedDate";
+            ViewBag.NumberOfInvoiceSortParm = sortOrder == "NumberOfInvoice" ? "NumberOfInvoice_desc" : "NumberOfInvoiceDate";
+            ViewBag.RecipientNameSortParm = sortOrder == "RecipientName" ? "RecipientName_desc" : "RecipientName";
+            ViewBag.OriginSortParm = sortOrder == "Origin" ? "Origin_desc" : "Origin";
+            ViewBag.DestinationSortParm = sortOrder == "Destination" ? "Destination_desc" : "Destination";
+            switch (sortOrder)
+            {
+                case "ServiceType":
+                    InvoiceQuery = InvoiceQuery.OrderBy(s => s.ServiceType);
+                    break;
+                case "ServiceType_desc":
+                    InvoiceQuery = InvoiceQuery.OrderByDescending(s => s.ServiceType);
+                    break;
+                case "ShippedDate":
+                    InvoiceQuery = InvoiceQuery.OrderBy(s => s.ShippedDate);
+                    break;
+                case "ShippedDate_desc":
+                    InvoiceQuery = InvoiceQuery.OrderByDescending(s => s.ShippedDate);
+                    break;
+                case "NumberOfInoviceDate":
+                    InvoiceQuery = InvoiceQuery.OrderBy(s => s.NumberOfInvoice);
+                    break;
+                case "NumberOfInvoice_desc":
+                    InvoiceQuery = InvoiceQuery.OrderByDescending(s => s.NumberOfInvoice);
+                    break;
+                case "RecipientName":
+                    InvoiceQuery = InvoiceQuery.OrderBy(s => s.RecipientName);
+                    break;
+                case "RecipientName_desc":
+                    InvoiceQuery = InvoiceQuery.OrderByDescending(s => s.RecipientName);
+                    break;
+                case "Origin":
+                    InvoiceQuery = InvoiceQuery.OrderBy(s => s.Origin);
+                    break;
+                case "Origin_desc":
+                    InvoiceQuery = InvoiceQuery.OrderByDescending(s => s.Origin);
+                    break;
+                case "Destination":
+                    InvoiceQuery = InvoiceQuery.OrderBy(s => s.Destination);
+                    break;
+                case "Destination_desc":
+                    InvoiceQuery = InvoiceQuery.OrderByDescending(s => s.Destination);
+                    break;
+                default:
+                    InvoiceQuery = InvoiceQuery.OrderBy(s => s.WaybillId);
+                    break;
+            }
+
+            // Add the condition to select a spefic shipping account if shipping account id is not null.
+            if (shippingAccountId != null)
+            {
+                // TODO: Construct the LINQ query to retrive only the shipments for the specified shipping account id.
+                InvoiceQuery = InvoiceQuery.Where(s => s.ShippingAccountId == shippingAccountId);
+
+                InvoiceQuery = InvoiceQuery.Where(s => (s.ShippedDate >= StartShippedDate && s.ShippedDate <= EndShippedDate));
+
+            }
+            /*            else
+                        {
+                            // Return an empty result if no shipping account id has been selected.
+                            shipmentSearch.Shipments = new ShipmentsListViewModel[0];
+                        }
+            */
+            InvoiceSearch.Invoices = InvoiceQuery.ToList();
+            return View(InvoiceSearch);
+        }
+
 
         // GET: Shipments/GenerateHistoryReport
         public ActionResult GenerateHistoryReport(int? CurrentShippingAccountId,
@@ -277,16 +402,6 @@ namespace SinExWebApp20265462.Controllers
             // Retain search condition for sorting
             if (User.IsInRole("Customer"))
             {
-                /*
-                if (ShippingAccountId == null)
-                {
-                    ShippingAccountId = CurrentShippingAccountId;
-                }
-                else
-                {
-                    page = 1;
-                }
-                */
                 shippingAccountId = GetUserId();
                 ViewBag.CurrentShippingAccountId = shippingAccountId;
                 shipmentSearch.Shipment.ShippingAccountId = shippingAccountId.GetValueOrDefault();
@@ -308,6 +423,9 @@ namespace SinExWebApp20265462.Controllers
             }
             ViewBag.CurrentStartShippedDate = StartShippedDate;
             ViewBag.CurrentEndShippedDate = EndShippedDate;
+
+
+
 
             /*
             // Populate the ShippingAccountId dropdown list.
