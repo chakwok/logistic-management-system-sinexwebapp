@@ -77,7 +77,7 @@
             <div class="form-group">
                 @Html.CheckBoxFor(model => model.ShipmentCheckBoxes[i].Checked, new { id = "shipment_" + i, @class = "checkbox-inline col-md-2" })
                 <div class="col-md-10">
-                    @Html.LabelFor(model => model.ShipmentCheckBoxes[i].Value, "Waybill ID " + Model.ShipmentCheckBoxes[i].Value)
+                    @Html.LabelFor(model => model.ShipmentCheckBoxes[i].Value, "Waybill ID " + Model.ShipmentCheckBoxes[i].Value.ToString("0000000000000000"))
                 </div>
             </div>
             @Html.HiddenFor(m => m.ShipmentCheckBoxes[i].Value)

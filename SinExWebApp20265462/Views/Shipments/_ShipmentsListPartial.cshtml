@@ -68,6 +68,9 @@
            })
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
                 @Html.DisplayName("Navigate to Invoice")
             </th>
             <th>@Html.DisplayName("Cancel a Shipment?")</th>
@@ -76,8 +79,9 @@
     @foreach (var item in Model)
     {
         <tr>
+
             <td>
-                @Html.DisplayFor(modelItem => item.WaybillId)
+                @item.WaybillId.ToString("0000000000000000")
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ServiceType)
@@ -101,10 +105,15 @@
                 @Html.DisplayFor(modelItem => item.Destination)
             </td>
             <td>
-                @Html.ActionLink("Link", "Invoice", new { id = item.WaybillId})
+                @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                @Html.ActionLink("Delete", "Delete", new { id = item.WaybillId })
+                @if (item.Status != "Pending" && item.Status != "Cancelled")
+                { @Html.ActionLink("Link", "Invoice", new { id = item.WaybillId }) }
+            </td>
+            <td>
+                @if (item.Status == "Pending")
+                { @Html.ActionLink("Delete", "Delete", new { id = item.WaybillId }) }
             </td>
         </tr>
     }
