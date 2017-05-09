@@ -87,10 +87,23 @@
                 @Html.DisplayFor(modelItem => item.ServiceType)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ShippedDate)
+                @if (item.ShippedDate != new DateTime(1990, 1, 1))
+                {
+                    @Html.DisplayFor(modelItem => item.ShippedDate)
+                }
+                else
+                {
+                    <p>N/A</p>
+                }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DeliveredDate)
+                @if (item.DeliveredDate != new DateTime(1990, 1, 1))
+                {
+                    @Html.DisplayFor(modelItem => item.DeliveredDate)
+                } else
+                {
+                    <p>N/A</p>
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RecipientName)
