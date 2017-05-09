@@ -444,7 +444,7 @@ namespace SinExWebApp20265462.Controllers
                                     NumberOfPackages = s.NumberOfPackages,
                                     Origin = s.Origin,
                                     Destination = s.Destination,
-                                    ShippingAccountId = s.ShippingAccountId
+                                    ShippingAccountId = s.ShippingAccountId,
                                 };
 
             // Code for sorting on properties
@@ -684,10 +684,12 @@ namespace SinExWebApp20265462.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            
             Shipment shipment = db.Shipments.Find(id);
-            db.Shipments.Remove(shipment);
+            //db.Shipments.Remove(shipment);
+            shipment.Status = "Cancelled";
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Invoice", new { id = id });
         }
 
         protected override void Dispose(bool disposing)
