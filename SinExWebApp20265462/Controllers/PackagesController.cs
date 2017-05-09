@@ -111,6 +111,22 @@ namespace SinExWebApp20265462.Controllers
                 Shipment shipment = db.Shipments.Find(package.WaybillId);
                 shipment.ShipmentCost = shipment.ShipmentCost - oldPackageCost + package.PackageCost;
                 shipment.Status = "Picked Up";
+
+                //send email when package is picked up
+                string rmail = shipment.RecipientEmail;
+                string smail = shipment.ShippingAccount.Email;
+                if (rmail == smail)
+                {
+                    if(shipment.NotifyRecipient || shipment.NotifySender)
+                        SendInvoiceMail(rmail, shipment.WaybillId);
+                }
+                else {
+                    if(shipment.NotifyRecipient)
+                        SendInvoiceMail(rmail, shipment.WaybillId);
+                    if(shipment.NotifySender)
+                        SendInvoiceMail(smail, shipment.WaybillId);
+                }
+
                 db.Entry<Shipment>(shipment).State = EntityState.Modified;
 
                 db.Entry(package).State = EntityState.Modified;
