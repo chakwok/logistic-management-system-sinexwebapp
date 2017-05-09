@@ -65,7 +65,6 @@
  
         
         <th>@Html.DisplayName("Navigate to Invoice")</th>
-        <th>@Html.DisplayName("Cancel a Shipment?")</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -96,9 +95,6 @@
             @*@Html.ActionLink("Edit", "Edit", new { id=item.WaybillId }) |
             @Html.ActionLink("Details", "Details", new { id=item.WaybillId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.WaybillId })*@
-        </td>
-        <td>
-            @Html.ActionLink("Delete", "Delete", new {id =item.WaybillId})
         </td>
 
     </tr>

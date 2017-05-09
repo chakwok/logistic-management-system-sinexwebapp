@@ -8,6 +8,15 @@
 
 @using (Html.BeginForm("InputShipmentDetails", "Shipments"))
 {
-    <input type="text" id="id" name="id" placeholder="input waybill ID" />
-    <button type="submit">Search</button>
+    <div class="form-group">
+        <label class="control-label col-md-2">Waybill ID</label>
+        <div class="col-md-10">
+            @Html.DropDownList("waybillId", (SelectList)ViewBag.IdList)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Search" class="btn btn-default" />
+        </div>
+    </div>
 }
