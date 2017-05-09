@@ -1,18 +1,62 @@
-﻿@model SinExWebApp20265462.Models.ServicePackageFee
+﻿@model IEnumerable<SinExWebApp20265462.Models.ServicePackageFee>
 
-@{
-    Layout = null;
-}
+    @{
+    ViewBag.Title = "Index";
+    }
 
-<!DOCTYPE html>
+    <h2>Service/Package Fees</h2>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Admin</title>
-</head>
-<body>
-    <div> 
-    </div>
-</body>
-</html>
+    <text> Current Penalty Fee is </text>
+    @ViewBag.PenaltyFee
+    <p>
+        @using (Html.BeginForm("SetPenaltyFee", "ServicePackageFees", "FormMethod.Get"))
+        {
+        @Html.Label("Set new penalty fee to : ");
+        @Html.TextBox("newPenaltyFee");
+        <input type="submit" value="Submit" />
+        }
+    </p>
+    <p></p>
+    <p></p>
+    <p></p>
+  
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PackageType.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceType.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MinimumFee)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PackageType.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceType.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fee)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MinimumFee)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ServicePackageFeeID })
+
+            </td>
+        </tr>
+        }
+
+    </table>
