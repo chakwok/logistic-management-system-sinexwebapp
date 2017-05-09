@@ -223,8 +223,6 @@ namespace SinExWebApp20265462.Migrations
                  new Shipment { WaybillId = 3, ReferenceNumber = "", ServiceType = "Same Day", ShippedDate = new DateTime(2017, 4, 14), DeliveredDate = new DateTime(2017, 1, 1), RecipientName = "Sammy So", NumberOfPackages = 2, Origin = "Hong Kong", Destination = "Fuzhou", ShippingAccountId = 1, RecipientEmail = "comp3111_team119@cse.ust.hk", RecipientPhoneNumber = "8659166660123", RecipientPostalCode = "356655", RecipientProvince = "JX", RecipientStreet = "12 Blossom Drive", AuthorizationCode = "4321", DTPayer = "Sender", DutiesCost = 250, NotifyRecipient = false, NotifySender = false, ShipmentPayer = "Sender", TaxesCost = 125, ShipmentCost = 413, ShipmentStates = state3, Packages = package3, Status = "Delivered", DeliveredTo = "Sammy So", DeliveredAt = "Front Door" },
                  new Shipment { WaybillId = 4, ReferenceNumber = "", ServiceType = "Ground", ShippedDate = new DateTime(2017, 5, 2), DeliveredDate = new DateTime(2017, 1, 1), RecipientName = "iGear Computing", NumberOfPackages = 4, Origin = "Hong Kong", Destination = "Wuhan", ShippingAccountId = 1, TaxesCost = 0, ShipmentPayer = "Recipient", RecipientStreet = "18 Huaubaishu Road", RecipientProvince = "HB", RecipientPostalCode = "433456", RecipientShippingAccountId = 3, RecipientPhoneNumber = "8659166660123", RecipientEmail = "comp3111_team119@cse.ust.hk", RecipientCompanyName = "iGear Computing", NotifySender = false, NotifyRecipient = false, AuthorizationCode = "9318", DTPayer = "Recipient", DutiesCost = 0, ShipmentCost = 200, ShipmentStates = state4, Packages = package4, Status = "Left Origin"}
             );
-
-            
         }
     }
 }
