@@ -23,6 +23,7 @@ namespace SinExWebApp20265462.Controllers
 
         public ActionResult Index(int? waybillId)
         {
+            
             var packages = db.Packages.Include(p => p.Shipment).Where(p=>p.WaybillId == waybillId).AsEnumerable();
             return View(packages.ToList());
         }
@@ -81,6 +82,8 @@ namespace SinExWebApp20265462.Controllers
                 return HttpNotFound();
             }
             ViewBag.WaybillId = new SelectList(db.Shipments, "WaybillId", "ReferenceNumber", package.WaybillId);
+
+            if (Session["oldPackageWeight"] == null) Session["oldPackageWeight"] = package.ActualWeight;
             return View(package);
         }
 
@@ -93,6 +96,22 @@ namespace SinExWebApp20265462.Controllers
         {
             if (ModelState.IsValid)
             {
+                decimal oldPackageCost = package.PackageCost;
+                if(package.ActualWeight ==0)
+                { 
+                    package.PackageCost = package.PackageCost * (decimal)package.ActualWeight / (decimal)package.CustomerWeight;
+                }
+                else
+                {
+                    float oldPackage = (float)Session["oldPackageWeight"];
+                    package.PackageCost = package.PackageCost * (decimal)package.ActualWeight / (decimal)oldPackage;
+                }
+                if (Session["oldPackageWeight"] != null) Session.Remove("oldPackageWeight");
+
+                Shipment shipment = db.Shipments.Find(package.WaybillId);
+                shipment.ShipmentCost = shipment.ShipmentCost - oldPackageCost + package.PackageCost;
+                db.Entry<Shipment>(shipment).State = EntityState.Modified;
+
                 db.Entry(package).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index", new { waybillId = package.WaybillId });
