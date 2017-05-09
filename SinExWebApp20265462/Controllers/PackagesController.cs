@@ -10,7 +10,7 @@ using SinExWebApp20265462.Models;
 
 namespace SinExWebApp20265462.Controllers
 {
-    public class PackagesController : Controller
+    public class PackagesController : BaseController
     {
         private SinExDatabaseContext db = new SinExDatabaseContext();
 
@@ -104,9 +104,13 @@ namespace SinExWebApp20265462.Controllers
         // GET: Packages/EditPackages/id
         public ActionResult SelectEditPackage()
         {
-            var waybillIds = (from sh in db.Shipments select sh.WaybillId).AsQueryable();
-            SelectList list = new SelectList(waybillIds, "id");
-            ViewBag.IdList = list;
+            IEnumerable<Shipment> shipments = db.Shipments;
+            foreach (var item in shipments)
+            {
+                // A fast way but not a normal way
+                item.ReferenceNumber = ShowWaybillId(item.WaybillId);
+            }
+            ViewBag.IdList = new SelectList(shipments, "waybillId", "ReferenceNumber", "referenceNumber"); ;
             return View();
         }
         
