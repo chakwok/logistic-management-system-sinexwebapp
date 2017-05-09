@@ -301,16 +301,17 @@ namespace SinExWebApp20265462.Controllers
 
             // Initialize the query to retrieve shipments using the ShipmentsListViewModel.
             var InvoiceQuery = from s in db.Shipments
-                                select new InvoiceListViewModel
-                                {
-                                    WaybillId = s.WaybillId,
-                                    ServiceType = s.ServiceType,
-                                    ShippedDate = s.ShippedDate,
-                                    RecipientName = s.RecipientName,
-                                    NumberOfInvoice = s.ShipmentCost+ s.DutiesCost +s.TaxesCost,
-                                    Origin = s.Origin,
-                                    Destination = s.Destination,
-                                    ShippingAccountId = s.ShippingAccountId
+                               select new InvoiceListViewModel
+                               {
+                                   WaybillId = s.WaybillId,
+                                   ServiceType = s.ServiceType,
+                                   ShippedDate = s.ShippedDate,
+                                   RecipientName = s.RecipientName,
+                                   NumberOfInvoice = s.ShipmentCost + s.DutiesCost + s.TaxesCost,
+                                   Origin = s.Origin,
+                                   Destination = s.Destination,
+                                   ShippingAccountId = s.ShippingAccountId,
+                                   Status = s.Status
                                 };
 
 
@@ -445,6 +446,7 @@ namespace SinExWebApp20265462.Controllers
                                     Origin = s.Origin,
                                     Destination = s.Destination,
                                     ShippingAccountId = s.ShippingAccountId,
+                                    Status = s.Status
                                 };
 
             // Code for sorting on properties
@@ -602,7 +604,11 @@ namespace SinExWebApp20265462.Controllers
                         shipment.DeliveredTo = deliveredTo;
                     }
                     else {
-                        shipment.Status = state.Description;
+                        //shipment.Status = state.Description;
+                        if (shipment.Status == "Picked Up")
+                        {
+                            shipment.Status = "Shipped";
+                        }
                     }
                     
                     shipment.ShipmentStates.Add(state);
@@ -711,7 +717,7 @@ namespace SinExWebApp20265462.Controllers
             //db.Shipments.Remove(shipment);
             shipment.Status = "Cancelled";
             db.SaveChanges();
-            return RedirectToAction("Invoice", new { id = id });
+            return RedirectToAction("GenerateHistoryReport", new { id = id });
         }
 
         protected override void Dispose(bool disposing)

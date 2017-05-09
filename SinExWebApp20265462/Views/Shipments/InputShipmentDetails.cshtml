@@ -19,7 +19,7 @@
             <td></td>
             <td></td>
         </tr>
-        @if (Model.Status == "Delivered")
+        @if (Model.Status == "Picked Up" || Model.Status == "Confirmed")
         {
             <tr>
                 <td>Delivered To:</td>

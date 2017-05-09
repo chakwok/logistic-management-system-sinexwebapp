@@ -97,7 +97,7 @@ namespace SinExWebApp20265462.Controllers
             if (ModelState.IsValid)
             {
                 decimal oldPackageCost = package.PackageCost;
-                if(package.ActualWeight ==0)
+                if((float)Session["oldPackageWeight"] == 0)
                 { 
                     package.PackageCost = package.PackageCost * (decimal)package.ActualWeight / (decimal)package.CustomerWeight;
                 }
@@ -110,6 +110,7 @@ namespace SinExWebApp20265462.Controllers
 
                 Shipment shipment = db.Shipments.Find(package.WaybillId);
                 shipment.ShipmentCost = shipment.ShipmentCost - oldPackageCost + package.PackageCost;
+                shipment.Status = "Picked Up";
                 db.Entry<Shipment>(shipment).State = EntityState.Modified;
 
                 db.Entry(package).State = EntityState.Modified;
