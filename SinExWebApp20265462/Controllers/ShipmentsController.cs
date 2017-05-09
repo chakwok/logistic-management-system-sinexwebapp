@@ -602,12 +602,18 @@ namespace SinExWebApp20265462.Controllers
                         shipment.Status = "Delivered";
                         shipment.DeliveredAt = deliveredAt;
                         shipment.DeliveredTo = deliveredTo;
+
+                        //send email to sender when delivered
+                        if(shipment.NotifySender)
+                            SendShipmentNotification(shipment.ShippingAccount.Email, shipment.WaybillId, false);
                     }
                     else {
                         //shipment.Status = state.Description;
                         if (shipment.Status == "Picked Up")
                         {
                             shipment.Status = "Shipped";
+                            //send email to recipient when shipped
+                            SendShipmentNotification(shipment.RecipientEmail, shipment.WaybillId, true);
                         }
                     }
                     
