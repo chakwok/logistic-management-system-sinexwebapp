@@ -1,24 +1,23 @@
 ﻿@model IEnumerable<SinExWebApp20265462.Models.Currency>
 
-@{
+    @{
     ViewBag.Title = "Index";
-}
+    }
 
-<h2>Currencies</h2>
+    <h2>Currencies</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CurrencyCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ExchangeRate)
-        </th>
-        <th></th>
-    </tr>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrencyCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExchangeRate)
+            </th>
+            <th></th>
+        </tr>
 
-    @foreach (var item in Model)
-    {
+        @foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.CurrencyCode)
@@ -27,14 +26,10 @@
                 @Html.DisplayFor(modelItem => item.ExchangeRate)
             </td>
             <td>
-                @*@if (User.IsInRole("Employee"))
-                {*@
-                    @Html.ActionLink("Edit", "Edit", new { id = item.CurrencyCode })
-                    @*@Html.ActionLink("Details", "Details", new { id = item.WaybillId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.WaybillId })*@
-                @*}*@
+                @Html.ActionLink("Edit", "Edit", new { id = item.CurrencyCode })
+
             </td>
         </tr>
-    }
+        }
 
-</table>
+    </table>

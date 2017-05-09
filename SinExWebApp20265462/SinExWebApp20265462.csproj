@@ -418,6 +418,8 @@
     <Content Include="Views\Shipments\SearchToInput.cshtml" />
     <Content Include="Views\Shipments\_InvoiceListPartial.cshtml" />
     <Content Include="Views\Shipments\_InvoiceSearchPartial.cshtml" />
+    <Content Include="Views\ServicePackageFees\Admin.cshtml" />
+    <Content Include="Views\Currencies\Admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
