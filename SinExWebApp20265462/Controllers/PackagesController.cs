@@ -111,6 +111,7 @@ namespace SinExWebApp20265462.Controllers
                 Shipment shipment = db.Shipments.Find(package.WaybillId);
                 shipment.ShipmentCost = shipment.ShipmentCost - oldPackageCost + package.PackageCost;
                 shipment.Status = "Picked Up";
+                shipment.ShippedDate = DateTime.Now;
                 db.Entry<Shipment>(shipment).State = EntityState.Modified;
 
                 db.Entry(package).State = EntityState.Modified;
