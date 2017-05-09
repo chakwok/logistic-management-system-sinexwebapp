@@ -18,7 +18,8 @@ namespace SinExWebApp20265462.ViewModels
         [RegularExpression("^[a-zA-Z ]+$", ErrorMessage = "Only characters and white spaces are accepted.")]
         public virtual string Description { get; set; }
         public virtual decimal Value { get; set; }
-
+        [RegularExpression(@"^\d+(\.\d)?$", ErrorMessage = "It cannot have more than one decimal point value")]
+        [DisplayFormat(DataFormatString = "{0:0.#}", ApplyFormatInEditMode = true)]
         public virtual float CustomerWeight { get; set; }
 
         public virtual decimal PackageCost { get; set; }
