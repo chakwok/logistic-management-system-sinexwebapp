@@ -531,26 +531,45 @@ namespace SinExWebApp20265462.Controllers
 
         // GET: Shipments/Search
         public ActionResult Search() {
+            IEnumerable<Shipment> shipments = db.Shipments;
+            foreach (var item in shipments)
+            {
+                // A fast way but not a normal way
+                item.ReferenceNumber = ShowWaybillId(item.WaybillId);
+            }
+            ViewBag.IdList = new SelectList(shipments, "waybillId", "ReferenceNumber", "referenceNumber"); ;
             return View();
         }
 
 
-        public ActionResult Track(int? id)
+        public ActionResult Track(int? waybillId)
         {
-            var sh = db.Shipments.Where(s => s.WaybillId == id);
+            var sh = db.Shipments.Where(s => s.WaybillId == waybillId);
             if (!sh.Any()) return View();
-            else return View(sh.First());
+            else
+            {
+                var model = sh.First();
+                model.ShipmentStates = model.ShipmentStates.OrderByDescending(s => s.Time).ToList();
+                return View(model);
+            }
         }
 
         // GET: Shipments/SearchToInput
         public ActionResult SearchToInput()
         {
+            IEnumerable<Shipment> shipments = db.Shipments;
+            foreach (var item in shipments)
+            {
+                // A fast way but not a normal way
+                item.ReferenceNumber = ShowWaybillId(item.WaybillId);
+            }
+            ViewBag.IdList = new SelectList(shipments, "waybillId", "ReferenceNumber", "referenceNumber"); ;
             return View();
         }
 
-        public ActionResult InputShipmentDetails(int? id)
+        public ActionResult InputShipmentDetails(int? waybillId)
         {
-            var sh = db.Shipments.Where(s => s.WaybillId == id);
+            var sh = db.Shipments.Where(s => s.WaybillId == waybillId);
             if (!sh.Any()) return View();
             else return View(sh.First());
         }
@@ -558,10 +577,13 @@ namespace SinExWebApp20265462.Controllers
 
 
         public ActionResult AddShipmentState() {
-            var waybillIds = (from sh in db.Shipments select sh.WaybillId).AsQueryable();
-            SelectList list = new SelectList(waybillIds, "id");
-            ViewBag.IdList = list;
-
+            IEnumerable<Shipment> shipments = db.Shipments;
+            foreach (var item in shipments)
+            {
+                // A fast way but not a normal way
+                item.ReferenceNumber = ShowWaybillId(item.WaybillId);
+            }
+            ViewBag.IdList = new SelectList(shipments, "waybillId", "ReferenceNumber", "referenceNumber"); ;
             return View();
         }
 
@@ -589,7 +611,7 @@ namespace SinExWebApp20265462.Controllers
                 db.SaveChanges();
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Track", new { waybillId = waybillId});
         }
 
         public ActionResult Invoice(int id) {
@@ -659,7 +681,7 @@ namespace SinExWebApp20265462.Controllers
                 db.Entry(shipment).State = EntityState.Modified;
                 db.SaveChanges();
                 //return RedirectToAction("Index", "Home");
-                return RedirectToAction("InputShipmentDetails", new { id = WaybillId });
+                return RedirectToAction("InputShipmentDetails", new { waybillId = WaybillId });
             }
             return View(shipment);
         }
