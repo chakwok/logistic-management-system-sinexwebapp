@@ -40,7 +40,7 @@
 @foreach (var item in Model) {
     
     <tr>
-        <td>@item.Shipment.WaybillId.ToString("0000")</td>
+        <td>@item.Shipment.WaybillId.ToString("0000000000000000")</td>
         @if (item.Shipment.ReferenceNumber == "")
         {
             <td>N/A</td>
