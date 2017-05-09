@@ -196,24 +196,24 @@ namespace SinExWebApp20265462.Migrations
             
             var package1 = new List<Package>
             {
-                new Package { PackageId = 1, PackageTypeSize = "Envelope", Description = "Correspondence", Value = 50, CustomerWeight = 0, ActualWeight = 0, PackageCost = 140 },
-                new Package { PackageId = 2, PackageTypeSize = "Envelope", Description = "Correspondence", Value = 50, CustomerWeight = 0, ActualWeight = 0, PackageCost = 140 },
+                new Package { PackageId = 1, PackageTypeSize = "Envelope (250x350mm)", Description = "Correspondence", Value = 50, CustomerWeight = 0, ActualWeight = 0, PackageCost = 140 },
+                new Package { PackageId = 2, PackageTypeSize = "Envelope (250x350mm)", Description = "Correspondence", Value = 50, CustomerWeight = 0, ActualWeight = 0, PackageCost = 140 },
             };
 
             var package2 = new List<Package> {
-                new Package {PackageId = 3, PackageTypeSize = "Pak - small", Description = "Apple iPad mini", Value = 2600, CustomerWeight = 0.4f, ActualWeight = 0.5f, PackageCost = 50 }
+                new Package {PackageId = 3, PackageTypeSize = "Pak (small - 350x400mm)", Description = "Apple iPad mini", Value = 2600, CustomerWeight = 0.4f, ActualWeight = 0.5f, PackageCost = 50 }
             };
 
             var package3 = new List<Package> {
-                new Package {PackageId = 4, PackageTypeSize = "Tube", Description = "Painting", Value = 1000, CustomerWeight = 0.6f, ActualWeight = 0.5f, PackageCost = 160 },
-                new Package {PackageId = 5, PackageTypeSize = "Box - small", Description = "Perfume", Value = 1500, CustomerWeight = 2.3f, ActualWeight = 2.3f, PackageCost = 253 }
+                new Package {PackageId = 4, PackageTypeSize = "Tube (1000x80mm)", Description = "Painting", Value = 1000, CustomerWeight = 0.6f, ActualWeight = 0.5f, PackageCost = 160 },
+                new Package {PackageId = 5, PackageTypeSize = "Box (small - 300x250x150mm)", Description = "Perfume", Value = 1500, CustomerWeight = 2.3f, ActualWeight = 2.3f, PackageCost = 253 }
             };
 
             var package4 = new List<Package> {
-                new Package {PackageId = 6, PackageTypeSize = "Envelope", Description = "Manual", Value = 50, CustomerWeight = 0, ActualWeight = 0, PackageCost = 25 },
-                new Package {PackageId = 7, PackageTypeSize = "Pak - small", Description = "Samples", Value = 200, CustomerWeight = 1.5f, ActualWeight = 1.4f, PackageCost = 35 },
-                new Package {PackageId = 8, PackageTypeSize = "Pak - large", Description = "Samples", Value = 200, CustomerWeight = 4.6f, ActualWeight = 4.6f, PackageCost = 115 },
-                new Package {PackageId = 9, PackageTypeSize = "Tube", Description = "Design specifications", Value = 50, CustomerWeight = 1, ActualWeight = 1, PackageCost = 25}
+                new Package {PackageId = 6, PackageTypeSize = "Envelope (250x350mm)", Description = "Manual", Value = 50, CustomerWeight = 0, ActualWeight = 0, PackageCost = 25 },
+                new Package {PackageId = 7, PackageTypeSize = "Pak (small - 350x400mm)", Description = "Samples", Value = 200, CustomerWeight = 1.5f, ActualWeight = 1.4f, PackageCost = 35 },
+                new Package {PackageId = 8, PackageTypeSize = "Pak (big - 450x550mm)", Description = "Samples", Value = 200, CustomerWeight = 4.6f, ActualWeight = 4.6f, PackageCost = 115 },
+                new Package {PackageId = 9, PackageTypeSize = "Tube (1000x80mm)", Description = "Design specifications", Value = 50, CustomerWeight = 1, ActualWeight = 1, PackageCost = 25}
             };
 
             context.Shipments.AddOrUpdate(
