@@ -1804,7 +1804,6 @@ C:\Users\andyk\sinexwebapp\SinExWebApp20265462\bin\Microsoft.Owin.Security.OAuth
 C:\Users\andyk\sinexwebapp\SinExWebApp20265462\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\andyk\sinexwebapp\SinExWebApp20265462\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\andyk\sinexwebapp\SinExWebApp20265462\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\andyk\sinexwebapp\SinExWebApp20265462\obj\Debug\SinExWebApp20265462.csprojResolveAssemblyReference.cache
 C:\Users\andyk\sinexwebapp\SinExWebApp20265462\obj\Debug\SinExWebApp20265462.dll
 C:\Users\andyk\sinexwebapp\SinExWebApp20265462\obj\Debug\SinExWebApp20265462.pdb
 C:\Users\WingKei\Desktop\SinExWebApp\sinexwebapp\SinExWebApp20265462\bin\ApplicationInsights.config
