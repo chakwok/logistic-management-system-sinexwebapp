@@ -1,106 +1,107 @@
 ﻿@model IEnumerable<SinExWebApp20265462.ViewModels.InvoiceListViewModel>
 
 @if (Model.Any())
-{ 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.WaybillId)
-        </th> 
-        <th>
-            @Html.ActionLink("Service Type", "GenerateInvoiceRecord", new
-            {
-                sortOrder = ViewBag.ServiceTypeSortParm,
-                CurrentShippingAccountId = ViewBag.CurrentShippingAccountId,
-                StartShippedDate = ViewBag.CurrentStartShippedDate,
-                EndShippedDate = ViewBag.CurrentEndShippedDate
-            })
-        </th>
-        <th>
-            @Html.ActionLink("Shipped Date", "GenerateInvoiceRecord", new
-           {
-               sortOrder = ViewBag.ShippedDateSortParm,
-               CurrentShippingAccountId = ViewBag.CurrentShippingAccountId,
-               StartShippedDate = ViewBag.CurrentStartShippedDate,
-               EndShippedDate = ViewBag.CurrentEndShippedDate
-           })
-        </th>
-        <th>
-            @Html.ActionLink("Number Of Invoice", "GenerateInvoiceRecord", new
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.WaybillId)
+            </th>
+            <th>
+                @Html.ActionLink("Service Type", "GenerateInvoiceRecord", new
+       {
+           sortOrder = ViewBag.ServiceTypeSortParm,
+           CurrentShippingAccountId = ViewBag.CurrentShippingAccountId,
+           StartShippedDate = ViewBag.CurrentStartShippedDate,
+           EndShippedDate = ViewBag.CurrentEndShippedDate
+       })
+            </th>
+            <th>
+                @Html.ActionLink("Shipped Date", "GenerateInvoiceRecord", new
+       {
+           sortOrder = ViewBag.ShippedDateSortParm,
+           CurrentShippingAccountId = ViewBag.CurrentShippingAccountId,
+           StartShippedDate = ViewBag.CurrentStartShippedDate,
+           EndShippedDate = ViewBag.CurrentEndShippedDate
+       })
+            </th>
+            <th>
+                @Html.ActionLink("Number Of Invoice", "GenerateInvoiceRecord", new
        {
            sortOrder = ViewBag.NumberOfInvoiceSortParm,
            CurrentShippingAccountId = ViewBag.CurrentShippingAccountId,
            StartShippedDate = ViewBag.CurrentStartShippedDate,
            EndShippedDate = ViewBag.CurrentEndShippedDate
        })
-        </th>
+            </th>
 
-        <th>
-            @Html.ActionLink("Recipient Name", "GenerateInvoiceRecord", new
-           {
-               sortOrder = ViewBag.RecipientNameSortParm,
-               CurrentShippingAccountId = ViewBag.CurrentShippingAccountId,
-               StartShippedDate = ViewBag.CurrentStartShippedDate,
-               EndShippedDate = ViewBag.CurrentEndShippedDate
-           })
-        </th>
-        <th>
-            @Html.ActionLink("Origin", "GenerateInvoiceRecord", new
-           {
-               sortOrder = ViewBag.OriginSortParm,
-               CurrentShippingAccountId = ViewBag.CurrentShippingAccountId,
-               StartShippedDate = ViewBag.CurrentStartShippedDate,
-               EndShippedDate = ViewBag.CurrentEndShippedDate
-           })
-        </th>
-        <th>
-            @Html.ActionLink("Destination", "GenerateInvoiceRecord", new
-           {
-               sortOrder = ViewBag.DestinationSortParm,
-               CurrentShippingAccountId = ViewBag.CurrentShippingAccountId,
-               StartShippedDate = ViewBag.CurrentStartShippedDate,
-               EndShippedDate = ViewBag.CurrentEndShippedDate
-           })
-        </th>
- 
-        
-        <th>@Html.DisplayName("Navigate to Invoice")</th>
-
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.WaybillId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ServiceType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ShippedDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumberOfInvoice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Origin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RecipientName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Destination)
-        </td>
-        <td>
-            @Html.ActionLink("Link", "Invoice", new { id = item.WaybillId })
-            @*@Html.ActionLink("Edit", "Edit", new { id=item.WaybillId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.WaybillId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.WaybillId })*@
-        </td>
+            <th>
+                @Html.ActionLink("Recipient Name", "GenerateInvoiceRecord", new
+       {
+           sortOrder = ViewBag.RecipientNameSortParm,
+           CurrentShippingAccountId = ViewBag.CurrentShippingAccountId,
+           StartShippedDate = ViewBag.CurrentStartShippedDate,
+           EndShippedDate = ViewBag.CurrentEndShippedDate
+       })
+            </th>
+            <th>
+                @Html.ActionLink("Origin", "GenerateInvoiceRecord", new
+       {
+           sortOrder = ViewBag.OriginSortParm,
+           CurrentShippingAccountId = ViewBag.CurrentShippingAccountId,
+           StartShippedDate = ViewBag.CurrentStartShippedDate,
+           EndShippedDate = ViewBag.CurrentEndShippedDate
+       })
+            </th>
+            <th>
+                @Html.ActionLink("Destination", "GenerateInvoiceRecord", new
+       {
+           sortOrder = ViewBag.DestinationSortParm,
+           CurrentShippingAccountId = ViewBag.CurrentShippingAccountId,
+           StartShippedDate = ViewBag.CurrentStartShippedDate,
+           EndShippedDate = ViewBag.CurrentEndShippedDate
+       })
+            </th>
 
 
-    </tr>
-}
+            <th>@Html.DisplayName("Navigate to Invoice")</th>
 
-</table>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WaybillId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ServiceType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShippedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumberOfInvoice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Origin)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RecipientName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Destination)
+                </td>
+                <td>
+                    @Html.ActionLink("Link", "Invoice", new { id = item.WaybillId })
+                    @*@Html.ActionLink("Edit", "Edit", new { id=item.WaybillId }) |
+                        @Html.ActionLink("Details", "Details", new { id=item.WaybillId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.WaybillId })*@
+                </td>
+
+
+            </tr>
+        }
+
+    </table>
 }

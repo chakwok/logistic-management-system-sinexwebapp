@@ -35,32 +35,38 @@
                 <td>Taxes Cost</td>
                 <td>@Model.TaxesCost</td>
             </tr>
-            @Html.ActionLink("Enter Shipment Duties & Taxes Cost", "Edit", new { id = Model.WaybillId })
-        }
-    </table>
+            <tr><td colspan="6">@Html.ActionLink("Enter Shipment Duties & Taxes Cost", "Edit", new { id = Model.WaybillId })</td></tr>
+            
 
-    <h3>Package Information</h3>
-    <table class="table">
-        <tr>
-            <th>Type</th>
-            <th>Description</th>
-            <th>Value</th>
-            <th>Customer Weight</th>
-            <th>Actual Weight</th>
-            <th>Cost</th>
-        </tr>
-        @foreach (var p in Model.Packages)
-        {
-            <tr>
-                <td>@p.PackageTypeSize</td>
-                <td>@p.Description</td>
-                <td>@p.Value</td>
-                <td>@p.CustomerWeight</td>
-                <td>@p.ActualWeight</td>
-                <td>@p.PackageCost</td>
-            </tr>
         }
-    </table>
+        else
+        {
+            <tr><td colspan="6">Sorry, you cannot check the invoice when the shipment is not yet delivered.</td></tr>
+        }
+        </table>
+
+        <h3>Package Information</h3>
+        <table class="table">
+            <tr>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Value</th>
+                <th>Customer Weight</th>
+                <th>Actual Weight</th>
+                <th>Cost</th>
+            </tr>
+            @foreach (var p in Model.Packages)
+            {
+                <tr>
+                    <td>@p.PackageTypeSize</td>
+                    <td>@p.Description</td>
+                    <td>@p.Value</td>
+                    <td>@p.CustomerWeight</td>
+                    <td>@p.ActualWeight</td>
+                    <td>@p.PackageCost</td>
+                </tr>
+            }
+        </table>
 }
 else
 {
@@ -71,4 +77,3 @@ else
     @Html.ActionLink("Search Again", "SearchToInput")
 </p>
 
-    
