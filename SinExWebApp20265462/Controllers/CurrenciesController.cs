@@ -20,6 +20,12 @@ namespace SinExWebApp20265462.Controllers
             return View(db.Currencies.ToList());
         }
 
+        //GET: Currencies/Admin
+        public ActionResult Admin()
+        {
+            return View(db.Currencies.ToList());
+        }
+
         // GET: Currencies/Details/5
         public ActionResult Details(string id)
         {

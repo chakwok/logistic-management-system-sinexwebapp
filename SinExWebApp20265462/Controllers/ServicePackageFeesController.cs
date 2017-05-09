@@ -24,6 +24,14 @@ namespace SinExWebApp20265462.Controllers
             return View(servicePackageFees.ToList());
         }
 
+        // GET: ServicePackageFees
+        public ActionResult Admin()
+        {
+            ViewBag.PenaltyFee = GetPenaltyFee();
+            var servicePackageFees = db.ServicePackageFees.Include(s => s.PackageType).Include(s => s.ServiceType);
+            return View(servicePackageFees.ToList());
+        }
+
         public ActionResult SetPenaltyFee(decimal? newPenaltyFee)
         {
             GlobalVariables.PenaltyFee = newPenaltyFee.GetValueOrDefault();
