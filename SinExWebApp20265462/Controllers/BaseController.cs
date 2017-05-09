@@ -163,5 +163,45 @@ namespace SinExWebApp20265462.Controllers
             // Send the message.
             emailServer.Send(mail);
         }
+
+
+        public void SendInvoiceMail(string recipient, int waybillId)
+        {
+            MailMessage mail = new MailMessage();
+            SmtpClient emailServer = new SmtpClient("smtp.cse.ust.hk");
+
+            mail.To.Add(recipient);
+            mail.Subject = "SinEx Invoice Report";
+            string invoiceLink = Url.Action("Invoice", "Shipments", new { id = waybillId }, Request.Url.Scheme);
+            mail.Body = "Your shipment has been picked up.\nClick the link to check the details of shipment's invoice.\n" + invoiceLink;
+            emailServer.Send(mail);
+        }
+
+        public void SendShipmentNotification(string recipient, int waybillId, bool isPickup)
+        {
+            MailMessage mail = new MailMessage();
+            SmtpClient emailServer = new SmtpClient("smtp.cse.ust.hk");
+
+            mail.To.Add(recipient);
+            if (isPickup)
+            {
+                //is pick up
+                mail.Subject = "SinEx Shipment Pickup notification";
+                string mailBody = "Your shipment has been picked up.\nClick the link to check the details of the shipment.\n";
+                string shipmentLink = Url.Action("Track", "Shipments", new { waybillId = waybillId }, Request.Url.Scheme);
+                mail.Body = mailBody + shipmentLink;
+
+
+            }
+            else
+            {
+                //is delivered
+                mail.Subject = "SinEx Shipment Delivery notification";
+                string mailBody = "Your shipment has been delivered.\nClick the link to check the details of the shipment.\n";
+                string shipmentLink = Url.Action("Track", "Shipments", new { waybillId = waybillId }, Request.Url.Scheme);
+                mail.Body = mailBody + shipmentLink;
+            }
+            emailServer.Send(mail);
+        }
     }
 }
