@@ -70,6 +70,7 @@
             <th>
                 @Html.DisplayName("Navigate to Invoice")
             </th>
+            <th>@Html.DisplayName("Cancel a Shipment?")</th>
         </tr>
 
     @foreach (var item in Model)
@@ -102,7 +103,9 @@
             <td>
                 @Html.ActionLink("Link", "Invoice", new { id = item.WaybillId})
             </td>
-          
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = item.WaybillId })
+            </td>
         </tr>
     }
 
