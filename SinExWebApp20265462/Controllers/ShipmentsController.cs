@@ -531,10 +531,13 @@ namespace SinExWebApp20265462.Controllers
 
         // GET: Shipments/Search
         public ActionResult Search() {
-            var waybillIds = (from sh in db.Shipments select sh.WaybillId).AsQueryable();
-            SelectList list = new SelectList(waybillIds, "id");
-            ViewBag.IdList = list;
-
+            IEnumerable<Shipment> shipments = db.Shipments;
+            foreach (var item in shipments)
+            {
+                // A fast way but not a normal way
+                item.ReferenceNumber = ShowWaybillId(item.WaybillId);
+            }
+            ViewBag.IdList = new SelectList(shipments, "waybillId", "ReferenceNumber", "referenceNumber"); ;
             return View();
         }
 
@@ -554,9 +557,13 @@ namespace SinExWebApp20265462.Controllers
         // GET: Shipments/SearchToInput
         public ActionResult SearchToInput()
         {
-            var waybillIds = (from sh in db.Shipments select sh.WaybillId).AsQueryable();
-            SelectList list = new SelectList(waybillIds, "id");
-            ViewBag.IdList = list;
+            IEnumerable<Shipment> shipments = db.Shipments;
+            foreach (var item in shipments)
+            {
+                // A fast way but not a normal way
+                item.ReferenceNumber = ShowWaybillId(item.WaybillId);
+            }
+            ViewBag.IdList = new SelectList(shipments, "waybillId", "ReferenceNumber", "referenceNumber"); ;
             return View();
         }
 
@@ -570,10 +577,13 @@ namespace SinExWebApp20265462.Controllers
 
 
         public ActionResult AddShipmentState() {
-            var waybillIds = (from sh in db.Shipments select sh.WaybillId).AsQueryable();
-            SelectList list = new SelectList(waybillIds, "id");
-            ViewBag.IdList = list;
-
+            IEnumerable<Shipment> shipments = db.Shipments;
+            foreach (var item in shipments)
+            {
+                // A fast way but not a normal way
+                item.ReferenceNumber = ShowWaybillId(item.WaybillId);
+            }
+            ViewBag.IdList = new SelectList(shipments, "waybillId", "ReferenceNumber", "referenceNumber"); ;
             return View();
         }
 
@@ -601,7 +611,7 @@ namespace SinExWebApp20265462.Controllers
                 db.SaveChanges();
             }
 
-            return RedirectToAction("Track", new { id = waybillId});
+            return RedirectToAction("Track", new { waybillId = waybillId});
         }
 
         public ActionResult Invoice(int id) {
